@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>格式化iconfont文件</title>
+    <meta charset="utf-8">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+<h1>格式化工具</h1>
+
+<div>
+    <h3>输入html串</h3>
+    <h4><strong>Demo：</strong>.icon-pcmac:before { content: "\e60b"; }</h4>
+    <textarea name="inhtml" id="inhtml" cols="30" rows="10" style="width: 100%"></textarea>
+</div>
+<div>
+    <h3>输出json串</h3>
+
+    <p style="border: 1px solid #ebebeb;min-height: 200px">
+
+    </p>
+</div>
+<script type="text/javascript">
+    $(function () {
+
+       /* .icon-pcmac:before { content: "\e60b"; }
+        .icon-search:before { content: "\e60c"; }
+        .icon-palette:before { content: "\e634"; }*/
+         var category = "数字营销";
+         var fontfamily = "ecmifont ";
+        $("#inhtml").blur(function () {
+            var val = $(this).val();
+            var ar=[];
+            if (!val) {
+                return   ;
+            }
+            val= val.trim().replace(/[\r\n]/g,"").split("}");
+            $.each(val,function(i,item){
+                if(item.length){
+                    var a = item.substring(item.indexOf("t:")+1,item.length-1).replace(":",'').replace("\\","").replace(";","").trim().toString().replace("\"","").replace("\"","");
+                    ar.push({
+                        "category": category,
+                        "name": fontfamily + item.substring(item.indexOf(".")+1,item.indexOf(":")),
+                        "fontClass": fontfamily + item.substring(item.indexOf(".")+1,item.indexOf(":"))
+                    });
+                }
+            });
+            console.log(JSON.stringify(ar));
+            $("p").eq(0).html(JSON.stringify(ar));
+        })
+    })
+</script>
+</body>
+</html>

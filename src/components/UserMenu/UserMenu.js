@@ -1,0 +1,92 @@
+/**
+ * Created by yuzhao on 2017/6/7.
+ */
+
+import React,{Component} from 'react';
+import {Navbar,Menu,Button,Con,Col,Tile,Icon} from 'tinper-bee';
+import mirror, { connect,actions } from 'mirrorx';
+import * as api from "../../pages/index/service";
+
+// 接口返回数据公共处理方法，根据具体需要
+import { processData } from "utils";
+
+class UserMenus extends Component {
+    constructor(props) {
+        super(props);
+        var self = this;
+        this.state = {
+            userMenus:[]
+        };
+    }
+    formmaterUrl(item) {
+        var uri = " ";
+        if (item.urlType === 'url') {
+            var target=item.openview=="blank"?"_blank":"";
+            if(target){
+                uri = '#/ifrNoHead/' + encodeURIComponent(encodeURIComponent(item.url));
+            }else{
+                uri = '#/ifr/' + encodeURIComponent(encodeURIComponent(item.url));
+            }
+            return  uri;
+        } else if (item.urlType === 'plugin') {
+            uri = item.code ? ('#/' + item.code) : "#/index_plugin";
+            //window.registerRouter(uri.replace("#", ""), item.location);
+
+            uri = `${GROBAL_HTTP_CTX}/`+encodeURIComponent(encodeURIComponent('index-view.html'+uri));
+            return  uri;
+        } else if (item.urlType === 'view') {
+            uri = item.code;
+
+            uri= uri.replace("#", "/");
+
+            return `${GROBAL_HTTP_CTX}/`+encodeURIComponent(encodeURIComponent('index-view.html#'+uri));
+
+        }else if(item.urlType == undefined){
+            item.code = '404';
+            return  '#/ifr/' + encodeURIComponent(encodeURIComponent(item.code));
+        }
+        else {
+            return item.code;
+        }
+    }
+    async componentDidMount(){
+
+        //调用 loadUserMenuList 请求数据
+        let res = processData(await api.loadUserMenuList());
+        this.setState({
+            userMenus: res.data
+        });
+    }
+    handleClick (e) {
+        this.props.handleClick(e);
+    }
+
+    render() {
+
+        var self = this;
+
+        return (
+            <Menu onClick={(e) => self.handleClick(e)} className="dropdown-menus" style={{ width: '100%' }} mode="inline">
+
+                {
+                    this.state.userMenus.map(function (item) {
+                        return (
+                            <li key={item.code} className="u-menu-item" style={{paddingLeft:16}}>
+                                <a ref={item.code} value={item.code} onClick={(e) => self.props.handleDefault(e)} name={item.name} title={item.name} href={self.formmaterUrl(item)}>
+                                    <i className={item.icon}></i>{item.name}
+                                </a>
+                            </li>
+                        )
+                    })
+                }
+
+                <li className="u-menu-item" style={{paddingLeft:16}}>
+                    <a ref="setting3" title="注销"  value="logout" href={`${GROBAL_HTTP_CTX}/user/beflogout`}><i aria-hidden="true" className="qy-iconfont icon-tubiao-zhuxiao"></i> 注销</a>
+                </li>
+            </Menu>
+        )
+    }
+}
+
+export default UserMenus;
+
