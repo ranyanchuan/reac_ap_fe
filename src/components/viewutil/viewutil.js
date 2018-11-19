@@ -117,7 +117,8 @@
 			$(target).load(html);
 		},
 		getBrowserVersion:function () {
-			var userAgent = navigator.userAgent.toLowerCase();
+			var userAgent = window.navigator.userAgent.toLowerCase();
+			var uaMatch = [];
 			if (userAgent.match(/msie ([\d.]+)/) != null) {//ie6--ie9
 				uaMatch = userAgent.match(/msie ([\d.]+)/);
 				return 'IE' + uaMatch[1].match(/\d/);
