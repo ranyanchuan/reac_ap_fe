@@ -6,6 +6,8 @@ import mirror, { render,Router } from "mirrorx";
 import MainLayout from "layout";
 import Routes from './routes'
 
+require('es6-promise').polyfill();
+
 import Intl from 'components/Intl/index.js'
 
 const MiddlewareConfig = [];

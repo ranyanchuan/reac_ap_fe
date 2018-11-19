@@ -47,6 +47,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "core-js": "^2.5.7",
+    "es6-promise": "^4.0.5",
     "director": "^1.2.8",
     "mirrorx": "^0.2.10",
     "moment": "^2.21.0",

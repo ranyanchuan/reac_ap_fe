@@ -77,6 +77,14 @@ class Tab extends Component {
                 }
             }
         }
+        else {
+            try{
+                var frameWin = ifr.contentWindow;
+                ifr.src = 'about:blank';
+                frameWin.document.write('');
+                frameWin.document.clear();
+            }catch(e){};
+        }
 
         data.tabNum = menuCloned.length;
 
