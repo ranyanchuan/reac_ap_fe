@@ -5,6 +5,8 @@ import mirror, { connect,actions } from 'mirrorx';
 import UserMenus from 'components/UserMenu/UserMenu';
 
 const Header = Navbar.Header;
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 const NavItem = Navbar.NavItem;
 const Brand = Navbar.Brand;
 const Collapse = Navbar.Collapse;
@@ -242,34 +244,34 @@ class App extends Component {
                         <img src={require('static/images/logo_zh_CN.svg')} className="portal-logo" />
                     </a>
                 </Brand>
+
+                <Nav pullRight className="u-menu-list" onClick={self.handleClick.bind(this)}>
+                    <NavItem>
+                        <a id="taskCenterBox" value="taskcenter"  onClick={(e)=>self.handleDefault(e)} data-ref="taskcenter" name="任务中心" title="任务中心" href={`${GROBAL_HTTP_CTX}/index-view.html#/taskcenter`} className="navbar-avatar" titlekey="任务中心" >
+                            <div className="u-badge">
+                                <i className="pap pap-task"></i>
+                            </div>
+                        </a>
+                    </NavItem>
+                    <NavItem>
+                        <a id="messageCount" value="msgCenter" onClick={(e)=>self.handleDefault(e)} data-ref="msgCenter" name="消息中心" title="消息中心" href={`${GROBAL_HTTP_CTX}/index-view.html#/msgCenter`} className="navbar-avatar" >
+                            <div className="u-badge" data-badge="0">
+                                <i className="pap pap-massage"></i>
+                            </div>
+                        </a>
+                    </NavItem>
+                    <UserMenus {...UserMenuObj}  />
+                </Nav>
+
+
                 <Nav pullRight className="portal-nav" onClick={self.showMenu.bind(self)}>
 
 
                     <div id="bs-example-navbar-collapse-9" className="collapse navbar-collapse navbar-right">
 
-                        <Menu className="nav navbar-nav" onClick={self.handleClick.bind(this)}>
-                            <li style={{marginRight:8,display:'none'}}>
-                                <a id="operation" data-ref="operation" title="运维消息" href="javascript:void (0);" className="navbar-avatar" >
-                                    <div className="u-badge" data-badge="0">
-                                        <i className="qy-iconfont icon-xiaoxi"></i>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a id="taskCenterBox" value="taskcenter"  onClick={(e)=>self.handleDefault(e)} data-ref="taskcenter" name="任务中心" title="任务中心" href={`${GROBAL_HTTP_CTX}/index-view.html#/taskcenter`} className="navbar-avatar" titlekey="任务中心" >
-                                    <div className="u-badge">
-                                        <i className="pap pap-task"></i>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a id="messageCount" value="msgCenter" onClick={(e)=>self.handleDefault(e)} data-ref="msgCenter" name="消息中心" title="消息中心" href={`${GROBAL_HTTP_CTX}/index-view.html#/msgCenter`} className="navbar-avatar" >
-                                    <div className="u-badge" data-badge="0">
-                                        <i className="pap pap-massage"></i>
-                                    </div>
-                                </a>
-                            </li>
-                        </Menu>
+
+
+
                         <ul className="nav navbar-nav">
                             <li className="dropdown" >
                                 <a role="button" id="username"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown" className="navbar-avatar dropdown-toggle">

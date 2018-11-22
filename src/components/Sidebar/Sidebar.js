@@ -5,7 +5,7 @@ import cookie from 'react-cookie';
 import {Router} from 'director/build/director';
 window.router = new Router();
 require('components/viewutil/viewutil');
-require('static/trd/bootstrap/js/bootstrap.min');
+
 
 const SubMenu = Menu.SubMenu;
 const SideContainer = Menu.SideContainer;
@@ -369,6 +369,7 @@ class App extends Component {
 
 
         var ifr = document.getElementById(current);
+
         //iframe刷新
         if(reload){
 

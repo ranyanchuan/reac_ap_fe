@@ -16,12 +16,16 @@ class App extends Component {
 
     constructor(props, context) {
         super(props, context);
+        this.state = {
 
-        this.state = {};
+        };
     }
 
+
     render() {
-        const {expanded, menus, current} = this.props;
+
+        const {expanded,menus,current} = this.props;
+
         return (
             <div id="portal" className={"portal-expand " + (expanded ? "expanded" : "")}>
 
@@ -33,17 +37,21 @@ class App extends Component {
                     <ConnectedHeader/>
                     {/*加载Tab标签*/}
                     <ConnectedTabBox/>
+
                     <div className="content">
                         {
+
                             menus.map(function (item, index) {
+
                                 var match = /.*(#\/ifr\/)/ig;
                                 var selected = current == item.id ? "ifr-selected" : "";
 
                                 item.router = decodeURIComponent(decodeURIComponent(item.router.replace(match, '')));
 
                                 return (
-                                    <iframe key={item.id} className={'ifr-tabs ' + selected} id={item.id}
-                                            src={item.router} style={{width: '100%', border: '0'}}></iframe>
+                                        <iframe key={item.id} ref={item.id} className={'ifr-tabs '+selected} id={item.id}
+                                                src={item.router} style={{border: '0'}}></iframe>
+
                                 )
                             })
                         }

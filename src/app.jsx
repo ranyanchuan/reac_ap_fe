@@ -9,8 +9,6 @@ import logger from "redux-logger";
 import mirror, { render,Router } from "mirrorx";
 import MainLayout from "./layout";
 import Intl from './components/Intl/index.js'
-
-import './static/trd/tineper-bee/assets/tinper-bee.css'
 import "./app.less";
 
 const MiddlewareConfig = [];
