@@ -26,11 +26,13 @@ class Tab extends Component {
     }
     setCurrent (id) {
 
+
         actions.app.updateState({
             current: id,
             showNotice:0,
             reload:0
         })
+
 
         sessionStorage['current'] = JSON.stringify({
             current:id

@@ -7,8 +7,10 @@ import {Navbar,Menu,Button,Con,Col,Tile,Icon} from 'tinper-bee';
 import mirror, { connect,actions } from 'mirrorx';
 import * as api from "../../pages/index/service";
 
+const SubMenu = Menu.SubMenu;
 // 接口返回数据公共处理方法，根据具体需要
 import { processData } from "utils";
+import cookie from "react-cookie";
 
 class UserMenus extends Component {
     constructor(props) {
@@ -66,7 +68,18 @@ class UserMenus extends Component {
         var self = this;
 
         return (
-            <Menu onClick={(e) => self.handleClick(e)} className="dropdown-menus" style={{ width: '100%' }} mode="inline">
+            <Menu mode="horizontal" onClick={(e) => self.handleClick(e)} className="dropdown" style={{ width: '100%' }}>
+                <SubMenu title={
+                    <a role="button" id="username"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown" className="navbar-avatar dropdown-toggle">
+
+                        <span className="avatar-name"> {decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userName')))} </span>
+                        <span className="iconfont icon-arrowdown"></span>
+                        <span className="avatar-icon">
+                                            <img src={`${GROBAL_HTTP_CTX}`+decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userAvator'))).replace(/\.\/images/,'\/images')} />
+                                        </span>
+                    </a>
+                }>
+
 
                 {
                     this.state.userMenus.map(function (item) {
@@ -83,6 +96,7 @@ class UserMenus extends Component {
                 <li className="u-menu-item" style={{paddingLeft:16}}>
                     <a ref="setting3" title="注销"  value="logout" href={`${GROBAL_HTTP_CTX}/user/beflogout`}><i aria-hidden="true" className="qy-iconfont icon-tubiao-zhuxiao"></i> 注销</a>
                 </li>
+                </SubMenu>
             </Menu>
         )
     }

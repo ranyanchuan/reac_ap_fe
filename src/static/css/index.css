@@ -6,14 +6,8 @@ body{
 }
 #portal{
 	overflow-y: hidden;
-
 }
-.u-navbar-side-container {
 
-}
-#content {
-
-}
 #app,#portal,#navbar {
 	position: relative;
 	height: 100%;
@@ -188,15 +182,27 @@ body{
 #portal .u-tile.u-tile-hover-info:hover h4{
 	color: #47c5f1;
 }
-#portal .u-navbar .u-navbar-nav > li {
-
+.portal-navbar .u-navbar .u-navbar-nav > li {
 	padding: 4px 10px;
 	padding-top: 13px;
 }
-#portal .u-menu-horizontal > .u-menu-submenu > .u-menu-submenu-title{
+.portal-navbar.u-navbar .u-navbar-nav > li {
+	float: left;
+	padding:0;
+	width:50px;
+	text-align: center;
+	height:44px;
+}
+.u-navbar-side-container .u-menu-horizontal > .u-menu-submenu > .u-menu-submenu-title{
 	width: 120px;
 	padding: 4px 10px;
 	padding-top: 13px;
+	font-size: 12px;
+}
+.portal-navbar .u-menu-horizontal > .u-menu-submenu > .u-menu-submenu-title {
+	width: 150px;
+	padding: 4px 10px;
+	padding-top: 10px;
 	font-size: 12px;
 }
 .portal-expand .u-menu-inline > .u-menu-item  {
@@ -363,7 +369,7 @@ body{
 	height:50px;
 	overflow: inherit;
 }
-.portal-expand .u-menu-submenu {
+.portal-expand .u-navbar-side-container .u-menu-submenu {
 	clear:both;
 }
 #portal .u-menu-submenu-inline a {
@@ -741,6 +747,7 @@ body{
 #portal .third-menu .u-menu-item a {
 	padding-left: 65px;
 }
+<<<<<<< HEAD
 
 #bs-example-navbar-collapse-9 .u-menu,#bs-example-navbar-collapse-10 .u-menu {
     border: none;
@@ -758,6 +765,34 @@ body{
 #bs-example-navbar-collapse-9>.u-menu-vertical>.u-menu-item,#bs-example-navbar-collapse-10>.u-menu-vertical>.u-menu-item {
     padding: 0;
     background: none;
+=======
+.u-menu-list .u-menu {
+	border:none;
+	box-shadow:none;
+	width:auto;
+}
+#app .u-badge .pap {
+	font-size: 20px;
+}
+.u-menu-list >li a {
+	font-size:18px;
+	color:#1F3853;
+	padding-top:11px;
+	padding-bottom:11px;
+}
+.u-navbar-default .u-menu-list.u-navbar-nav > li > a {
+	color:#1F3853;
+}
+.u-navbar-default .u-menu-list.u-navbar-nav > li > a:hover {
+
+}
+.u-menu-list >li {
+	padding:0;
+}
+#bs-example-navbar-collapse-9>.u-menu-vertical>.u-menu-item {
+	padding:0;
+	background:none;
+>>>>>>> f51900af732cac3ad9bbf86a8f5f3b0e71055bce
 }
 
 #bs-example-navbar-collapse-9>.u-menu span,#bs-example-navbar-collapse-10>.u-menu span {
@@ -891,6 +926,7 @@ a.first-child span {
 	background:none;
 }
 #app .u-badge {
+<<<<<<< HEAD
     padding: 0;
     color: #1F3853;
     z-index: 2;
@@ -903,6 +939,15 @@ a.first-child span {
 #taskCenterBox,
 #messageCount {
     height: 44px;
+=======
+	padding: 0;
+	color: #1F3853;
+	z-index: 2;
+}
+
+#portal .u-badge.data-badge .data-icon {
+	height: 14px
+>>>>>>> f51900af732cac3ad9bbf86a8f5f3b0e71055bce
 }
 
 #taskCenterBox:hover,
@@ -911,6 +956,7 @@ a.first-child span {
 }
 
 .u-badge[data-badge]:after {
+<<<<<<< HEAD
     top: -8px;
     left: 18px;
     padding: 0 3px;
@@ -925,6 +971,21 @@ a.first-child span {
 #bs-example-navbar-collapse-9>.u-menu>li，#bs-example-navbar-collapse-10>.u-menu>li {
     width: 80px;
     height: 44px;
+=======
+	top: -8px;
+	left: 18px;
+	padding: 0 3px;
+	background: #E60012;
+	font-weight: normal;
+	height: 14px;
+	width: auto;
+	display: inline;
+	line-height: 14px;
+}
+
+.portal-navbar.u-navbar .u-navbar-nav > li:hover {
+	background:#dde0e2;
+>>>>>>> f51900af732cac3ad9bbf86a8f5f3b0e71055bce
 }
 
 #bs-example-navbar-collapse-9>.u-menu>li:hover,#bs-example-navbar-collapse-10>.u-menu>li:hover {
@@ -976,6 +1037,29 @@ span.tenant-name{
 .u-menu .u-menu-item-active.u-menu-item>a {
 	color:#E60012;
 }
+.portal-navbar.u-navbar .dropdown .u-menu-submenu-horizontal > .u-menu {
+	width:150px;
+	font-size:12px;
+	background:#fff;
+	left:-3px;
+	margin-top:-3px;
+	border-radius: 4px;
+	box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+.portal-navbar.u-navbar .dropdown .u-menu-submenu-horizontal > .u-menu li {
+	background:#fff;
+	height:30px;
+	padding:0;
+	line-height:30px;
+}
+.portal-navbar.u-navbar .dropdown .u-menu-submenu-horizontal > .u-menu li:hover {
+	background:#f2f2f2;
+}
+.portal-navbar.u-navbar .dropdown .u-menu-submenu-horizontal > .u-menu li i {
+	margin-right:5px;
+}
+
+
 .avatar-name {
 	font-size:12px;
 }
@@ -1039,6 +1123,7 @@ span.tenant-name{
 .u-dropdown .u-menu .u-menu-item>a {
 	line-height:30px;
 }
+
 /*uclient*/
 #uclientModalDialg{
     background-color: #FFF;
@@ -1243,3 +1328,4 @@ span.tenant-name{
 	display: inline;
 	line-height: 14px;
 }
+

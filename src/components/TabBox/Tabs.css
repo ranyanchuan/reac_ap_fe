@@ -9,11 +9,16 @@
     min-width:1200px;
 }
 .ifr-tabs {
-    display:none;
-
+    visibility: hidden;
+    position:absolute;
+    left:-1000000px;
 }
 .ifr-selected {
     display:block;
+    width:100%;
+    visibility: visible;
+    position:relative;
+    left:0;
 }
 .tabs-list-box {
     overflow: hidden;
