@@ -938,10 +938,11 @@ a.first-child span {
 #taskCenterBox,
 #messageCount {
     height: 44px;
-
 	padding: 0;
 	color: #1F3853;
 	z-index: 2;
+	padding-top: 11px;
+	padding-bottom: 11px;
 }
 
 #portal .u-badge.data-badge .data-icon {
@@ -1317,7 +1318,7 @@ span.tenant-name{
 	color: rgb(255,255,255);
 	box-sizing: border-box;
 	top: -8px;
-	left: 18px;
+	left: 30px;
 	padding: 0 3px;
 	background: #E60012;
 	font-weight: normal;
