@@ -747,7 +747,7 @@ body{
 #portal .third-menu .u-menu-item a {
 	padding-left: 65px;
 }
-<<<<<<< HEAD
+
 
 #bs-example-navbar-collapse-9 .u-menu,#bs-example-navbar-collapse-10 .u-menu {
     border: none;
@@ -765,7 +765,8 @@ body{
 #bs-example-navbar-collapse-9>.u-menu-vertical>.u-menu-item,#bs-example-navbar-collapse-10>.u-menu-vertical>.u-menu-item {
     padding: 0;
     background: none;
-=======
+}
+
 .u-menu-list .u-menu {
 	border:none;
 	box-shadow:none;
@@ -792,7 +793,6 @@ body{
 #bs-example-navbar-collapse-9>.u-menu-vertical>.u-menu-item {
 	padding:0;
 	background:none;
->>>>>>> f51900af732cac3ad9bbf86a8f5f3b0e71055bce
 }
 
 #bs-example-navbar-collapse-9>.u-menu span,#bs-example-navbar-collapse-10>.u-menu span {
@@ -926,8 +926,7 @@ a.first-child span {
 	background:none;
 }
 #app .u-badge {
-<<<<<<< HEAD
-    padding: 0;
+	padding: 0;
     color: #1F3853;
     z-index: 2;
 }
@@ -939,7 +938,7 @@ a.first-child span {
 #taskCenterBox,
 #messageCount {
     height: 44px;
-=======
+
 	padding: 0;
 	color: #1F3853;
 	z-index: 2;
@@ -947,7 +946,6 @@ a.first-child span {
 
 #portal .u-badge.data-badge .data-icon {
 	height: 14px
->>>>>>> f51900af732cac3ad9bbf86a8f5f3b0e71055bce
 }
 
 #taskCenterBox:hover,
@@ -956,7 +954,7 @@ a.first-child span {
 }
 
 .u-badge[data-badge]:after {
-<<<<<<< HEAD
+
     top: -8px;
     left: 18px;
     padding: 0 3px;
@@ -971,7 +969,7 @@ a.first-child span {
 #bs-example-navbar-collapse-9>.u-menu>li，#bs-example-navbar-collapse-10>.u-menu>li {
     width: 80px;
     height: 44px;
-=======
+
 	top: -8px;
 	left: 18px;
 	padding: 0 3px;
@@ -985,7 +983,7 @@ a.first-child span {
 
 .portal-navbar.u-navbar .u-navbar-nav > li:hover {
 	background:#dde0e2;
->>>>>>> f51900af732cac3ad9bbf86a8f5f3b0e71055bce
+
 }
 
 #bs-example-navbar-collapse-9>.u-menu>li:hover,#bs-example-navbar-collapse-10>.u-menu>li:hover {
