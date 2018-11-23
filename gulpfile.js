@@ -4,7 +4,7 @@ var zip = require('gulp-zip');
 var process = require('child_process');
 var fs = require('fs');
 
-const PACKAGE_NAME = "react_example_fe";
+const PACKAGE_NAME = "fe";
 const PACKAGE_WAR_NAME = `${PACKAGE_NAME}.war`;
 
 // maven 配置信息
@@ -13,7 +13,7 @@ const publishConfig = {
     repositoryId: "iUAP-Snapshots",
     repositoryURL: "http://172.16.51.12:8081/nexus/content/repositories/iUAP-Snapshots",
     artifactId: PACKAGE_NAME,
-    groupId: "com.yonyou.iuap.pap.react_example_fe",
+    groupId: "com.yonyou.iuap.pap.react_ap_fe",
     version: "3.6.0-SNAPSHOT"
 };
 
@@ -24,7 +24,7 @@ const publishConfig = {
  * @return {[type]}           [description]
  */
 gulp.task("package", function(){
-  return gulp.src('./build/react_example_fe/**')
+  return gulp.src('./build/fe/**')
       .pipe(zip(PACKAGE_WAR_NAME))
       .pipe(gulp.dest('./'));
 

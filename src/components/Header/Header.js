@@ -3,7 +3,9 @@ import cookie from "react-cookie";
 import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
 import mirror, { connect,actions } from 'mirrorx';
 import UserMenus from 'components/UserMenu/UserMenu';
+import * as api from "../../pages/index/service";
 
+import { processData } from "utils";
 const Header = Navbar.Header;
 const NavItem = Navbar.NavItem;
 const Brand = Navbar.Brand;
@@ -19,8 +21,35 @@ class App extends Component {
             expanded:false,
             openKeys:[],
             curentOpenKeys: [],
+            unreadMsg:0
         };
         this.handleClick = this.handleClick.bind(this);
+    }
+    async componentDidMount(){
+
+        //调用 loadUserMenuList 请求数据
+        // let res = processData(await api.loadUnReadMsg());
+        // this.setState({
+        //     unreadMsg:res.unReadNum
+        // })
+
+        let info  = processData(await api.getWebPushInfo());
+        console.log(info);
+        let {webpuship,webpushport} =info.webpush;
+        var userId = cookie.load('userId');
+        var userkey = cookie.load('tenantid') == ""? "null" : cookie.load('tenantid')
+
+        // Message.subscribe(
+        //     webpuship,
+        //     webpushport,
+        //     {
+        //         "identity": "server1001",
+        //         "appid": "",
+        //         "userkey": userkey.concat("_", userId)
+        //     }, ()=>{
+        //         console.log(111);
+        //     });
+
     }
     onToggle(value) {
         //this.setState({expanded: value});
@@ -225,7 +254,7 @@ class App extends Component {
     }
     render (){
         let self = this;
-
+        let {unreadMsg} = self.state;
         const {expanded,menus} = this.props;
 
         var UserMenuObj = {
@@ -250,7 +279,7 @@ class App extends Component {
                         <Menu className="nav navbar-nav" onClick={self.handleClick.bind(this)}>
                             <li style={{marginRight:8,display:'none'}}>
                                 <a id="operation" data-ref="operation" title="运维消息" href="javascript:void (0);" className="navbar-avatar" >
-                                    <div className="u-badge" data-badge="0">
+                                    <div className="u-badge" data-badge='0'>
                                         <i className="qy-iconfont icon-xiaoxi"></i>
                                     </div>
                                 </a>
@@ -264,7 +293,7 @@ class App extends Component {
                             </li>
                             <li>
                                 <a id="messageCount" value="msgCenter" onClick={(e)=>self.handleDefault(e)} data-ref="msgCenter" name="消息中心" title="消息中心" href={`${GROBAL_HTTP_CTX}/index-view.html#/msgCenter`} className="navbar-avatar" >
-                                    <div className="u-badge" data-badge="0">
+                                    <div className="u-badge" data-badge={unreadMsg}>
                                         <i className="pap pap-massage"></i>
                                     </div>
                                 </a>

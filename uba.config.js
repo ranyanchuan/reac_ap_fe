@@ -30,12 +30,14 @@ const proxyConfig = [
     headers: {
       // 这是之前网页的地址，从中可以看到当前请求页面的链接。
       "Referer": "http://10.10.24.84:8080"
+      //   "Referer": "http://172.20.17.90:8080"
     },
     // context，如果不配置，默认就是代理全部。
     router: [
       '/wbalone','//wbalone'
     ],
     url: 'http://10.10.24.84:8080'
+    //   url:'http://172.20.17.90:8080'
   },
   // 后台开发服务
   {
@@ -262,7 +264,7 @@ glob.sync("./src/pages/**/index.html").forEach(path => {
         hash: true,
         key: key,
         chunks:['vendors',chunk+'/app'],
-        favicon: './src/static/images/favicon.png',
+        favicon: './src/static/images/favicon.ico',
         realPath: realPath,
         realCssPath: realCssPath,
         minify: {
