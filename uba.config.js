@@ -9,7 +9,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const pathUrl = ''; //http://127.0.0.1:8080 设置host，可选
-const context = '/fe';//工程节点名称
+const context = '/light_frame_fe';//工程节点名称
 const contentBase = './build'+context;//打包目录
 
 
@@ -126,7 +126,7 @@ const rules = [{
     options: {
       limit: 8196,
       name: 'images/[name].[hash:8].[ext]',
-      publicPath:pathUrl+context
+      publicPath:pathUrl
     }
   }]
 }, {
@@ -136,7 +136,7 @@ const rules = [{
     options: {
       name: '[name].[hash:8].[ext]',
       outputPath: 'fonts',
-      publicPath: pathUrl+context+'/fonts/'
+      publicPath: pathUrl+'/fonts/'
     }
   }]
 }]
@@ -194,7 +194,7 @@ glob.sync("./src/pages/**/index.html","./src/pages/index.html").forEach(path => 
         hash: true,
         key: key,
         chunks:['vendors',chunk+'/app'],
-        favicon: './src/static/images/favicon.png'
+        favicon: './src/static/images/favicon.ico'
     };
     htmlEntrys.push(filename);
     devConfig.plugins.push(new HtmlWebpackPlugin(htmlConf));
@@ -214,7 +214,7 @@ const prodConfig = {
   devtool: 'source-map',
   entry: prodEntries,
   output: {
-    publicPath: pathUrl+context,
+    publicPath: pathUrl,
     path: path.resolve(__dirname, contentBase),
     chunkFilename: 'js/[name].[hash:8].bundle.js',
   },
@@ -252,7 +252,7 @@ const prodConfig = {
 glob.sync("./src/pages/**/index.html").forEach(path => {
     const chunk = path.split("./src/pages/")[1].split("/index.html")[0];
 
-    const filename = chunk + "/index.html";
+    const filename = "index.html";
     const key = chunk + "/index";
     const realPath = prodConfig.output.publicPath + key + '.js';
     const realCssPath = prodConfig.output.publicPath + key + '.css';

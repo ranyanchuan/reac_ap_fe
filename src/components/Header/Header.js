@@ -29,11 +29,11 @@ class App extends Component {
     }
     async componentDidMount(){
 
-        //调用 loadUserMenuList 请求数据
-        // let res = processData(await api.loadUnReadMsg());
-        // this.setState({
-        //     unreadMsg:res.unReadNum
-        // })
+        // 调用 loadUserMenuList 请求数据
+        let res = processData(await api.loadUnReadMsg());
+        this.setState({
+            unreadMsg:res.unReadNum
+        })
 
         let info  = processData(await api.getWebPushInfo());
         console.log(info);
@@ -274,7 +274,7 @@ class App extends Component {
                     </a>
                 </Brand>
 
-                <Nav pullRight className="u-menu-list" onClick={self.handleClick.bind(this)}>
+                <Nav pullRight className="portal-nav" onClick={self.handleClick.bind(this)}>
                     <NavItem>
                         <a id="taskCenterBox" value="taskcenter"  onClick={(e)=>self.handleDefault(e)} data-ref="taskcenter" name="任务中心" title="任务中心" href={`${GROBAL_HTTP_CTX}/index-view.html#/taskcenter`} className="navbar-avatar" titlekey="任务中心" >
                             <div className="u-badge">
@@ -291,31 +291,7 @@ class App extends Component {
                     </NavItem>
                     <UserMenus {...UserMenuObj}  />
                 </Nav>
-
-
-                <Nav pullRight className="portal-nav" onClick={self.showMenu.bind(self)}>
-
-
-                    <div id="bs-example-navbar-collapse-9" className="collapse navbar-collapse navbar-right">
-
-                        <ul className="nav navbar-nav">
-                            <li className="dropdown" >
-                                <a role="button" id="username"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown" className="navbar-avatar dropdown-toggle">
-
-                                    <span className="avatar-name"> {decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userName')))} </span>
-                                    <span className="iconfont icon-arrowdown"></span>
-                                    <span className="avatar-icon">
-                                            <img src={`${GROBAL_HTTP_CTX}`+decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userAvator'))).replace(/\.\/images/,'\/images')} />
-                                        </span>
-                                </a>
-
-                                <div role="menu" className={'dropdown-menu user-menu'}>
-                                    <UserMenus {...UserMenuObj}  />
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </Nav>
+                
             </Navbar>
         )
     }

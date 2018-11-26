@@ -688,7 +688,7 @@ class App extends Component {
                                             it.children.map(function(itit,index3){
                                                 let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
 
-                                                let html = <li><a target={blank} value={itit.id}
+                                                let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
                                                                   data-areaId={itit.areaId}
                                                                   title={itit.name}
                                                                   data-ahref={self.changeAhref(itit)}
@@ -701,7 +701,7 @@ class App extends Component {
                                                 list2.push(html)
                                                 if( itit.name.indexOf(menuSearch[index1])>=0) {
 
-                                                    let html = <li><a target={blank} value={itit.id}
+                                                    let html = <li key={itit.menuId+"s"} ><a target={blank} value={itit.id}
                                                                       data-areaId={itit.areaId}
                                                                       title={itit.name}
                                                                       data-ahref={self.changeAhref(itit)}
@@ -802,13 +802,13 @@ class App extends Component {
                                             <div className='sub-menulist-con' style={{'width':menulist[1].length==0?"427px":"920px", 'maxHeight': document.body.clientHeight*0.8,'overflow':'auto','minHeight':showsearch?document.body.clientHeight*0.8:"0"}}>
                                                 {
                                                     menuSearch[index1] && searchmenuList[0].length>0? (searchmenuList.map(function(ite,i){
-                                                            ite = ite.length!=0?<div className="u-menu-list">{ite}</div>:ite;
+                                                            ite = ite.length!=0?<div className="u-menu-list" key={i+'sm'+index1}>{ite}</div>:ite;
                                                             return (
                                                                 ite
                                                             )
                                                         })
                                                     ):(menulist.map(function(ite,i){
-                                                            ite = ite.length!=0?<div className="u-menu-list">{ite}</div>:ite;
+                                                            ite = ite.length!=0?<div className="u-menu-list" key={i+'meu'+index1}>{ite}</div>:ite;
                                                             return (
                                                                 ite
                                                             )
