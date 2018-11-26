@@ -4,7 +4,7 @@ var zip = require('gulp-zip');
 var process = require('child_process');
 var fs = require('fs');
 
-const PACKAGE_NAME = "react_example_fe";
+const PACKAGE_NAME = "light_frame_fe";
 const PACKAGE_WAR_NAME = `${PACKAGE_NAME}.war`;
 
 // maven 配置信息
@@ -13,8 +13,8 @@ const publishConfig = {
     repositoryId: "iUAP-Snapshots",
     repositoryURL: "http://172.16.51.12:8081/nexus/content/repositories/iUAP-Snapshots",
     artifactId: PACKAGE_NAME,
-    groupId: "com.yonyou.iuap.pap.react_example_fe",
-    version: "3.6.0-SNAPSHOT"
+    groupId: "com.yonyou.iuap.pap",
+    version: "3.5.5-SNAPSHOT"
 };
 
 /**
@@ -24,7 +24,7 @@ const publishConfig = {
  * @return {[type]}           [description]
  */
 gulp.task("package", function(){
-  return gulp.src('./build/react_example_fe/**')
+  return gulp.src('./build/light_frame_fe/**')
       .pipe(zip(PACKAGE_WAR_NAME))
       .pipe(gulp.dest('./'));
 
@@ -42,7 +42,7 @@ gulp.task("install", ["package"], function(){
   const { command, repositoryId, groupId, artifactId, version, repositoryURL } = publishConfig;
 
   // 安装命令
-  var installCommandStr = `${command} install:install-file -Dfile=${targetPath}/${PACKAGE_WAR_NAME} -DgroupId=com.yonyou.iuap.pap -DartifactId=react_example_fe -Dversion=3.6.0-SNAPSHOT -Dpackaging=war`;
+  var installCommandStr = `${command} install:install-file -Dfile=${targetPath}/${PACKAGE_WAR_NAME} -DgroupId=com.yonyou.iuap.pap -DartifactId=light_frame_fe -Dversion=3.5.5-SNAPSHOT -Dpackaging=war`;
   
   var installWarProcess =	process.exec(installCommandStr, function(err,stdout,stderr){
 		if(err) {
@@ -70,7 +70,7 @@ gulp.task("deploy", ["install"], function(){
   var targetPath = fs.realpathSync('.');
   const { command, repositoryId, groupId, artifactId, version, repositoryURL } = publishConfig;
 
-  var publishCommandStr =  `${command} deploy:deploy-file  -Dfile=${targetPath}/${PACKAGE_WAR_NAME} -DgroupId=com.yonyou.iuap.pap -DartifactId=react_example_fe -Dversion=3.6.0-SNAPSHOT -Dpackaging=war -DrepositoryId=${repositoryId} -Durl=${repositoryURL}`;
+  var publishCommandStr =  `${command} deploy:deploy-file  -Dfile=${targetPath}/${PACKAGE_WAR_NAME} -DgroupId=com.yonyou.iuap.pap -DartifactId=light_frame_fe -Dversion=3.5.5-SNAPSHOT -Dpackaging=war -DrepositoryId=${repositoryId} -Durl=${repositoryURL}`;
 
   console.info(publishCommandStr);
 

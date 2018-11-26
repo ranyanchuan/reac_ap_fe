@@ -3,8 +3,12 @@ import axios from "axios";
 
 //定义接口地址
 const URL = {
-    "GET_MENU":  `${GROBAL_HTTP_CTX}/appmenumgr/sidebarList?r=`+Math.random(),
-    "GET_USER_MENU":  `${GROBAL_HTTP_CTX}/moreMenu/list?r=`+Math.random()
+    "GET_MENU":  `${GROBAL_HTTP_CTX}/appmenumgr/newSidebarList?r=`+Math.random(),
+    "GET_USER_MENU":  `${GROBAL_HTTP_CTX}/moreMenu/list?r=`+Math.random(),
+    "GET_UNREADMSG":`/iuap-saas-message-center/message/getUnReadMsg?r=`+Math.random(),
+    "GET_WEBPUSHINFO":`${GROBAL_HTTP_CTX}/webpush/getInfo?r=`+Math.random(),
+    "wbMenuCollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/create?r=`+Math.random(),
+    "wbMenuUncollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/delete?r=`+Math.random(),
 };
 
 /**
@@ -27,5 +31,42 @@ export const loadUserMenuList = (params) => {
         method: "get"
     });
 }
-
+/**
+ * 获取未读消息数
+ * @param {*} params
+ */
+export const loadUnReadMsg = (params) => {
+    return request(URL.GET_UNREADMSG, {
+        method: "get"
+    });
+}
+/**
+ * 获取消息推送配置
+ * @param {*} params
+ */
+export const getWebPushInfo = (params) => {
+    return request(URL.GET_WEBPUSHINFO, {
+        method: "get"
+    });
+}
+/**
+ * 菜单收藏功能
+ * @param {*} params
+ */
+export const wbMenuCollection = (params) => {
+    return request(URL.wbMenuCollection, {
+        method: "post",
+        data:params
+    });
+}
+/**
+ * 取消收藏功能
+ * @param {*} params
+ */
+export const wbMenuUncollection = (params) => {
+    return request(URL.wbMenuUncollection, {
+        method: "get",
+        param:params
+    });
+}
 

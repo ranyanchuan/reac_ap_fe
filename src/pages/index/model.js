@@ -77,6 +77,34 @@ export default {
             });
 
             return res.data;
+        },
+        /**
+         * 加载未读消息
+         * @param {*} param
+         * @param {*} getState
+         */
+        async loadUnReadMsg(param, getState) {
+            // 正在加载数据，显示加载 Loading 图标
+
+            // 调用 loadUserMenuList 请求数据
+            let res = processData(await api.loadUnReadMsg());
+
+
+            return res.data;
+        },
+        /**
+         * 获取消息推送配置
+         * @param {*} param
+         * @param {*} getState
+         */
+        async getWebPushInfo(param, getState) {
+            // 正在加载数据，显示加载 Loading 图标
+
+            // 调用 loadUserMenuList 请求数据
+            let res = processData(await api.getWebPushInfo());
+
+
+            return res.data;
         }
     }
 };

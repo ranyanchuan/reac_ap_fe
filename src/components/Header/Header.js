@@ -4,7 +4,9 @@ import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
 import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import mirror, { connect,actions } from 'mirrorx';
 import UserMenus from 'components/UserMenu/UserMenu';
+import * as api from "../../pages/index/service";
 
+import { processData } from "utils";
 const Header = Navbar.Header;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -22,8 +24,35 @@ class App extends Component {
             expanded:false,
             openKeys:[],
             curentOpenKeys: [],
+            unreadMsg:0
         };
         this.handleClick = this.handleClick.bind(this);
+    }
+    async componentDidMount(){
+
+        // 调用 loadUserMenuList 请求数据
+        let res = processData(await api.loadUnReadMsg());
+        this.setState({
+            unreadMsg:res.unReadNum
+        })
+
+        let info  = processData(await api.getWebPushInfo());
+        console.log(info);
+        let {webpuship,webpushport} =info.webpush;
+        var userId = cookie.load('userId');
+        var userkey = cookie.load('tenantid') == ""? "null" : cookie.load('tenantid')
+
+        // Message.subscribe(
+        //     webpuship,
+        //     webpushport,
+        //     {
+        //         "identity": "server1001",
+        //         "appid": "",
+        //         "userkey": userkey.concat("_", userId)
+        //     }, ()=>{
+        //         console.log(111);
+        //     });
+
     }
     onToggle(value) {
         //this.setState({expanded: value});
@@ -237,6 +266,7 @@ class App extends Component {
     render (){
         let self = this;
 
+        let {unreadMsg} = self.state;
         let {expanded,menus,intl} = this.props;
 
         var UserMenuObj = {
@@ -258,7 +288,7 @@ class App extends Component {
 
                 </Brand>
 
-                <Nav pullRight className="u-menu-list" onClick={self.handleClick.bind(this)}>
+                <Nav pullRight className="portal-nav" onClick={self.handleClick.bind(this)}>
                     <NavItem>
                         <a id="taskCenterBox" value="taskcenter" onClick={(e)=>self.handleDefault(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.task'})} title={intl.formatMessage({id: 'tabs.header.task'})} href={`${GROBAL_HTTP_CTX}/index-view.html#/taskcenter`} className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.task'})} >
                             <div className="u-badge">
@@ -267,8 +297,9 @@ class App extends Component {
                         </a>
                     </NavItem>
                     <NavItem>
-                        <a id="messageCount" value="msgCenter" onClick={(e)=>self.handleDefault(e)} data-ref="msgCenter" name={intl.formatMessage({id: 'tabs.header.message'})} title={intl.formatMessage({id: 'tabs.header.message'})} href={`${GROBAL_HTTP_CTX}/index-view.html#/msgCenter`} className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.message'})} >
-                            <div className="u-badge" data-badge="0">
+
+                        <a id="messageCount" value="msgCenter" onClick={(e)=>self.handleDefault(e)} data-ref="msgCenter" name={intl.formatMessage({id: 'tabs.header.message'})} title={intl.formatMessage({id: 'tabs.header.message'})} href={`${GROBAL_HTTP_CTX}/index-view.html#/msgCenter`} className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.message'})}>
+                            <div className="u-badge" data-badge={unreadMsg}>
                                 <i className="pap pap-massage"></i>
                             </div>
                         </a>
@@ -276,6 +307,8 @@ class App extends Component {
 
                     <UserMenus {...UserMenuObj}  />
                 </Nav>
+
+
             </Navbar>
         )
     }

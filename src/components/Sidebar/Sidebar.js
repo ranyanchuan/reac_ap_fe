@@ -6,6 +6,7 @@ import $ from 'jquery';
 import cookie from 'react-cookie';
 import {Router} from 'director/build/director';
 import classNames from 'classnames'
+import * as api from "../../pages/index/service";
 window.router = new Router();
 require('components/viewutil/viewutil');
 
@@ -24,7 +25,9 @@ class App extends Component {
             isOpenTab: true,
             clientHeight:document.body.clientHeight,
             arrowUp:true,
-            arrowDown:false
+            arrowDown:false,
+            menuSearch:[],
+
         };
         this.delTrigger();
         this.showMenu = this.showMenu.bind(this);
@@ -612,12 +615,53 @@ class App extends Component {
 
         }
     }
+    changeAhref(target){
+        var uri=target.location;
+        if(target.urltype === 'url'){
+            if(uri.indexOf('?')!=-1){
+                uri+="&modulefrom=sidebar";
+            }else{
+                uri+="?modulefrom=sidebar"
+            }
+        }
+        return uri;
+    }
+    searchChange=(e,index)=>{
+        let menuSearch = this.state.menuSearch;
+        menuSearch[index] =e.target.value;
+        this.setState({
+            menuSearch:menuSearch
+        })
+    }
+    collectefunc =(e,itit,index1,index2,index3)=>{
+        e.stopPropagation();
+        if(!itit.collected){ //已收藏 取消
+            api.wbMenuCollection({"menuId":itit.menuId})
+
+        }else{  //未收藏 收藏
+            api.wbMenuUncollection ({"id":itit.menuId})
+
+        }
+        let  menu = this.props.menu;
+        if(!index3 && index3!=0){
+            menu[index1].children[index2].collected =!itit.collected;
+
+
+        }else{
+            menu[index1].children[index2].children[index3].collected =!itit.collected;
+        }
+        this.setState({
+            menu:menu
+        })
+
+
+    }
 
     render() {
         var self = this;
         const {expanded,menu,submenuSelected,curNum,current} = this.props;
         var isSeleted = submenuSelected;
-
+        var menuSearch  = this.state.menuSearch;
         return (
             <SideContainer onToggle={this.onToggle.bind(this)} expanded={expanded}>
 
@@ -629,92 +673,128 @@ class App extends Component {
                 </Header>
                 <div className="sidebar-content" ref="uMenu">
                     <Menu onClick={this.handleClick.bind(this)} className="u-menu-max1"  style={{marginTop:'-'+curNum*50}}  mode="vertical" >
-
-
                         {
-                            menu.map(function (item) {
-
-                                let blank = item.openview=="newpage"?"_blank":"";
+                            menu.map(function (item,index1) {
+                                let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
                                 var noSecond = '';
                                 var curHeight = 0;
-
+                                var curHeight2 =0;
+                                var sercurHeight = 0;
+                                var sercurHeight2 =0;
                                 if(Array.isArray(item.children)&&item.children.length>0){
                                     let list = [];
-                                    var menulist = [[],[],[],[],[],[],[],[],[]];
+                                    var menulist = [[],[]];
+                                    var searchmenuList = [[],[]];
                                     var pages = 0;
 
-                                    let title = (<a href="javascript:;"  key={item.menuId}  data-id={item.menuId} className="first-child" name={item.name}><i className={'icon '+item.icon}></i><span><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
+                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
+                                    item.children.map(function(it,index2){
 
-
-                                    item.children.map(function(it){
                                         let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
-
-
                                         if(Array.isArray(it.children)&&it.children.length>0){
                                             let list2 = [];
-                                            let title = (<a href="javascript:;" key={it.id} className="child-title"><i className={'icon-child'}></i><span>{it.name}</span></a>);
+                                            let searchlist =[];
+                                            let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it.name}>{it.name}</span></a>);
                                             noSecond = 'no-second-menu';
-
-                                            it.children.map(function(itit){
+                                            it.children.map(function(itit,index3){
                                                 let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
 
-                                                list2.push(<li><a target={blank} value={itit.id} onClick={(e)=>self.handleDefault(e,blank)} ref={itit.id} name={itit.name}  href={self.formmaterUrl(itit)}>{itit.name}</a></li>)
+                                                let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
+                                                                  data-areaId={itit.areaId}
+                                                                  title={itit.name}
+                                                                  data-ahref={self.changeAhref(itit)}
+                                                                  data-licenseControlFlag={itit.licenseControlFlag}
+                                                                  onClick={(e) => self.handleDefault(e, blank)}
+                                                                  ref={itit.id} name={itit.name}
+                                                                  href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                                                                                   onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
+                                                                                                                   data-menuId={itit.menuId} title={'收藏'}></i></li>
+                                                list2.push(html)
+                                                if( itit.name.indexOf(menuSearch[index1])>=0) {
+
+                                                    let html = <li key={itit.menuId+"s"} ><a target={blank} value={itit.id}
+                                                                      data-areaId={itit.areaId}
+                                                                      title={itit.name}
+                                                                      data-ahref={self.changeAhref(itit)}
+                                                                      data-licenseControlFlag={itit.licenseControlFlag}
+                                                                      onClick={(e) => self.handleDefault(e, blank)}
+                                                                      ref={itit.id} name={itit.name}
+                                                                      href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                                                                                       onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
+                                                                                                                       data-menuId={itit.menuId} title={'收藏'}></i></li>
+
+                                                    searchlist.push(html)
+                                                }
+
+
                                             });
-
-                                            curHeight = Math.ceil(it.children.length/3)*25+52 + curHeight;
-
-
-                                            if(curHeight > self.state.clientHeight-60){
-                                                pages = pages +1;
-                                                curHeight = 0;
-                                                menulist[pages].push(
-                                                    <div className={'menu-popup'}>
-                                                        {title}
-                                                        <div className="third-menu-content">
-                                                            <ul className="third-menu-list">
-                                                                {list2}
-                                                            </ul>
-                                                        </div>
+                                            if( list2.length>0) {
+                                                var  cellH = Math.ceil(it.children.length/3)*25+52;
+                                                var html = <div className={'menu-popup'}>
+                                                    {title}
+                                                    <div className="third-menu-content">
+                                                        <ul className="third-menu-list">
+                                                            {list2}
+                                                        </ul>
                                                     </div>
-                                                )
+                                                </div>;
+                                                if(curHeight <= curHeight2){
+                                                    curHeight += cellH;
+                                                    menulist[0].push (html)
+                                                }else{
+                                                    curHeight2 += cellH;
+                                                    menulist[1].push (html)
+                                                }
                                             }
-                                            else {
-                                                menulist[pages].push (
-                                                    <div className={'menu-popup'}>
-                                                        {title}
-                                                        <div className="third-menu-content">
-                                                            <ul className="third-menu-list">
-                                                                {list2}
-                                                            </ul>
-                                                        </div>
+                                            if( searchlist.length>0) {
+                                                var  cellH = Math.ceil(searchlist.length/3)*25+52;
+                                                var html = <div className={'menu-popup'}>
+                                                    {title}
+                                                    <div className="third-menu-content">
+                                                        <ul className="third-menu-list">
+                                                            {searchlist}
+                                                        </ul>
                                                     </div>
-                                                )
+                                                </div>;
+                                                if(sercurHeight <= sercurHeight2){
+                                                    sercurHeight += cellH;
+                                                    searchmenuList[0].push (html)
+                                                }else{
+                                                    sercurHeight2 += cellH;
+                                                    searchmenuList[1].push (html)
+                                                }
                                             }
 
-                                        }
-                                        else {
+                                            // }
+                                        } else {
+                                            noSecond = 'only-second-menu';
+                                            // curHeight = 46+ curHeight;
+                                            let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it.name}</span></a>);
 
-                                            curHeight = 46+ curHeight;
 
-                                            let title = (<a target={blank} value={it.id} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it.name}</span></a>);
-
-
-                                            if(curHeight > document.body.clientHeight-60){
-                                                pages = pages+1;
-                                                curHeight = 0;
-                                                menulist[pages].push(
-                                                    <div className={'menu-popup'}>
-                                                        <a target={blank} value={it.id} onClick={(e)=>self.handleDefault(e,blank)} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}</a>
-                                                    </div>
-                                                )
+                                            var  cellH = 46;
+                                            let  html = <div className={'menu-popup'}>
+                                                <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                                                                                                                                                                                                                                                                           onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
+                                                                                                                                                                                                                                                                                                           data-menuId={it.menuId} title={'收藏'}></i></a>
+                                            </div>
+                                            if(curHeight <= curHeight2){
+                                                curHeight += cellH;
+                                                menulist[0].push(html)
+                                            }else{
+                                                curHeight2 += cellH;
+                                                menulist[1].push(html)
                                             }
-                                            else {
-                                                menulist[pages].push(
-                                                    <div className={'menu-popup'}>
-                                                        <a target={blank} value={it.id} onClick={(e)=>self.handleDefault(e,blank)} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}</a>
-                                                    </div>
-                                                )
+                                            if( it.name.indexOf(menuSearch[index1])>=0) {
+                                                if(sercurHeight <= sercurHeight2){
+                                                    sercurHeight += cellH;
+                                                    searchmenuList[0].push (html)
+                                                }else{
+                                                    sercurHeight2 += cellH;
+                                                    searchmenuList[1].push (html)
+                                                }
                                             }
+
 
                                         }
 
@@ -722,32 +802,44 @@ class App extends Component {
 
 
                                     var selected = item.id == isSeleted?"u-menu-submenus-selected":"";
-
-
+                                    var showsearch = curHeight > document.body.clientHeight*0.8;
                                     return (
                                         <SubMenu onTitleMouseEnter={self.onTitleMouseEnter.bind(self)} key={item.menuId} className={'second-menu '+selected+ ' '+ noSecond +' menu-cloum-'+pages} children={item.children} title={title}>
                                             <li className="arrow-menu"></li>
-                                            {/*{menulist}*/}
-                                            {
-                                                menulist.map(function(ite,i){
-                                                    ite = ite.length!=0?<li key={'ite'+i} className="u-menu-list">{ite}</li>:ite;
-                                                    return (
-                                                        ite
+                                            <div className='menu-search-con'style={{"top":0,"display":showsearch?"block":"none"}}>
+                                                <input className='menu-search-input' onClick={(e)=>{e.stopPropagation()}} onBlur={(e)=>{e.stopPropagation()}} onChange={(e)=>{self.searchChange(e,index1)}} placeholder={'搜索功能节点'}/>
+                                                {menuSearch[index1] && searchmenuList[0].length==0?<div className='unfindeLabel'>未找到相应节点</div>:""}
+                                            </div>
+                                            <div className='sub-menulist-con' style={{'width':menulist[1].length==0?"427px":"920px", 'maxHeight': document.body.clientHeight*0.8,'overflow':'auto','minHeight':showsearch?document.body.clientHeight*0.8:"0"}}>
+                                                {
+                                                    menuSearch[index1] && searchmenuList[0].length>0? (searchmenuList.map(function(ite,i){
+                                                            ite = ite.length!=0?<div className="u-menu-list" key={i+'sm'+index1}>{ite}</div>:ite;
+                                                            return (
+                                                                ite
+                                                            )
+                                                        })
+                                                    ):(menulist.map(function(ite,i){
+                                                            ite = ite.length!=0?<div className="u-menu-list" key={i+'meu'+index1}>{ite}</div>:ite;
+                                                            return (
+                                                                ite
+                                                            )
+                                                        })
                                                     )
-                                                })
-                                            }
+                                                }
+                                            </div>
                                         </SubMenu>
+
                                     )
                                 }
                                 else {
-                                    let blank =item.openview=="newpage"?"_blank":"";
+                                    let blank =item.openview=="newpage"&&item.urltype=='url' ?"_blank":"";
 
                                     if(item.id == 'index'){
                                         return false;
                                     }
 
                                     let title = (
-                                        <a target={blank} key={item.id} value={item.id} className="first-child" onClick={(e)=>self.handleDefault(e,blank)} ref={item.id} href={self.formmaterUrl(item)} name={item.name}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item.name}</span></a>
+                                        <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} ref={item.id} href={self.formmaterUrl(item)} name={item.name}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item.name}</span></a>
                                     );
                                     return (
                                         <Menu.Item key={item.id} >{title}</Menu.Item>
