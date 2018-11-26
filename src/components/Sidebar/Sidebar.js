@@ -1,8 +1,11 @@
 import React,{Component} from 'react';
+import ReactDOM from 'react-dom';
 import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
 import mirror, { connect,actions } from 'mirrorx';
+import $ from 'jquery';
 import cookie from 'react-cookie';
 import {Router} from 'director/build/director';
+import classNames from 'classnames'
 window.router = new Router();
 require('components/viewutil/viewutil');
 
@@ -20,6 +23,8 @@ class App extends Component {
         this.state = {
             isOpenTab: true,
             clientHeight:document.body.clientHeight,
+            arrowUp:true,
+            arrowDown:false
         };
         this.delTrigger();
         this.showMenu = this.showMenu.bind(this);
@@ -30,15 +35,12 @@ class App extends Component {
 
     delTrigger(){
         var self = this;
-        $('body').on('del',function(e,data){
+        window.confirmDel = function (data) {
             sessionStorage['tabs'] = JSON.stringify(data.menus);
             sessionStorage['current'] = JSON.stringify({
                 current:data.current
             });
             self.setState(data);
-        });
-        window.confirmDel = function (data) {
-            $('body').trigger('del',[data]);
         }
     }
 
@@ -69,15 +71,10 @@ class App extends Component {
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
         let {menus,current,showNotice} = this.props;
 
-        var tar = e.target||e.domEvent.target;
-
-        var target = $(tar).closest('a');
+        var tar = e.target;
 
 
-        if(!target.is('a')){
-            return false;
-        }
-        var value = target.attr('value');
+        var value = tar.getAttribute('value');
 
 
         var data = {
@@ -86,7 +83,7 @@ class App extends Component {
             reload:0
         };
 
-        if(typeof value == 'undefined'){
+        if(typeof value == 'undefined'||value == null){
             return false;
         }
 
@@ -95,9 +92,9 @@ class App extends Component {
         }
 
 
-        var dom = target;
-        var title = dom.attr('name');
-        var router =  dom.attr('href');
+        var dom = tar;
+        var title = dom.getAttribute('name');
+        var router =  dom.getAttribute('href');
 
 
 
@@ -117,7 +114,7 @@ class App extends Component {
             //window.router.dispatch('on', url.replace('#',''));
         }
         else {
-            if(typeof dom!="undefined"&&dom.attr('target')=='_blank'){
+            if(typeof dom!="undefined"&&dom.getAttribute('target')=='_blank'){
                 return false;
             }
             else {
@@ -414,16 +411,15 @@ class App extends Component {
         self.getTabs();
         window.menus = menus;
         window.getBreadcrumb = function (id) {
-            var menus = window.menus;
             var n1,n2,n3;
 
-            $.each(menus,function (i,item) {
+            menus.map(function(item,i) {
                 if(id==item.id){
                     n1 = item;
                     return false;
                 }
                 if(item.children&&item.children.length>0){
-                    $.each(item.children,function (t,items) {
+                    item.children.map(function (items,t) {
                         if(id==items.id){
                             n2 = items;
                             n1 = item;
@@ -431,7 +427,7 @@ class App extends Component {
                         }
 
                         if(items.children&&items.children.length>0){
-                            $.each(items.children,function (tt,itemss) {
+                            items.children.map(function (itemss,tt) {
                                 if(id==itemss.id){
                                     n3 = itemss;
                                     n2 = items;
@@ -445,8 +441,8 @@ class App extends Component {
             });
 
             return (function () {
-                var data = []
-                $.each([n1,n2,n3],function(i,item){
+                var data = [];
+                    [n1,n2,n3].map(function(item,i){
                     if(item){
                         data.push(item.name)
                     }
@@ -517,7 +513,11 @@ class App extends Component {
         }
     }
     onTitleMouseEnter(e,domEvent){
+
         var dom = ($(e.domEvent.target).closest('li'));
+        let id = e.domEvent.target.children[0].getAttribute('data-id');
+
+
         var h = document.body.clientHeight;
 
         this.setState({
@@ -528,6 +528,7 @@ class App extends Component {
 
             var menu = dom.find('.u-menu');
             var arrow = dom.find('.arrow-menu');
+
             if(parseInt(dom.offset().top)+parseInt(menu.height())>h){
 
                 if(parseInt(menu.height())>parseInt(dom.offset().top)){
@@ -563,17 +564,24 @@ class App extends Component {
 
         if(curNum<0){
             curNum = 0;
-            $('.arrow-up').addClass('lock');
+            this.setStage({
+               arrowUp:true
+            })
             return false;
         }
         //fix: add 1 fake element
         else if(curNum>num-showNum) {
             curNum=num-showNum;
-            $('.arrow-down').addClass('lock');
+            this.setStage({
+                arrowDown:true
+            })
             return false;
         }
         else {
-            $('.arrow-down,.arrow-up').removeClass('lock');
+            this.setStage({
+                arrowDown:false,
+                arrowUp:false
+            })
         }
 
         actions.app.updateState({
@@ -635,7 +643,7 @@ class App extends Component {
                                     var menulist = [[],[],[],[],[],[],[],[],[]];
                                     var pages = 0;
 
-                                    let title = (<a href="javascript:;" key={item.menuId} className="first-child" name={item.name}><i className={'icon '+item.icon}></i><span><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
+                                    let title = (<a href="javascript:;"  key={item.menuId}  data-id={item.menuId} className="first-child" name={item.name}><i className={'icon '+item.icon}></i><span><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
 
 
                                     item.children.map(function(it){
@@ -750,10 +758,10 @@ class App extends Component {
                     </Menu>
                 </div>
                 <div className="more-bar" ref="moreBar" style={{display:'none'}}>
-                    <div className="arrow-up lock" title="通过滚动鼠标来移动菜单" onClick={this.scrollMenu.bind(this,-1)}>
+                    <div ref="arrowUp" className={classNames('arrow-up', { lock: this.state.arrowUp })} title="通过滚动鼠标来移动菜单" onClick={this.scrollMenu.bind(this,-1)}>
                         <i className="uf uf-2arrow-up" />
                     </div>
-                    <div className="arrow-down" title="通过滚动鼠标来移动菜单" onClick={this.scrollMenu.bind(this,1)}>
+                    <div ref="arrowDown" className={classNames('arrow-down', { lock: this.state.arrowDown })} title="通过滚动鼠标来移动菜单" onClick={this.scrollMenu.bind(this,1)}>
                         <i className="uf uf-2arrow-down" />
                     </div>
                 </div>

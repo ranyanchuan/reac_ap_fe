@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>专属云应用开发平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//design.yonyoucloud.com/static/react/tinper-bee.css" rel="stylesheet" media="screen">
     <% for (var chunk in htmlWebpackPlugin.files.css) { %>
     <link href="<%=htmlWebpackPlugin.files.css[chunk] %>" rel="stylesheet">
     <% } %>
@@ -16,12 +15,7 @@
     window.isOpenTab = true;
     contextRoot = 'wbalone'
 </script>
-<script src="http://design.yonyoucloud.com/static/jquery/1.11.2/jquery.min.js" ></script>
-<!--<script src="https://cdn.bootcss.com/react/15.5.4/react.min.js"></script>-->
-<!--<script src="https://cdn.bootcss.com/react/15.5.4/react-dom.min.js"></script>-->
-<!--<script src="https://cdn.bootcss.com/react-router-dom/4.2.2/react-router-dom.js"></script>-->
-<!--<script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>-->
-<!--<script src="https://cdn.bootcss.com/fetch-jsonp/1.1.1/fetch-jsonp.js"></script>-->
+
 <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
 <script type="text/javascript" src="<%=htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
 <% } %>

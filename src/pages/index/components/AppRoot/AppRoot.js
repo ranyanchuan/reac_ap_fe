@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Navbar, Menu, Badge, Tile, Icon, Tooltip} from 'tinper-bee';
+import 'static/trd/tinper-bee/assets/tinper-bee.css'
 import 'static/css/index.css';
 
 /* 引入字体文件 */
@@ -20,7 +21,6 @@ class App extends Component {
 
         };
     }
-
 
     render() {
 
@@ -43,6 +43,7 @@ class App extends Component {
 
                             menus.map(function (item, index) {
 
+                                if(!item.id) return false;
                                 var match = /.*(#\/ifr\/)/ig;
                                 var selected = current == item.id ? "ifr-selected" : "";
 

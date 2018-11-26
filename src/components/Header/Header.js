@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import cookie from "react-cookie";
 import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
+import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import mirror, { connect,actions } from 'mirrorx';
 import UserMenus from 'components/UserMenu/UserMenu';
 
@@ -46,7 +47,7 @@ class App extends Component {
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
         let {menus,current} = this.props;
 
-        var self = this;
+        let self = this;
 
         // var data  = (e.keyPath.length==1)?{
         //     current: e.key,
@@ -58,26 +59,36 @@ class App extends Component {
         //     current: e.key
         // };
 
+        function getDOm() {
+            let tar = e.target;
+            if(tar.getAttribute('value')){
+                return tar;
+            }
+            else if(tar.parentElement.getAttribute('value')){
+                tar.parentElement
+            }
+            else {
+                return tar.parentElement.parentElement
+            }
+        }
 
-        var tar = e.target||e.domEvent.target;
-
-        var target = $(tar).closest('a');
+        let tar = getDOm();
 
 
-
-        if(!target.is('a')){
+        if(!tar){
             return false;
         }
-        var value = target.attr('value');
+
+        let value = tar.getAttribute('value');
 
 
-        var data = {
+        let data = {
             current: value,
             showNotice:0,
             reload:0
         };
 
-        if(typeof value == 'undefined'){
+        if(typeof value == 'undefined'||value==null){
             return false;
         }
 
@@ -86,22 +97,20 @@ class App extends Component {
         }
 
 
-        var dom = target;
-        var title = dom.attr('name');
-        var router =  dom.attr('href');
+        let dom = tar;
+        let title = dom.getAttribute('name');
+        let router =  dom.getAttribute('href');
 
 
 
-        var options = {
+        let options = {
             title:title,
             router:router,
             id:value
         };
 
 
-        var menu = menus;
-
-
+        let menu = menus;
 
 
         //点击已经选中的节点时
@@ -110,7 +119,7 @@ class App extends Component {
             //window.router.dispatch('on', url.replace('#',''));
         }
         else {
-            if(typeof dom!="undefined"&&dom.attr('target')=='_blank'){
+            if(typeof dom!="undefined"&&dom.getAttribute('target')=='_blank'){
                 return false;
             }
             else {
@@ -228,13 +237,16 @@ class App extends Component {
     render (){
         let self = this;
 
-        const {expanded,menus} = this.props;
+        let {expanded,menus,intl} = this.props;
 
         var UserMenuObj = {
             formmaterUrl:self.formmaterUrl,
             handleClick:self.handleClick,
             handleDefault:self.handleDefault
         };
+
+
+
 
         return (
             <Navbar fluid={true} className={"portal-navbar "+(expanded?"expanded":"")} expanded={expanded} onToggle={this.onToggle.bind(this)}>
@@ -243,56 +255,29 @@ class App extends Component {
                     <a href="javascript:;">
                         <img src={require('static/images/logo_zh_CN.svg')} className="portal-logo" />
                     </a>
+
                 </Brand>
 
                 <Nav pullRight className="u-menu-list" onClick={self.handleClick.bind(this)}>
                     <NavItem>
-                        <a id="taskCenterBox" value="taskcenter"  onClick={(e)=>self.handleDefault(e)} data-ref="taskcenter" name="任务中心" title="任务中心" href={`${GROBAL_HTTP_CTX}/index-view.html#/taskcenter`} className="navbar-avatar" titlekey="任务中心" >
+                        <a id="taskCenterBox" value="taskcenter" onClick={(e)=>self.handleDefault(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.task'})} title={intl.formatMessage({id: 'tabs.header.task'})} href={`${GROBAL_HTTP_CTX}/index-view.html#/taskcenter`} className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.task'})} >
                             <div className="u-badge">
                                 <i className="pap pap-task"></i>
                             </div>
                         </a>
                     </NavItem>
                     <NavItem>
-                        <a id="messageCount" value="msgCenter" onClick={(e)=>self.handleDefault(e)} data-ref="msgCenter" name="消息中心" title="消息中心" href={`${GROBAL_HTTP_CTX}/index-view.html#/msgCenter`} className="navbar-avatar" >
+                        <a id="messageCount" value="msgCenter" onClick={(e)=>self.handleDefault(e)} data-ref="msgCenter" name={intl.formatMessage({id: 'tabs.header.message'})} title={intl.formatMessage({id: 'tabs.header.message'})} href={`${GROBAL_HTTP_CTX}/index-view.html#/msgCenter`} className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.message'})} >
                             <div className="u-badge" data-badge="0">
                                 <i className="pap pap-massage"></i>
                             </div>
                         </a>
                     </NavItem>
+
                     <UserMenus {...UserMenuObj}  />
-                </Nav>
-
-
-                <Nav pullRight className="portal-nav" onClick={self.showMenu.bind(self)}>
-
-
-                    <div id="bs-example-navbar-collapse-9" className="collapse navbar-collapse navbar-right">
-
-
-
-
-                        <ul className="nav navbar-nav">
-                            <li className="dropdown" >
-                                <a role="button" id="username"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown" className="navbar-avatar dropdown-toggle">
-
-                                    <span className="avatar-name"> {decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userName')))} </span>
-                                    <span className="iconfont icon-arrowdown"></span>
-                                    <span className="avatar-icon">
-                                            <img src={`${GROBAL_HTTP_CTX}`+decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userAvator'))).replace(/\.\/images/,'\/images')} />
-                                        </span>
-                                </a>
-
-                                <div role="menu" className={'dropdown-menu user-menu'}>
-                                    <UserMenus {...UserMenuObj}  />
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
                 </Nav>
             </Navbar>
         )
     }
 }
-
 export default  App;
