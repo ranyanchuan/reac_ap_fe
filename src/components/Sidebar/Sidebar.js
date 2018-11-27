@@ -716,7 +716,7 @@ class App extends Component {
                         {
                             menu.map(function (item,index1) {
                                 let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
-                                var noSecond = '';
+                                var noSecond = 'only-second-menu';
                                 var curHeight = 0;
                                 var curHeight2 =0;
                                 var sercurHeight = 0;
@@ -807,7 +807,6 @@ class App extends Component {
 
                                             // }
                                         } else {
-                                            noSecond = 'only-second-menu';
                                             // curHeight = 46+ curHeight;
                                             let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it.name}</span></a>);
 
