@@ -195,7 +195,7 @@ glob.sync("./src/pages/**/app.jsx").forEach(path => {
     chunks.push(chunk);
 });
 
-console.log(entries)
+
 
 //开发环境的webpack配置
 const devConfig = {
