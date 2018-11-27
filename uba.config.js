@@ -95,7 +95,7 @@ const resolve = {
     src:path.resolve(__dirname, 'src/')
   }
 }
-//开发和生产需要的loader
+//开发需要的loader
 const rules = [{
   test: /\.js[x]?$/,
   exclude: /(node_modules)/,
@@ -126,7 +126,7 @@ const rules = [{
     options: {
       limit: 8196,
       name: 'images/[name].[hash:8].[ext]',
-      publicPath:pathUrl
+      publicPath:pathUrl+context
     }
   }]
 }, {
@@ -136,11 +136,55 @@ const rules = [{
     options: {
       name: '[name].[hash:8].[ext]',
       outputPath: 'fonts',
-      publicPath: pathUrl+'/fonts/'
+      publicPath: pathUrl+context+'/fonts/'
     }
   }]
 }]
-
+//生产需要的loader
+const prorules = [{
+    test: /\.js[x]?$/,
+    exclude: /(node_modules)/,
+    include: path.resolve('src'),
+    use: [{
+        loader: 'babel-loader'
+    }]
+},{
+    test: /\.less$/,
+    exclude: /(node_modules)/,
+    use: ExtractTextPlugin.extract({
+        use: ['css-loader', 'postcss-loader', 'less-loader'],
+        fallback: 'style-loader'
+    })
+},{
+    test: /\.css$/,
+    use: ExtractTextPlugin.extract({
+        use: [{
+            loader: 'css-loader',
+        }, 'postcss-loader'],
+        fallback: 'style-loader'
+    })
+}, {
+    test: /\.(png|jpg|jpeg|gif)(\?.+)?$/,
+    //exclude: /favicon\.png$/,
+    use: [{
+        loader: 'url-loader',
+        options: {
+            limit: 8196,
+            name: 'images/[name].[hash:8].[ext]',
+            publicPath:pathUrl+context
+        }
+    }]
+}, {
+    test: /\.(eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+    use: [{
+        loader: 'file-loader',
+        options: {
+            name: '[name].[hash:8].[ext]',
+            outputPath: 'fonts',
+            publicPath: pathUrl+'/wbalone/fonts/'
+        }
+    }]
+}]
 
 entries.vendors = prodEntries.vendors = ['babel-polyfill'].concat(getVendors());
 
@@ -220,7 +264,7 @@ const prodConfig = {
   },
   externals: externals,
   module: {
-    rules: rules
+    rules: prorules
   },
   plugins: [
       new CommonsChunkPlugin({
