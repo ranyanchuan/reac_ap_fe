@@ -658,7 +658,7 @@ class App extends Component {
     changeAhref(target){
         var uri=target.location;
         if(target.urltype === 'url'){
-            if(uri.indexOf('?')!=-1){
+            if(uri&&uri.indexOf('?')!=-1){
                 uri+="&modulefrom=sidebar";
             }else{
                 uri+="?modulefrom=sidebar"
