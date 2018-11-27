@@ -254,7 +254,7 @@ body{
 #portal .u-menu .second-menu .u-menu-vertical.u-menu-sub {
     background: #fff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.20);
-    min-width: 407px;
+    min-width: 440px;
     z-index: 22;
     padding: 10px 0 20px 0;
     border-radius: 0;
@@ -822,7 +822,7 @@ body{
 	width:33.333%;
 	display:inline-block;
 	background:#fff;
-	line-height: 24px;
+	line-height: 30px;
 }
 #portal .u-menu .no-second-menu .u-menu-vertical.u-menu-sub {
 	padding:0;
@@ -865,7 +865,7 @@ body{
     white-space: nowrap;
 }
 .u-menu-vertical .menu-popup>a:hover {
-	color:#00936D ;
+	color:#666;
 	font-weight: bold;
 }
 .no-second-menu .u-menu-vertical .menu-popup>a:hover {
