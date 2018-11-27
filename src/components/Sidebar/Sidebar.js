@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
 import mirror, { connect,actions } from 'mirrorx';
-import $ from 'jquery';
 import cookie from 'react-cookie';
 import {Router} from 'director/build/director';
 import classNames from 'classnames'
@@ -517,9 +516,24 @@ class App extends Component {
     }
     onTitleMouseEnter(e,domEvent){
 
-        var dom = ($(e.domEvent.target).closest('li'));
-        let id = e.domEvent.target.children[0].getAttribute('data-id');
+        //var dom = ($(e.domEvent.target).closest('li'));
 
+        var myOffest=function (obj){
+            var top=0,left=0;
+            if(obj){
+                while(obj.offsetParent){
+                    top += obj.offsetTop;
+                    left += obj.offsetLeft;
+                    obj = obj.offsetParent;
+                }
+            }
+
+            return{
+                top : top,
+                left : left
+            }
+        }
+        var dom = e.domEvent.target.parentElement;
 
         var h = document.body.clientHeight;
 
@@ -529,24 +543,50 @@ class App extends Component {
 
         setTimeout(function () {
 
-            var menu = dom.find('.u-menu');
-            var arrow = dom.find('.arrow-menu');
+            // var menu = dom.find('.u-menu');
+            // var arrow = dom.find('.arrow-menu');
+            var menu = dom.children[0];
+            var arrow = dom.children[1].children[0];
 
-            if(parseInt(dom.offset().top)+parseInt(menu.height())>h){
 
-                if(parseInt(menu.height())>parseInt(dom.offset().top)){
-                    menu.css({'bottom':-(h-parseInt(dom.offset().top)-50-20),'top':'inherit'});
-                    arrow.css({'bottom':(h-parseInt(dom.offset().top)-50)+15-20,'top':'inherit'});
+            if(parseInt(myOffest(dom).top)+parseInt(menu.clientHeight)>h){
+
+                if(parseInt(menu.clientHeight)>parseInt(myOffest(dom).top)){
+
+                    menu.style.bottom = -(h-parseInt(myOffest(dom).top)-50-20)+'px';
+                    menu.style.top = 'inherit';
+                    arrow.style.bottom = (h-parseInt(myOffest(dom).top)-50)+15-20 + 'px';
+                    arrow.style.top = 'inherit';
                 }
                 else {
-                    menu.css({'bottom':"0",'top':'inherit'});
-                    arrow.css({'bottom':"14px",'top':'inherit'})
+                    menu.style.bottom = 0;
+                    menu.style.top = 'inherit';
+                    arrow.style.bottom = '14px';
+                    arrow.style.top = 'inherit';
                 }
             }
             else {
-                menu.css({'bottom':"inherit",'top':'0'});
-                arrow.css({'bottom':"inherit",'top':'14px'})
+                menu.style.bottom = 0;
+                menu.style.top = 'inherit';
+                arrow.style.bottom = 'inherit';
+                arrow.style.top = '14px';
             }
+
+            // if(parseInt(dom.offset().top)+parseInt(menu.height())>h){
+            //
+            //     if(parseInt(menu.height())>parseInt(dom.offset().top)){
+            //         menu.css({'bottom':-(h-parseInt(dom.offset().top)-50-20),'top':'inherit'});
+            //         arrow.css({'bottom':(h-parseInt(dom.offset().top)-50)+15-20,'top':'inherit'});
+            //     }
+            //     else {
+            //         menu.css({'bottom':"0",'top':'inherit'});
+            //         arrow.css({'bottom':"14px",'top':'inherit'})
+            //     }
+            // }
+            // else {
+            //     menu.css({'bottom':"inherit",'top':'0'});
+            //     arrow.css({'bottom':"inherit",'top':'14px'})
+            // }
         },0)
     }
     menubar() {
