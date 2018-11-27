@@ -186,7 +186,7 @@ const prorules = [{
     }]
 }]
 
-entries.vendors = prodEntries.vendors = ['babel-polyfill'].concat(getVendors());
+entries.vendors = prodEntries.vendors = ['babel-polyfill','static/trd/tinper-bee/assets/tinper-bee.css'].concat(getVendors());
 
 
 glob.sync("./src/pages/**/app.jsx").forEach(path => {
@@ -194,6 +194,8 @@ glob.sync("./src/pages/**/app.jsx").forEach(path => {
     entries[chunk] = [path, hotMiddlewareScript];
     chunks.push(chunk);
 });
+
+console.log(entries)
 
 //开发环境的webpack配置
 const devConfig = {
@@ -216,7 +218,7 @@ const devConfig = {
       }),
         new ExtractTextPlugin({
           filename: 'vendors/[name].css',
-          allChunks: true
+          allChunks: false
         }),
     globalEnvConfig,
     new webpack.NamedModulesPlugin(),

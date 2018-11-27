@@ -30,8 +30,8 @@ function chooseLocale(locale){
             break;
     }
 }
-
-let locale =  (getCookie('u_locale')||navigator.language.split('_')[0].replace(/-/,'_')||"en_US")
+let language = (navigator.language || navigator.browserLanguage).toLowerCase();
+let locale =  (getCookie('u_locale')||language.split('_')[0].replace(/-/,'_')||"en_US")
 let intlModel = {
     name: "intl",
     initialState: {

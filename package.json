@@ -45,6 +45,7 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
+    "intl": "^1.2.5",
     "axios": "^0.18.0",
     "core-js": "^2.5.7",
     "es6-promise": "^4.0.5",
