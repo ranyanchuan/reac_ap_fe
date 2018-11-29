@@ -7,7 +7,7 @@ import MainLayout from "layout";
 import Routes from './routes'
 
 
-import 'babel-polyfill';
+
 require('es6-promise').polyfill();
 
 import Intl from 'components/Intl/index.js'

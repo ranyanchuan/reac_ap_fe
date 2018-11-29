@@ -32,6 +32,9 @@ function chooseLocale(locale){
 }
 let language = (navigator.language || navigator.browserLanguage).toLowerCase();
 let locale =  (getCookie('u_locale')||language.split('_')[0].replace(/-/,'_')||"en_US")
+//TODO 封装到国际化组件中
+//TODO 语言动态
+
 let intlModel = {
     name: "intl",
     initialState: {
@@ -69,3 +72,4 @@ let Intl = connect(state => state.intl)(Inter);
 
 
 export default Intl;
+

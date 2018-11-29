@@ -8,7 +8,11 @@ import { Route } from "mirrorx";
 
 
 // 导入子路由
-import component from './child/router';
+
+import {
+    ConnectedApp,
+} from '../container'
+
 
 export default class App extends Component {
     render(){
@@ -16,10 +20,12 @@ export default class App extends Component {
         return (
             <div className="route-content">
 
-                <Route path="/" component={component} />
-
+                <div className="templates-route">
+                    {/*配置根路由记载节点*/}
+                    {<Route exact path={'/'} component={ConnectedApp} />}
+                </div>
             </div>
         )
     }
 }
-
+//TODO 去掉child，冗余

@@ -4,7 +4,7 @@
 
 module.exports = {
   "GET": [
-    { "/local/user/get": "./mock/user/get.json" },
+    { "/wbalone/appmenumgr/newSidebarList": "./mock/sidebar.json" },
   ],
   "POST": [
     { "/system/role/list": "./mock/sys-manage/role-manage/list.json" },

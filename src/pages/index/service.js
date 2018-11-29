@@ -1,5 +1,5 @@
 import request from "utils/request";
-import axios from "axios";
+//TODO 去掉axios
 
 //定义接口地址
 const URL = {
