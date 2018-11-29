@@ -283,7 +283,7 @@ class App extends Component {
 
                 <Brand>
                     <a href="javascript:;">
-                        <img src={require('static/images/logo_zh_CN.svg')} className="portal-logo" />
+                        <img src={require(`static/images/logo_${cookie.load('u_locale')||'zh_CN'}.svg`)} className="portal-logo" />
                     </a>
 
                 </Brand>
