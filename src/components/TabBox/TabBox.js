@@ -70,12 +70,17 @@ class Tab extends Component {
 
 
         var ifr = document.getElementById(id);
-
+        //TODO 跨域try catch
         if(ifr.src.match(match)!=null){
             if(ifr.src.match(location.host)!=null){
-                if(ifr.contentWindow.confirmClose&&typeof ifr.contentWindow.confirmClose=='function'){
-                    ifr.contentWindow.confirmClose(id,data);
-                    return false;
+                try {
+                    if(ifr.contentWindow.confirmClose&&typeof ifr.contentWindow.confirmClose=='function'){
+                        ifr.contentWindow.confirmClose(id,data);
+                        return false;
+                    }
+                }
+                catch(err) {
+
                 }
             }
         }

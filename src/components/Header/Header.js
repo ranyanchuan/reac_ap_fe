@@ -37,7 +37,7 @@ class App extends Component {
         })
 
         let info  = processData(await api.getWebPushInfo());
-        console.log(info);
+    
         let {webpuship,webpushport} =info.webpush;
         var userId = cookie.load('userId');
         var userkey = cookie.load('tenantid') == ""? "null" : cookie.load('tenantid')
