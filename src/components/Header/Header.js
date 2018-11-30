@@ -33,7 +33,7 @@ class App extends Component {
         // 调用 loadUserMenuList 请求数据
         let res = processData(await api.loadUnReadMsg());
         this.setState({
-            unreadMsg:res.unReadNum
+            unreadMsg:res.unReadNum>99?'99+':res.unReadNum
         })
 
         let info  = processData(await api.getWebPushInfo());
