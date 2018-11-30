@@ -1027,6 +1027,14 @@ span.tenant-name{
 #app .u-menu .u-menu-item>a .qy-iconfont {
 	font-size:18px;
 }
+.u-navbar-right .u-menu .u-menu-item>a{
+	width: 130px;
+	display: block;
+	overflow: hidden;
+	word-break: keep-all;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
 .u-menu .u-menu-item>a {
 	color:#666;
 }
