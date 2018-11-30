@@ -75,7 +75,7 @@ class UserMenus extends Component {
                         <span className="avatar-name"> {decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userName')))} </span>
                         <span className="iconfont icon-arrowdown"></span>
                         <span className="avatar-icon">
-                                            <img src={`${GROBAL_HTTP_CTX}`+decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userAvator'))).replace(/\.\/images/,'\/images')} />
+                                            <img src={decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userAvator')))} />
                                         </span>
                     </a>
                 }>
