@@ -85,7 +85,9 @@ class UserMenus extends Component {
                     this.state.userMenus.map(function (item) {
                         return (
                             <li key={item.code} className="u-menu-item" style={{paddingLeft:16}}>
-                                <a ref={item.code} value={item.code} onClick={(e) => self.props.handleDefault(e)} name={item.name} title={item.name} href={self.formmaterUrl(item)}>
+                                <a ref={item.code} value={item.code} onClick={ item.urlType==="url_blank"?"":(e) => self.props.handleDefault(e)}
+                                   target={item.urlType==="url_blank"?"_blank":"_self"}
+                                   name={item.name} title={item.name} href={self.formmaterUrl(item)}>
                                     <i className={item.icon}></i>{item.name}
                                 </a>
                             </li>

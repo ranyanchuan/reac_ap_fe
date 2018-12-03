@@ -9,6 +9,8 @@ const URL = {
     "GET_WEBPUSHINFO":`${GROBAL_HTTP_CTX}/webpush/getInfo?r=`+Math.random(),
     "wbMenuCollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/create?r=`+Math.random(),
     "wbMenuUncollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/delete?r=`+Math.random(),
+    "GET_ALLTENANT":`${GROBAL_HTTP_CTX}/platform/cas/getAllTenant?r=`+Math.random(),
+    "GET_SWITCHTENANT":`${GROBAL_HTTP_CTX}/platform/cas/switchTenant?r=`+Math.random()
 };
 
 /**
@@ -29,6 +31,26 @@ export const getList = (params) => {
 export const loadUserMenuList = (params) => {
     return request(URL.GET_USER_MENU, {
         method: "get"
+    });
+}
+
+/**
+ * 获取租户数据
+ * @param {*} params
+ */
+export const getAllTenant = (params) => {
+    return request(URL.GET_ALLTENANT, {
+        method: "get"
+    });
+}
+/**
+ * 设置租户数据
+ * @param {*} params
+ */
+export const setTenant = (params) => {
+    return request(URL.GET_SWITCHTENANT, {
+        method: "get",
+        param:params
     });
 }
 /**

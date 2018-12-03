@@ -225,19 +225,17 @@ body{
 #username:hover ,#tenantname:hover{
     background: #f2f2f2;
 }
-#portal .u-menu-submenu-open .u-menu,#portal .u-menu-submenu-open {
-	background:#dde0e2;
-}
+
 
 #portal .u-menu-submenu-open .u-menu,
 #portal .u-menu-submenu-open .first-child {
-    color: #E60012;
+    /*color: #E60012;*/
 }
 #portal .u-menu-submenu-active > .u-menu-submenu-title {
 	background:#dde0e2;
 }
 #portal .u-menu-submenu-active > .u-menu-submenu-title .first-child {
-	color:#E60012;
+	/*color:#E60012;*/
 }
 .u-menu-vertical > .u-menu-submenu > .u-menu-submenu-title {
 	padding:0;
@@ -287,6 +285,7 @@ body{
 	height: 44px;
 	line-height:44px;
 	text-decoration: none;
+	float:left;
 }
 .portal-expand.expanded .u-navbar-brand img {
 	width: 120px;

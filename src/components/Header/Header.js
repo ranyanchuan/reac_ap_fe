@@ -4,6 +4,7 @@ import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
 import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import mirror, { connect,actions } from 'mirrorx';
 import UserMenus from 'components/UserMenu/UserMenu';
+import Tenant from 'components/Tenant/Tenant';
 import * as api from "../../pages/index/service";
 
 import { processData } from "utils";
@@ -307,13 +308,14 @@ class App extends Component {
 
         return (
             <Navbar fluid={true} className={"portal-navbar "+(expanded?"expanded":"")} expanded={expanded} onToggle={this.onToggle.bind(this)}>
-
                 <Brand>
                     <a href="javascript:;">
                         <img src={require(`static/images/logo_${cookie.load('u_locale')||'zh_CN'}.svg`)} className="portal-logo" />
                     </a>
                 </Brand>
-
+                {cookie.load('loginChannel') ==='yht'?<Nav  className="portal-nav" onClick={self.handleClick.bind(this)}>
+                    <Tenant {...UserMenuObj} />
+                </Nav>:""}
                 <Nav pullRight className="portal-nav" onClick={self.handleClick.bind(this)}>
                     <NavItem>
                         {!maxed?
