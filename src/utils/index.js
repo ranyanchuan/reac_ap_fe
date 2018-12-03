@@ -40,7 +40,7 @@ export const processData = (response,successMsg) => {
         }else if(repMsg=='fail_field'){
             Error(`错误:${(data && convert(data.msg)) || '数据返回出错'}`);
         }else {
-            Error(`错误:${convert(data.msg)}`);
+            Error(`错误:${convert(data.msg ||data.message)}`);
             return;
         }
     }else{

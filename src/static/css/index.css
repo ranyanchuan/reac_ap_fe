@@ -772,7 +772,7 @@ body{
 	box-shadow:none;
 	width:auto;
 }
-#app .u-badge .pap {
+#app .u-badge .pap, #app .u-badge .iconfont {
 	font-size: 20px;
 }
 .u-menu-list >li a {
@@ -936,7 +936,7 @@ a.first-child span {
 }
 
 #taskCenterBox,
-#messageCount {
+#messageCount,#maxBox {
     height: 44px;
 	padding: 0;
 	color: #1F3853;
@@ -950,7 +950,7 @@ a.first-child span {
 }
 
 #taskCenterBox:hover,
-#messageCount:hover {
+#messageCount:hover,#maxBox:hover {
     background: #dde0e2!important;
 }
 

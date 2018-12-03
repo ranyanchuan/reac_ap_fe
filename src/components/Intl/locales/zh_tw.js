@@ -14,5 +14,6 @@ const zh_TW = {
     'intl.button.export': "導出",
     'tabs.header.message': "消息中心",
     'tabs.header.task':"任務中心",
+    'tabs.header.max':"最大化",
 }
 export default zh_TW;

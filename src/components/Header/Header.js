@@ -24,6 +24,7 @@ class App extends Component {
             expanded:false,
             openKeys:[],
             curentOpenKeys: [],
+            maxed:false,
             unreadMsg:0
         };
         this.handleClick = this.handleClick.bind(this);
@@ -263,10 +264,36 @@ class App extends Component {
             e.preventDefault();
         }
     }
+    maxfunc(e){
+        let de  = document.documentElement;
+        if (de.requestFullscreen) {
+            de.requestFullscreen();
+        } else if (de.mozRequestFullScreen) {
+                de.mozRequestFullScreen();
+        } else if (de.webkitRequestFullScreen) {
+            de.webkitRequestFullScreen();
+        }
+        this.setState({
+            maxed:true
+        })
+    }
+    minifunc(e){
+        let de = document;
+        if (de.exitFullscreen) {
+            de.exitFullscreen();
+        } else if (de.mozCancelFullScreen) {
+            de.mozCancelFullScreen();
+        } else if (de.webkitCancelFullScreen) {
+            de.webkitCancelFullScreen();
+        }
+        this.setState({
+            maxed:false
+        })
+    }
     render (){
         let self = this;
 
-        let {unreadMsg} = self.state;
+        let {unreadMsg,maxed} = self.state;
         let {expanded,menus,intl} = this.props;
 
         var UserMenuObj = {
@@ -285,10 +312,23 @@ class App extends Component {
                     <a href="javascript:;">
                         <img src={require(`static/images/logo_${cookie.load('u_locale')||'zh_CN'}.svg`)} className="portal-logo" />
                     </a>
-
                 </Brand>
 
                 <Nav pullRight className="portal-nav" onClick={self.handleClick.bind(this)}>
+                    <NavItem>
+                        {!maxed?
+                            <a id="maxBox"  onClick={(e)=>self.maxfunc(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.max'})} title={intl.formatMessage({id: 'tabs.header.max'})}  className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.max'})} >
+                                <div className="u-badge">
+                                    <i className="iconfont icon-max"></i>
+                                </div>
+                            </a>:
+                            <a id="maxBox"  onClick={(e)=>self.minifunc(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.max'})} title={intl.formatMessage({id: 'tabs.header.max'})}  className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.max'})} >
+                                <div className="u-badge">
+                                    <i className="iconfont icon-mini"></i>
+                                </div>
+                            </a>
+                    }
+                    </NavItem>
                     <NavItem>
                         <a id="taskCenterBox" value="taskcenter" onClick={(e)=>self.handleDefault(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.task'})} title={intl.formatMessage({id: 'tabs.header.task'})} href={`${GROBAL_HTTP_CTX}/index-view.html#/taskcenter`} className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.task'})} >
                             <div className="u-badge">
