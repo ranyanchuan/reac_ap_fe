@@ -6,6 +6,7 @@ import mirror, { connect,actions } from 'mirrorx';
 import UserMenus from 'components/UserMenu/UserMenu';
 import Tenant from 'components/Tenant/Tenant';
 import * as api from "../../pages/index/service";
+import { subscribe } from  'components/EventBus/Eventbus';
 
 import { processData } from "utils";
 const Header = Navbar.Header;
@@ -16,6 +17,7 @@ const Brand = Navbar.Brand;
 const Collapse = Navbar.Collapse;
 const Toggle = Navbar.Toggle;
 const Nav = Navbar.Nav;
+
 
 class App extends Component {
     constructor(props, context) {
@@ -42,18 +44,23 @@ class App extends Component {
     
         let {webpuship,webpushport} =info.webpush;
         var userId = cookie.load('userId');
-        var userkey = cookie.load('tenantid') == ""? "null" : cookie.load('tenantid')
+        var userkey = cookie.load('tenantid')  === ""? "null" : cookie.load('tenantid')
+        subscribe(webpuship,webpushport,{
+                    "identity": "server1001",
+                    "appid": "",
+                    "userkey": userkey.concat("_", userId)
+                },(err, jsonMsg)=>{
 
-        // Message.subscribe(
-        //     webpuship,
-        //     webpushport,
-        //     {
-        //         "identity": "server1001",
-        //         "appid": "",
-        //         "userkey": userkey.concat("_", userId)
-        //     }, ()=>{
-        //         console.log(111);
-        //     });
+                    var Tcount = 0;
+                    if (jsonMsg.message && JSON.parse(jsonMsg.message)[userkey.concat("_", userId)]) {
+                        Tcount = JSON.parse(jsonMsg.message)[userkey.concat("_", userId)];
+                        this.setState({
+                            unreadMsg:Tcount>99?'99+':Tcount
+                        })
+                    }
+
+                })
+
 
     }
     onToggle(value) {
