@@ -307,7 +307,8 @@ class App extends Component {
         var UserMenuObj = {
             formmaterUrl:self.formmaterUrl,
             handleClick:self.handleClick,
-            handleDefault:self.handleDefault
+            handleDefault:self.handleDefault,
+            intl:intl
         };
 
 
