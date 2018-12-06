@@ -66,6 +66,7 @@ class UserMenus extends Component {
     render() {
 
         var self = this;
+        let {intl} = this.props;
 
         return (
             <Menu mode="horizontal" onClick={(e) => self.handleClick(e)} className="dropdown" style={{ width: '100%' }}>
@@ -96,7 +97,7 @@ class UserMenus extends Component {
                 }
 
                 <li className="u-menu-item" style={{paddingLeft:16}}>
-                    <a ref="setting3" title="注销"  value="logout" href={`${GROBAL_HTTP_CTX}/user/beflogout`}><i aria-hidden="true" className="qy-iconfont icon-tubiao-zhuxiao"></i> 注销</a>
+                    <a ref="setting3" title="注销"  value="logout" href={`${GROBAL_HTTP_CTX}/user/beflogout`}><i aria-hidden="true" className="qy-iconfont icon-tubiao-zhuxiao"></i>{intl.formatMessage({id: 'tabs.header.signout'})} </a>
                 </li>
                 </SubMenu>
             </Menu>
