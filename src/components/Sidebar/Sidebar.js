@@ -73,11 +73,11 @@ class App extends Component {
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
         let {menus,current,showNotice} = this.props;
 
-        var tar = e.target || e.domEvent.target;
+        let tar = e.target || e.domEvent.target;
 
-        var target = $(tar).closest('a');
+        tar = tar.closest('a');
 
-        if (!target.is('a')) {
+        if (!tar.tagName || tar.tagName !== 'A') {
             return false;
         }
 
