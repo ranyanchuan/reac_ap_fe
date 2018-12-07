@@ -48,6 +48,7 @@
     "axios": "^0.18.0",
     "core-js": "^2.5.7",
     "director": "^1.2.8",
+    "element-closest": "^2.0.2",
     "es6-promise": "^4.0.5",
     "intl": "^1.2.5",
     "mirrorx": "^0.2.10",
