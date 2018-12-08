@@ -280,6 +280,8 @@ class App extends Component {
                 de.mozRequestFullScreen();
         } else if (de.webkitRequestFullScreen) {
             de.webkitRequestFullScreen();
+        }else if(de.msRequestFullscreen){
+            de.msRequestFullscreen()
         }
         this.setState({
             maxed:true
@@ -293,6 +295,8 @@ class App extends Component {
             de.mozCancelFullScreen();
         } else if (de.webkitCancelFullScreen) {
             de.webkitCancelFullScreen();
+        }else if(de.msExitFullscreen){
+            de.msExitFullscreen()
         }
         this.setState({
             maxed:false
