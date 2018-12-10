@@ -704,7 +704,7 @@ class App extends Component {
 
     render() {
         var self = this;
-        const {expanded,menu,submenuSelected,curNum,current} = this.props;
+        const {expanded,menu,submenuSelected,curNum,current,intl} = this.props;
         var isSeleted = submenuSelected;
         var menuSearch  = this.state.menuSearch;
         return (
@@ -851,8 +851,8 @@ class App extends Component {
                                         <SubMenu onTitleMouseEnter={self.onTitleMouseEnter.bind(self)} key={item.menuId} className={'second-menu '+selected+ ' '+ noSecond +' menu-cloum-'+pages} children={item.children} title={title}>
                                             <li className="arrow-menu"></li>
                                             <div className='menu-search-con'style={{"top":0,"display":showsearch?"block":"none"}}>
-                                                <input className='menu-search-input' onClick={(e)=>{e.stopPropagation()}} onBlur={(e)=>{e.stopPropagation()}} onChange={(e)=>{self.searchChange(e,index1)}} placeholder={'搜索功能节点'}/>
-                                                {menuSearch[index1] && searchmenuList[0].length==0?<div className='unfindeLabel'>未找到相应节点</div>:""}
+                                                <input className='menu-search-input' onClick={(e)=>{e.stopPropagation()}} onBlur={(e)=>{e.stopPropagation()}} onChange={(e)=>{self.searchChange(e,index1)}} placeholder={intl.formatMessage({id:'tabs.sidebar.scplaceholder'})}/>
+                                                {menuSearch[index1] && searchmenuList[0].length==0?<div className='unfindeLabel'>{intl.formatMessage({id:'tabs.sidebar.nodate'})}</div>:""}
                                             </div>
                                             <div className='sub-menulist-con' style={{'width':menulist[1].length==0?"427px":"920px", 'maxHeight': document.body.clientHeight*0.8,'overflow':'auto','minHeight':showsearch?document.body.clientHeight*0.8:"0"}}>
                                                 {
@@ -894,10 +894,10 @@ class App extends Component {
                     </Menu>
                 </div>
                 <div className="more-bar" ref="moreBar" style={{display:'none'}}>
-                    <div ref="arrowUp" className={classNames('arrow-up', { lock: this.state.arrowUp })} title="通过滚动鼠标来移动菜单" onClick={this.scrollMenu.bind(this,-1)}>
+                    <div ref="arrowUp" className={classNames('arrow-up', { lock: this.state.arrowUp })} title={intl.formatMessage({id:'tabs.sidebar.rollUp'})} onClick={this.scrollMenu.bind(this,-1)}>
                         <i className="uf uf-2arrow-up" />
                     </div>
-                    <div ref="arrowDown" className={classNames('arrow-down', { lock: this.state.arrowDown })} title="通过滚动鼠标来移动菜单" onClick={this.scrollMenu.bind(this,1)}>
+                    <div ref="arrowDown" className={classNames('arrow-down', { lock: this.state.arrowDown })} title={intl.formatMessage({id:'tabs.sidebar.rollUp'})} onClick={this.scrollMenu.bind(this,1)}>
                         <i className="uf uf-2arrow-down" />
                     </div>
                 </div>

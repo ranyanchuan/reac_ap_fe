@@ -15,6 +15,9 @@ const zh_TW = {
     'tabs.header.message': "消息中心",
     'tabs.header.task':"任務中心",
     'tabs.header.max':"最大化",
-    'tabs.header.signout':"註銷"
+    'tabs.header.signout':"註銷",
+    'tabs.sidebar.scplaceholder':"搜索功能節點",
+    'tabs.sidebar.nodate':"未找到功能節點",
+    'tabs.sidebar.rollUp':"通過滾動鼠標來移動功能"
 }
 export default zh_TW;
