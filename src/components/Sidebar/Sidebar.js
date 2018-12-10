@@ -141,8 +141,9 @@ class App extends Component {
                         reload:reload?1:0,
                         currentRouter:reload?decodeURIComponent(decodeURIComponent(router.replace('#\/ifr\/',''))):''
                     };
+                    actions.app.updateState(data);
                 }
-                actions.app.updateState(data);
+
             }
         }
         this.createTab(options);
