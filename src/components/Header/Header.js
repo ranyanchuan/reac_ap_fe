@@ -32,6 +32,10 @@ class App extends Component {
         };
         this.handleClick = this.handleClick.bind(this);
     }
+    componentWillMount(){
+        this.addFullScreenChangeEvent();
+    }
+
     async componentDidMount(){
 
         // 调用 loadUserMenuList 请求数据
@@ -272,6 +276,24 @@ class App extends Component {
             e.preventDefault();
         }
     }
+    addFullScreenChangeEvent =()=>{
+        let de  = document.documentElement;
+        if (de.requestFullscreen) {
+            document.addEventListener('fullscreenchange', ()=>this.fulllscreenChange());
+        } else if (de.mozRequestFullScreen) {
+            document.addEventListener('mozfullscreenchange', ()=>this.fulllscreenChange());
+        } else if (de.webkitRequestFullScreen) {
+            document.addEventListener('webkitfullscreenchange', ()=>this.fulllscreenChange());
+        }else if(de.msRequestFullscreen){
+            document.addEventListener('MSFullscreenChange', ()=>this.fulllscreenChange());
+        }
+    }
+    fulllscreenChange = ()=>{
+        var  mexed = this.state.maxed;
+        this.setState({
+            maxed:!mexed
+        })
+    }
     maxfunc(e){
         let de  = document.documentElement;
         if (de.requestFullscreen) {
@@ -283,9 +305,6 @@ class App extends Component {
         }else if(de.msRequestFullscreen){
             de.msRequestFullscreen()
         }
-        this.setState({
-            maxed:true
-        })
     }
     minifunc(e){
         let de = document;
@@ -298,9 +317,7 @@ class App extends Component {
         }else if(de.msExitFullscreen){
             de.msExitFullscreen()
         }
-        this.setState({
-            maxed:false
-        })
+
     }
     render (){
         let self = this;
