@@ -639,7 +639,7 @@ class App extends Component {
     }
 
     confirm(){
-        if(getBrowserVersion()=='IE9'){
+        if(getBrowserVersion().indexOf("IE") !="-1"){
             return false;
         }
         window.onbeforeunload = function() {
