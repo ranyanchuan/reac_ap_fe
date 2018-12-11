@@ -52,12 +52,29 @@ export default {
 
             // 调用 getList 请求数据
             let res = processData(await api.getList());
-
+            let data ;
+            if(!res || !res.data){
+                data = [{
+                    "location" : "pages/default/index.js",
+                    "name" : "首页",
+                    "menustatus" : "Y",
+                    "children" : null,
+                    "icon" : "iconfont icon-C-home",
+                    "openview" : "curnpage",
+                    "menuId" : "M0000000000002",
+                    "urltype" : "plugin",
+                    "id" : "index",
+                    "isDefault" : null,
+                    "licenseControlFlag" : 0
+                }]
+            }else{
+                data = res.data;
+            }
             actions.app.updateState({
-                menu: res.data,
+                menu: data,
             });
 
-            return res.data;
+            return data;
         },
 
 

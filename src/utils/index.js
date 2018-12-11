@@ -39,6 +39,7 @@ export const processData = (response,successMsg) => {
             return data;
         }else if(repMsg=='fail_field'){
             Error(`错误:${(data && convert(data.msg)) || '数据返回出错'}`);
+            return
         }else {
             Error(`错误:${convert(data.msg ||data.message)}`);
             return;
