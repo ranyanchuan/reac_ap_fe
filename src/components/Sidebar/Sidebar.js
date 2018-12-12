@@ -74,8 +74,9 @@ class App extends Component {
         let {menus,current,showNotice} = this.props;
 
         let tar = e.target || e.domEvent.target;
-
-        tar = tar.closest('a');
+        if (!tar.tagName || tar.tagName !== 'A') {
+            tar = tar.closest('a');
+        }
 
         if (!tar.tagName || tar.tagName !== 'A') {
             return false;
