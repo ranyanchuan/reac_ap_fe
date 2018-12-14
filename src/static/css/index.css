@@ -1304,4 +1304,19 @@ span.tenant-name{
 	display: inline;
 	line-height: 14px;
 }
+@media screen and (max-width:1100px){
+	.sub-menulist-con{
+		max-width: 760px;
+	}
+	.u-menu-list{
+		width: 370px;
+		padding-left: 20px;
+	}
+	.menu-search-con{
+		padding: 0 20px 0 20px;
+	}
+	.menu-search-input{
+		border: 1px solid #cecece;
+	}
 
+}
