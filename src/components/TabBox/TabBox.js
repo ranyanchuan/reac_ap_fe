@@ -116,7 +116,7 @@ class Tab extends Component {
         })
     }
     componentDidUpdate(){
-        this.tabNotice();
+        // this.tabNotice();
     }
     tabNotice (){
         const {menus} = this.props;

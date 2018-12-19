@@ -4,7 +4,9 @@ import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
 import mirror, { connect,actions } from 'mirrorx';
 import cookie from 'react-cookie';
 import {Router} from 'director/build/director';
-import classNames from 'classnames'
+import classNames from 'classnames';
+import { Warning } from '../../utils/index';
+
 import * as api from "../../pages/index/service";
 window.router = new Router();
 require('components/viewutil/viewutil');
@@ -71,7 +73,7 @@ class App extends Component {
 
     handleClick(e,reload) {
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
-        let {menus,current,showNotice} = this.props;
+        let {menus,current,showNotice,intl} = this.props;
 
         let tar = e.target || e.domEvent.target;
         if (!tar.tagName || tar.tagName !== 'A') {
@@ -133,6 +135,7 @@ class App extends Component {
                     actions.app.updateState({
                         showNotice:1
                     })
+                    Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
                     return false;
                 }
                 else if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1){

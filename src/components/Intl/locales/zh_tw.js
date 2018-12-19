@@ -18,6 +18,7 @@ const zh_TW = {
     'tabs.header.signout':"註銷",
     'tabs.sidebar.scplaceholder':"搜索功能節點",
     'tabs.sidebar.nodate':"未找到功能節點",
-    'tabs.sidebar.rollUp':"通過滾動鼠標來移動功能"
+    'tabs.sidebar.rollUp':"通過滾動鼠標來移動功能",
+    'tabs.sidebar.maxnums':"抱歉，最多展示10个页签！"
 }
 export default zh_TW;

@@ -74,10 +74,13 @@
 .tabs-list li.home {
 
 }
+.tabs-list li:first-child a{
+    padding:0 10px;
+}
 .tabs-list li a {
     color:#666;
     text-decoration: none;
-    padding:0 10px;
+    padding:0 16px 0 10px;
     display:block;
     cursor: pointer;
     line-height: 30px;
@@ -123,7 +126,7 @@
     cursor: pointer;
     transition: all 0.3s ease 0s;
     position:absolute;
-    right:5px;
+    right:2px;
     top:8px;
     height:15px;
     width:15px;

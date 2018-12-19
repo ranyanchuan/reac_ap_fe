@@ -7,6 +7,7 @@ import UserMenus from 'components/UserMenu/UserMenu';
 import Tenant from 'components/Tenant/Tenant';
 import * as api from "../../pages/index/service";
 import { subscribe } from  'components/EventBus/Eventbus';
+import { Warning } from '../../utils/index';
 
 import { processData } from "utils";
 const Header = Navbar.Header;
@@ -87,7 +88,7 @@ class App extends Component {
     }
     handleClick(e,reload) {
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
-        let {menus,current} = this.props;
+        let {menus,current,intl} = this.props;
 
         let self = this;
 
@@ -172,6 +173,7 @@ class App extends Component {
                     actions.app.updateState({
                         showNotice:1
                     });
+                    Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
                     return false;
                 }
                 else if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1){
