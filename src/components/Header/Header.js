@@ -57,7 +57,7 @@ class App extends Component {
                 },(err, jsonMsg)=>{
 
                     var Tcount = 0;
-                    if (jsonMsg.message && JSON.parse(jsonMsg.message)[userkey.concat("_", userId)]) {
+                    if (jsonMsg.message && JSON.parse(jsonMsg.message)[userkey.concat("_", userId)]!=undefined) {
                         Tcount = JSON.parse(jsonMsg.message)[userkey.concat("_", userId)];
                         this.setState({
                             unreadMsg:Tcount>99?'99+':Tcount
