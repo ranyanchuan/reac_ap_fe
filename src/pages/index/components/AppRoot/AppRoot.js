@@ -20,6 +20,8 @@ class App extends Component {
         this.state = {
 
         };
+        let intl  = props.intl;
+        document.title = intl.formatMessage({id: 'tabs.main.title',defaultMessage:"用友iuap开发平台"})
     }
 
     render() {

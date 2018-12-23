@@ -6,6 +6,7 @@ const zh_CN = {
     'tabs.sidebar.scplaceholder':"搜索功能节点",
     'tabs.sidebar.nodate':"未找到相应节点",
     'tabs.sidebar.rollUp':"通过滚动鼠标来移动菜单",
-    'tabs.sidebar.maxnums':"抱歉，最多展示10个页签！"
+    'tabs.sidebar.maxnums':"抱歉，最多展示10个页签！",
+    'tabs.main.title':'用友iuap开发平台'
 }
 export default zh_CN;
