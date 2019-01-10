@@ -90,6 +90,7 @@ class Tab extends Component {
                 ifr.src = 'about:blank';
                 frameWin.document.write('');
                 frameWin.document.clear();
+                CollectGarbage();
             }catch(e){};
         }
 
