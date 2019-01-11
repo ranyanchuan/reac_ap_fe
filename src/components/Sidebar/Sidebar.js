@@ -851,7 +851,7 @@ class App extends Component {
 
 
                                     var selected = item.id == isSeleted?"u-menu-submenus-selected":"";
-                                    var showsearch = curHeight > document.body.clientHeight*0.8;
+                                    var showsearch = curHeight > document.body.clientHeight*0.8 || curHeight2 > document.body.clientHeight*0.8;
                                     return (
                                         <SubMenu onTitleMouseEnter={self.onTitleMouseEnter.bind(self)} key={item.menuId} className={'second-menu '+selected+ ' '+ noSecond +' menu-cloum-'+pages} children={item.children} title={title}>
                                             <li className="arrow-menu"></li>
