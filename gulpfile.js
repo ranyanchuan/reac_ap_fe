@@ -14,7 +14,7 @@ const publishConfig = {
     repositoryURL: "http://172.16.51.12:8081/nexus/content/repositories/iUAP-Snapshots",
     artifactId: PACKAGE_NAME,
     groupId: "com.yonyou.iuap.pap",
-    version: "3.5.5-SNAPSHOT"
+    version: "3.5.6-SNAPSHOT"
 };
 
 /**
@@ -42,7 +42,7 @@ gulp.task("install", ["package"], function(){
   const { command, repositoryId, groupId, artifactId, version, repositoryURL } = publishConfig;
 
   // 安装命令
-  var installCommandStr = `${command} install:install-file -Dfile=${targetPath}/${PACKAGE_WAR_NAME} -DgroupId=com.yonyou.iuap.pap -DartifactId=light_frame_fe -Dversion=3.5.5-SNAPSHOT -Dpackaging=war`;
+  var installCommandStr = `${command} install:install-file -Dfile=${targetPath}/${PACKAGE_WAR_NAME} -DgroupId=com.yonyou.iuap.pap -DartifactId=light_frame_fe -Dversion=3.5.6-SNAPSHOT -Dpackaging=war`;
   
   var installWarProcess =	process.exec(installCommandStr, function(err,stdout,stderr){
 		if(err) {
@@ -70,7 +70,7 @@ gulp.task("deploy", ["install"], function(){
   var targetPath = fs.realpathSync('.');
   const { command, repositoryId, groupId, artifactId, version, repositoryURL } = publishConfig;
 
-  var publishCommandStr =  `${command} deploy:deploy-file  -Dfile=${targetPath}/${PACKAGE_WAR_NAME} -DgroupId=com.yonyou.iuap.pap -DartifactId=light_frame_fe -Dversion=3.5.5-SNAPSHOT -Dpackaging=war -DrepositoryId=${repositoryId} -Durl=${repositoryURL}`;
+  var publishCommandStr =  `${command} deploy:deploy-file  -Dfile=${targetPath}/${PACKAGE_WAR_NAME} -DgroupId=com.yonyou.iuap.pap -DartifactId=light_frame_fe -Dversion=3.5.6-SNAPSHOT -Dpackaging=war -DrepositoryId=${repositoryId} -Durl=${repositoryURL}`;
 
   console.info(publishCommandStr);
 
