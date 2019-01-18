@@ -271,11 +271,21 @@ class App extends Component {
             }else{
                 uri = '#/ifr/' + encodeURIComponent(encodeURIComponent(item.location));
             }
+            if(uri.indexOf('?')!=-1){
+                uri+="&modulefrom=sidebar";
+            }else{
+                uri+="?modulefrom=sidebar"
+            }
             return  uri;
         } else if (item.urltype === 'plugin') {
             uri = item.id ? ('#/' + item.id) : "#/index_plugin";
 
             uri = `${GROBAL_HTTP_CTX}/`+encodeURIComponent(encodeURIComponent('index-view.html'+uri));
+            if(uri.indexOf('?')!=-1){
+                uri+="&modulefrom=sidebar";
+            }else{
+                uri+="?modulefrom=sidebar"
+            }
             return  uri;
         } else if (item.urltype === 'view') {
             uri = item.location;
@@ -285,6 +295,11 @@ class App extends Component {
                 uri = "/sidebar"+uri;
             }else{
                 uri = "/sidebar/"+uri;
+            }
+            if(uri.indexOf('?')!=-1){
+                uri+="&modulefrom=sidebar";
+            }else{
+                uri+="?modulefrom=sidebar"
             }
             // window.addRouter(uri);
             // return  "#"+uri;
