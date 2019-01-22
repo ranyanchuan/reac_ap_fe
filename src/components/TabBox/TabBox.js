@@ -23,6 +23,7 @@ class Tab extends Component {
         this.setCurrent = this.setCurrent.bind(this);
 
         this.del = this.del.bind(this);
+        window.closeWin = this.del;
     }
     setCurrent (id) {
 
