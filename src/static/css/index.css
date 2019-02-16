@@ -221,8 +221,12 @@ body{
 }
 
 
-#bs-example-navbar-collapse-9 .dropdown-menu .u-menu-inline>.u-menu-item:hover,#bs-example-navbar-collapse-10 .dropdown-menu .u-menu-inline>.u-menu-item:hover,
+/* #bs-example-navbar-collapse-9 .dropdown-menu .u-menu-inline>.u-menu-item:hover,#bs-example-navbar-collapse-10 .dropdown-menu .u-menu-inline>.u-menu-item:hover,
 #username:hover ,#tenantname:hover{
+    background: #f2f2f2;
+} */
+#bs-example-navbar-collapse-9 .dropdown-menu .u-menu-inline>.u-menu-item:hover,#bs-example-navbar-collapse-10 .dropdown-menu .u-menu-inline>.u-menu-item:hover,
+#tenantname:hover{
     background: #f2f2f2;
 }
 
