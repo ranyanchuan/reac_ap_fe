@@ -72,6 +72,7 @@ export default {
             }
             actions.app.updateState({
                 menu: data,
+                num:data?data.length:0
             });
 
             return data;

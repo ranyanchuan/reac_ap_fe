@@ -571,6 +571,7 @@ class App extends Component {
             // var menu = dom.find('.u-menu');
             // var arrow = dom.find('.arrow-menu');
             var menu = dom.children[0];
+            var menu2 = dom.children[1].children[2];
             var arrow = dom.children[1].children[0];
 
 
@@ -580,12 +581,14 @@ class App extends Component {
 
                     menu.style.bottom = -(h-parseInt(myOffest(dom).top)-50-20)+'px';
                     menu.style.top = 'inherit';
+                    menu2  &&(menu2.style.maxHeight = (h - parseInt(myOffest(dom).top)) *0.9 +'px');
                     arrow.style.bottom = (h-parseInt(myOffest(dom).top)-50)+15-20 + 'px';
                     arrow.style.top = 'inherit';
                 }
                 else {
                     menu.style.bottom = 0;
                     menu.style.top = 'inherit';
+                    menu2  &&(menu2.style.maxHeight = (h - parseInt(myOffest(dom).top)) *0.9 +'px');
                     arrow.style.bottom = '14px';
                     arrow.style.top = 'inherit';
                 }
@@ -593,6 +596,7 @@ class App extends Component {
             else {
                 menu.style.bottom = 0;
                 menu.style.top = 'inherit';
+                menu2  &&(menu2.style.maxHeight = (h - parseInt(myOffest(dom).top)) *0.9 +'px');
                 arrow.style.bottom = 'inherit';
                 arrow.style.top = '14px';
             }
@@ -632,7 +636,7 @@ class App extends Component {
 
         if(curNum<0){
             curNum = 0;
-            this.setStage({
+            this.setState({
                arrowUp:true
             })
             return false;
@@ -640,13 +644,13 @@ class App extends Component {
         //fix: add 1 fake element
         else if(curNum>num-showNum) {
             curNum=num-showNum;
-            this.setStage({
+            this.setState({
                 arrowDown:true
             })
             return false;
         }
         else {
-            this.setStage({
+            this.setState({
                 arrowDown:false,
                 arrowUp:false
             })
@@ -737,7 +741,7 @@ class App extends Component {
                     </div>
                 </Header>
                 <div className="sidebar-content" ref="uMenu">
-                    <Menu onClick={this.handleClick.bind(this)} className="u-menu-max1"  style={{marginTop:'-'+curNum*50}}  mode="vertical" >
+                    <Menu onClick={this.handleClick.bind(this)} className="u-menu-max1"  style={{marginTop:'-'+curNum*50+'px'}}  mode="vertical" >
                         {
                             menu.map(function (item,index1) {
                                 let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
@@ -874,7 +878,7 @@ class App extends Component {
                                                 <input className='menu-search-input' onClick={(e)=>{e.stopPropagation()}} onBlur={(e)=>{e.stopPropagation()}} onChange={(e)=>{self.searchChange(e,index1)}} placeholder={intl.formatMessage({id:'tabs.sidebar.scplaceholder'})}/>
                                                 {menuSearch[index1] && searchmenuList[0].length==0?<div className='unfindeLabel'>{intl.formatMessage({id:'tabs.sidebar.nodate'})}</div>:""}
                                             </div>
-                                            <div className='sub-menulist-con' style={{'width':menulist[1].length==0?"427px":"920px", 'maxHeight': document.body.clientHeight*0.8,'overflow':'auto','minHeight':showsearch?document.body.clientHeight*0.8:"0"}}>
+                                            <div className='sub-menulist-con' style={{'width':menulist[1].length==0?"427px":"920px",'overflow':'auto','minHeight':showsearch?document.body.clientHeight*0.8:"0"}}>
                                                 {
                                                     menuSearch[index1] && searchmenuList[0].length>0? (searchmenuList.map(function(ite,i){
                                                             ite = ite.length!=0?<div className="u-menu-list" key={i+'sm'+index1}>{ite}</div>:ite;
