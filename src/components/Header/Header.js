@@ -353,12 +353,12 @@ class App extends Component {
                             <a id="maxBox"  onClick={(e)=>self.maxfunc(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.max'})} title={intl.formatMessage({id: 'tabs.header.max'})}  className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.max'})} >
                                 <div className="u-badge">
                                     {/*<i className="iconfont icon-max"></i>*/}
-                                    <Icon type="uf-maxmize"></Icon>
+                                    <Icon type="uf-maxmize" style={{"fontSize":"18px"}}></Icon>
                                 </div>
                             </a>:
                             <a id="maxBox"  onClick={(e)=>self.minifunc(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.max'})} title={intl.formatMessage({id: 'tabs.header.max'})}  className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.max'})} >
                                 <div className="u-badge">
-                                    <Icon type="uf-minimize"></Icon>
+                                    <Icon type="uf-minimize" style={{"fontSize":"18px"}}></Icon>
                                 </div>
                             </a>
                     }
