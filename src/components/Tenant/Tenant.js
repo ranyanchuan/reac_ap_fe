@@ -25,7 +25,7 @@ class Tenant extends Component {
         //调用 loadUserMenuList 请求数据
         let res = processData(await api.getAllTenant());
         this.setState({
-            tenant: res
+            tenant: res.data
         });
     }
 
