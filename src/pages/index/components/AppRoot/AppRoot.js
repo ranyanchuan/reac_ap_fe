@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Navbar, Menu, Badge, Tile, Icon, Tooltip} from 'tinper-bee';
 
 import 'static/css/index.css';
+// import '../../../../layout/Header/header.css';
 
 /* 引入字体文件 */
 require('static/fonts/iuap_qy/iconfont.css');
@@ -32,7 +33,7 @@ class App extends Component {
             <div id="portal" className={"portal-expand " + (expanded ? "expanded" : "")}>
 
                 {/*加载侧边栏*/}
-                <ConnectedSidebar/>
+                {/*<ConnectedSidebar/>*/}
 
                 <div id="content">
                     {/*加载导航栏*/}

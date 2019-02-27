@@ -4,7 +4,7 @@ import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
 import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import mirror, { connect,actions } from 'mirrorx';
 import UserMenus from 'components/UserMenu/UserMenu';
-import Tenant from 'components/Tenant/Tenant';
+import Tenant from 'layout/Tenant/Tenant';
 import * as api from "../../pages/index/service";
 import { subscribe } from  'components/EventBus/Eventbus';
 import { Warning } from '../../utils/index';
@@ -46,7 +46,7 @@ class App extends Component {
         })
 
         let info  = processData(await api.getWebPushInfo());
-    
+
         let {webpuship,webpushport} =info.webpush;
         var userId = cookie.load('userId');
         var userkey = cookie.load('tenantid')  === ""? "null" : cookie.load('tenantid')

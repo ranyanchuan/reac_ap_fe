@@ -4,9 +4,9 @@ import {intlShape, injectIntl, defineMessages} from 'react-intl';
 
 // 组件引入
 import App from './components/AppRoot/AppRoot';
-import Header from 'components/Header/Header';
-import Sidebar from 'components/Sidebar/Sidebar';
-import TabBox from 'components/TabBox/TabBox';
+import Header from 'layout/Header/Header';
+import Sidebar from 'layout/Sidebar/Sidebar';
+import TabBox from 'layout/TabBox/TabBox';
 
 // // 数据模型引入
 import model from './model'
