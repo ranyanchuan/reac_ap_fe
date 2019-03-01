@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import cookie from "react-cookie";
-import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
+import {Navbar,Menu,Icon,Tooltip} from 'tinper-bee';
 import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import mirror, { connect,actions } from 'mirrorx';
 import UserMenus from 'components/UserMenu/UserMenu';
@@ -8,7 +8,9 @@ import Tenant from 'layout/Tenant/Tenant';
 import * as api from "../../pages/index/service";
 import { subscribe } from  'components/EventBus/Eventbus';
 import { Warning } from '../../utils/index';
-
+import HeaderLeft from './HeaderLeft';
+import HeaderCenter from './HeaderCenter';
+import HeaderRight from './HeaderRight';
 import { processData } from "utils";
 const Header = Navbar.Header;
 const SubMenu = Menu.SubMenu;
@@ -29,7 +31,10 @@ class App extends Component {
             openKeys:[],
             curentOpenKeys: [],
             maxed:false,
-            unreadMsg:0
+            unreadMsg:0,
+            svgWidth: 22,
+            svgHeight: 26
+
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -326,64 +331,28 @@ class App extends Component {
 
         let {unreadMsg,maxed} = self.state;
         let {expanded,menus,intl} = this.props;
-
+        let headerRightOper = {
+          maxfunc: self.maxfunc,
+          minifunc: self.minifunc,
+          handleDefault: self.handleDefault
+        }
         var UserMenuObj = {
             formmaterUrl:self.formmaterUrl,
             handleClick:self.handleClick,
             handleDefault:self.handleDefault,
             intl:intl
         };
-
-
-
+        // console.log(UserMenuObj);
 
         return (
-            <Navbar fluid={true} className={"portal-navbar "+(expanded?"expanded":"")} expanded={expanded} onToggle={this.onToggle.bind(this)}>
-                <Brand>
-                    <a href="javascript:;">
-                        <img src={require(`static/images/logo_${cookie.load('u_locale')||'zh_CN'}.svg`)} className="portal-logo" />
-                    </a>
-                </Brand>
-                {cookie.load('loginChannel') ==='yht'?<Nav  className="portal-nav" onClick={self.handleClick.bind(this)}>
+          <nav className="header">
+            <HeaderLeft placeholder={intl.formatMessage({id: 'header.search.placeholder'})}/>
+            <HeaderCenter/>
+            {cookie.load('loginChannel') ==='yht'?<Nav  className="portal-nav" onClick={self.handleClick.bind(this)}>
                     <Tenant {...UserMenuObj} />
                 </Nav>:""}
-                <Nav pullRight className="portal-nav" onClick={self.handleClick.bind(this)}>
-                    <NavItem>
-                        {!maxed?
-                            <a id="maxBox"  onClick={(e)=>self.maxfunc(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.max'})} title={intl.formatMessage({id: 'tabs.header.max'})}  className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.max'})} >
-                                <div className="u-badge">
-                                    {/*<i className="iconfont icon-max"></i>*/}
-                                    <Icon type="uf-maxmize" style={{"fontSize":"18px"}}></Icon>
-                                </div>
-                            </a>:
-                            <a id="maxBox"  onClick={(e)=>self.minifunc(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.max'})} title={intl.formatMessage({id: 'tabs.header.max'})}  className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.max'})} >
-                                <div className="u-badge">
-                                    <Icon type="uf-minimize" style={{"fontSize":"18px"}}></Icon>
-                                </div>
-                            </a>
-                    }
-                    </NavItem>
-                    <NavItem>
-                        <a id="taskCenterBox" value="taskcenter" onClick={(e)=>self.handleDefault(e)} data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.task'})} title={intl.formatMessage({id: 'tabs.header.task'})} href={`${GROBAL_HTTP_CTX}/index-view.html#/taskcenter`} className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.task'})} >
-                            <div className="u-badge">
-                                <i className="pap pap-task"></i>
-                            </div>
-                        </a>
-                    </NavItem>
-                    <NavItem>
-
-                        <a id="messageCount" value="msgCenter" onClick={(e)=>self.handleDefault(e)} data-ref="msgCenter" name={intl.formatMessage({id: 'tabs.header.message'})} title={intl.formatMessage({id: 'tabs.header.message'})} href={`${GROBAL_HTTP_CTX}/index-view.html#/msgCenter`} className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.message'})}>
-                            <div className="u-badge" data-badge={unreadMsg}>
-                                <i className="pap pap-massage"></i>
-                            </div>
-                        </a>
-                    </NavItem>
-
-                    <UserMenus {...UserMenuObj}  />
-                </Nav>
-
-
-            </Navbar>
+            <HeaderRight maxed={this.state.maxed} headerRightOper={headerRightOper} intl={intl} unreadMsg= {this.state.unreadMsg} UserMenuObj={UserMenuObj}/>
+          </nav>
         )
     }
 }

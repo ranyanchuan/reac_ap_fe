@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Navbar, Menu, Badge, Tile, Icon, Tooltip} from 'tinper-bee';
 
 import 'static/css/index.css';
-// import '../../../../layout/Header/header.css';
+import '../../../../layout/Header/header.css';
+import "static/iconfont/iconfont.js";
 
 /* 引入字体文件 */
 require('static/fonts/iuap_qy/iconfont.css');

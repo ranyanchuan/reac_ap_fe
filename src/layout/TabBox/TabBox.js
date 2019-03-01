@@ -139,7 +139,7 @@ class Tab extends Component {
 
         var self = this;
         const {current,menus,tabNum,showNotice,tabNotice} = this.props;
-
+        // console.log(menus);
 
         return (
 
@@ -151,6 +151,7 @@ class Tab extends Component {
                     <ul className="tabs-list">
                         {
                             menus.map(function (item,index) {
+                              debugger;
 
                                 var delIcon = index==0?'':(<i onClick={self.del.bind(this,item.id)} className="qy-iconfont icon-tubiao-guanbi x-close" key={item.router}></i>)
 

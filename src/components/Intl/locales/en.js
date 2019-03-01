@@ -7,6 +7,7 @@ const en_US = {
     'tabs.sidebar.nodate':"Can't find",
     'tabs.sidebar.rollUp':"Move menus by scrolling the mouse",
     'tabs.sidebar.maxnums':"Sorry, up to 10 tabs!",
-    'tabs.main.title':'Yonyou iuap Development Platform'
+    'tabs.main.title':'Yonyou iuap Development Platform',
+    'header.search.placeholder':'Application query'
 }
 export default en_US;
