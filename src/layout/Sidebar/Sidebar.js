@@ -12,8 +12,6 @@ window.router = new Router();
 require('components/viewutil/viewutil');
 
 
-const SubMenu = Menu.SubMenu;
-const SideContainer = Menu.SideContainer;
 const Header = Navbar.Header;
 
 
@@ -158,6 +156,37 @@ class App extends Component {
     openTab(e){
         // 新增方法后续需要重构
         let tar = e.target || e.domEvent.target;
+        if (!tar.tagName || tar.tagName !== 'A') {
+            tar = tar.closest('a');
+        }
+
+        if (!tar.tagName || tar.tagName !== 'A') {
+            return false;
+        }
+        var value = tar.getAttribute('value');
+        var dom = tar;
+        var title = dom.getAttribute('name');
+        var router =  dom.getAttribute('href');
+        var options = {
+            title:title,
+            router:router,
+            id:value
+        };
+        this.createTab(options);
+
+    }
+
+    openTab1(e){
+        debugger
+        // 新增方法后续需要重构
+        let tar = e.target || e.domEvent.target;
+        if (!tar.tagName || tar.tagName !== 'A') {
+            tar = tar.closest('a');
+        }
+
+        if (!tar.tagName || tar.tagName !== 'A') {
+            return false;
+        }
         var value = tar.getAttribute('value');
         var dom = tar;
         var title = dom.getAttribute('name');
@@ -707,6 +736,7 @@ class App extends Component {
             dddd: index
         })
     }
+    
     changeAhref(target){
         var uri=target.location;
         if(target.urltype === 'url'){
@@ -907,7 +937,9 @@ class App extends Component {
                                     <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} ref={item.id} href={self.formmaterUrl(item)} name={item.name}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item.name}</span></a>
                                 );
                                 return (
-                                    <Menu.Item key={item.id} >{title}</Menu.Item>
+                                    <div onClick={(e)=>self.openTab1(e)}>
+                                        {title}
+                                    </div>
                                 )
                             }
                         })
