@@ -29,14 +29,14 @@ const proxyConfig = [
     enable: true,
     headers: {
       // 这是之前网页的地址，从中可以看到当前请求页面的链接。
-      "Referer": "http://10.10.24.84:8080"
+      "Referer": "http://172.20.52.123"
       //   "Referer": "http://172.20.17.90:8080"
     },
     // context，如果不配置，默认就是代理全部。
     router: [
       '/wbalone','//wbalone'
     ],
-    url: 'http://10.10.24.84:8080'
+    url: 'http://172.20.52.123'
     //   url:'http://172.20.17.90:8080'
   },
   // 后台开发服务
@@ -44,14 +44,14 @@ const proxyConfig = [
     enable: true,
     headers: {
       // 这是之前网页的地址，从中可以看到当前请求页面的链接。
-      "Referer": 'http://10.10.24.84:8080'
+      "Referer": 'http://172.20.52.123'
       //   "Referer": "http://172.20.17.90:8080"
     },
     // context，如果不配置，默认就是代理全部。
     router: [
         '/react_example_fe','/iuap-saas-billcode-service','/newref','/pap_basedoc', '/react_example','/example', '/iuap-saas-filesystem-service', '/uitemplate_web', '/eiap-plus', '/iuap-saas-message-center','/reactfe','/iuap-saas-busilog-service','/iuap-eiap-bpm-service','/iuap-saas-dispatch-service','/iuaprmodel','/uui'
     ],
-    url: 'http://10.10.24.84:8080'
+    url: 'http://172.20.52.123'
     //   url:'http://172.20.17.90:8080'
   }
 ];

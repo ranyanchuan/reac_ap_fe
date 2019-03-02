@@ -153,7 +153,22 @@ class App extends Component {
         }
         this.createTab(options);
     }
+    
+    openTab(e){
+        // 新增方法后续需要重构
+        let tar = e.target || e.domEvent.target;
+        var value = tar.getAttribute('value');
+        var dom = tar;
+        var title = dom.getAttribute('name');
+        var router =  dom.getAttribute('href');
+        var options = {
+            title:title,
+            router:router,
+            id:value
+        };
+        this.createTab(options);
 
+    }
     createTab (options,value) {
 
 
@@ -689,7 +704,6 @@ class App extends Component {
         this.setState({
             sss: list
         })
-        debugger;
     }
     changeAhref(target){
         var uri=target.location;
@@ -739,7 +753,6 @@ class App extends Component {
         var isSeleted = submenuSelected;
         var menuSearch  = this.state.menuSearch;
         const sss = self.state.sss;
-        debugger;
         return (
             <div className={ sideBarShow? 'side-bar-show left-side-bar':'side-bar-hide left-side-bar'}>
                 <div className="left-side-bar-menu">
@@ -774,7 +787,7 @@ class App extends Component {
                                                               title={itit.name}
                                                               data-ahref={self.changeAhref(itit)}
                                                               data-licenseControlFlag={itit.licenseControlFlag}
-                                                              onClick={(e) => self.handleDefault(e, blank)}
+                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
                                                               ref={itit.id} name={itit.name}
                                                               href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
