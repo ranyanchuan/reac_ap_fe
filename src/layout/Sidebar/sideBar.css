@@ -1,0 +1,100 @@
+.left-side-bar {
+  position: fixed;
+  z-index:2000;
+  background: #fff;
+  width: 200px;
+  height: 100%;
+  top: 70px;
+  overflow: auto;
+  /* transform: translateX(-100%); */
+  display: none;
+}
+.left-side-bar .sidebar-content-sub {
+  position: fixed;
+  z-index:2000;
+  background: #fff;
+  /* width: 18%; */
+  height: 100%;
+  top: 70px;
+  left: 200px;
+  box-shadow: -4px 0 5px -3px rgba(23,43,77,0.32);
+  overflow: auto;
+}
+.left-side-bar .left-side-bar-menu .uf.uf-triangle-left{
+  display: none;
+}
+ .left-side-bar .left-side-bar-menu {
+  height: 44px;
+  line-height: 44px;
+  padding-left:21px;
+  font-size:14px;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(33,33,33,1) !important;
+}
+.left-side-bar .left-side-bar-menu  a.first-child {
+   color:rgba(33,33,33,1) !important;
+ }
+ .left-side-bar .left-side-bar-menu span {
+   margin-left: 8px;
+ }
+ .left-side-bar .sidebar-content-sub .sidebar-content-sub-menu-list {
+   height: 100% !important;
+ }
+ .left-side-bar .sidebar-content-sub-menu-list .menu-popup {
+   width: 100% !important;
+ }
+ .left-side-bar.side-bar-show {
+   transition: moveinter 0.3s ease-in-out;
+   display: block;
+   /* transform: translateX(0); */
+ }
+.left-side-bar.side-bar-hide {
+  transition: moveout 0.3s linear;
+  display: none;
+  /* transform: translateX(-100%); */
+}
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup span {
+  width:98px;
+height:20px;
+font-size:14px;
+font-family:PingFangHK-Medium;
+font-weight:500;
+color:rgba(17,17,17,1);
+line-height:20px;
+}
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup a {
+  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid #E8E8E8;
+  width: 100%;
+  display: inline-block
+}
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list {
+height:17px;
+font-size:13px;
+font-family:MicrosoftYaHei;
+color:rgba(85,85,85,1);
+line-height:17px;
+}
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list a{
+  border-bottom: none;
+}
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list a:hover{
+  /* background-color: none; */
+}
+@keyframes moveout {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes moveinter {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}

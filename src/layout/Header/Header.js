@@ -12,13 +12,15 @@ import HeaderLeft from './HeaderLeft';
 import HeaderCenter from './HeaderCenter';
 import HeaderRight from './HeaderRight';
 import { processData } from "utils";
-const Header = Navbar.Header;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-const NavItem = Navbar.NavItem;
-const Brand = Navbar.Brand;
-const Collapse = Navbar.Collapse;
-const Toggle = Navbar.Toggle;
+import {ConnectedHeaderLeft} from '../../pages/index/container';
+// import headerImg from 'static/images/bg_topbar.jpeg';
+// const Header = Navbar.Header;
+// const SubMenu = Menu.SubMenu;
+// const MenuItemGroup = Menu.ItemGroup;
+// const NavItem = Navbar.NavItem;
+// const Brand = Navbar.Brand;
+// const Collapse = Navbar.Collapse;
+// const Toggle = Navbar.Toggle;
 const Nav = Navbar.Nav;
 
 
@@ -326,11 +328,20 @@ class App extends Component {
         }
 
     }
+    svgClick() {
+      actions.app.updateState({
+        sideBarShow: !sideBarShow
+      })
+      // this.props.svgClick();
+    }
+
     render (){
         let self = this;
 
         let {unreadMsg,maxed} = self.state;
         let {expanded,menus,intl} = this.props;
+        let svgClick = self.svgClick;
+        // let sideBarShow = self.props.sideBarShow;
         let headerRightOper = {
           maxfunc: self.maxfunc,
           minifunc: self.minifunc,
@@ -342,11 +353,12 @@ class App extends Component {
             handleDefault:self.handleDefault,
             intl:intl
         };
+
         // console.log(UserMenuObj);
 
         return (
-          <nav className="header">
-            <HeaderLeft placeholder={intl.formatMessage({id: 'header.search.placeholder'})}/>
+          <nav className="header" style={{backgroundImage: `url(${require("static/images/bg_topbar.jpg")})`}}>
+            <ConnectedHeaderLeft placeholder={intl.formatMessage({id: 'header.search.placeholder'})}/>
             <HeaderCenter/>
             {cookie.load('loginChannel') ==='yht'?<Nav  className="portal-nav" onClick={self.handleClick.bind(this)}>
                     <Tenant {...UserMenuObj} />

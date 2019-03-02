@@ -549,7 +549,7 @@ body{
 }
 
 .content {
-	margin-top:30px;
+	/* margin-top:30px; */
 }
 
 .u-overlay{
@@ -1072,7 +1072,7 @@ span.tenant-name{
 .sidebar-content {
     width: 100%;
     position: absolute;
-    top: 50px;
+    /* top: 50px; */
 }
 
 .more-bar {

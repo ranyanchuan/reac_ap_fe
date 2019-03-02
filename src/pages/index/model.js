@@ -25,7 +25,8 @@ export default {
         curNum:0,//当前页签的数量
         num:0,
         clientHeight:document.body.clientHeight,
-        reload:0
+        reload:0,
+        sideBarShow: false
     },
     reducers: {
         /**

@@ -151,8 +151,6 @@ class Tab extends Component {
                     <ul className="tabs-list">
                         {
                             menus.map(function (item,index) {
-                              debugger;
-
                                 var delIcon = index==0?'':(<i onClick={self.del.bind(this,item.id)} className="qy-iconfont icon-tubiao-guanbi x-close" key={item.router}></i>)
 
                                 var homeIcon = index==0?<i className="qy-iconfont icon-tubiao-shouye"></i>:item.title;

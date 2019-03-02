@@ -1,12 +1,12 @@
 .tabs {
     height:30px;
-    position:fixed;
-    top:40px;
+    /* position:fixed; */
+    /* margin-top:40px; */
     z-index:1;
     background: #fff;
     width:100%;
-    overflow: hidden;
-    min-width:1200px;
+    /* overflow: hidden; */
+    /* min-width:1200px; */
 }
 .ifr-tabs {
     visibility: hidden;

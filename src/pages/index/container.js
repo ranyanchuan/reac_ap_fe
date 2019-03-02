@@ -7,6 +7,7 @@ import App from './components/AppRoot/AppRoot';
 import Header from 'layout/Header/Header';
 import Sidebar from 'layout/Sidebar/Sidebar';
 import TabBox from 'layout/TabBox/TabBox';
+import HeaderLeft from 'layout/Header/HeaderLeft';
 
 // // 数据模型引入
 import model from './model'
@@ -19,3 +20,4 @@ export const ConnectedApp = connect( state => state.app, null )(injectIntl(App))
 export const ConnectedHeader = connect( state => state.app, null )(injectIntl(Header));
 export const ConnectedSidebar = connect( state => state.app, null )(injectIntl(Sidebar));
 export const ConnectedTabBox = connect( state => state.app, null )(injectIntl(TabBox));
+export const ConnectedHeaderLeft = connect( state => state.app, null)(injectIntl(HeaderLeft))
