@@ -550,6 +550,7 @@ body{
 
 .content {
 	/* margin-top:30px; */
+	height: calc(100% - 70px);
 }
 
 .u-overlay{

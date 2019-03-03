@@ -6,6 +6,8 @@ import cookie from 'react-cookie';
 import {Router} from 'director/build/director';
 import classNames from 'classnames';
 import { Warning } from '../../utils/index';
+import Drawer from 'ac-drawer';
+import "ac-drawer/dist/ac-drawer.css";
 
 import * as api from "../../pages/index/service";
 window.router = new Router();
@@ -176,29 +178,7 @@ class App extends Component {
 
     }
 
-    openTab1(e){
-        debugger
-        // 新增方法后续需要重构
-        let tar = e.target || e.domEvent.target;
-        if (!tar.tagName || tar.tagName !== 'A') {
-            tar = tar.closest('a');
-        }
-
-        if (!tar.tagName || tar.tagName !== 'A') {
-            return false;
-        }
-        var value = tar.getAttribute('value');
-        var dom = tar;
-        var title = dom.getAttribute('name');
-        var router =  dom.getAttribute('href');
-        var options = {
-            title:title,
-            router:router,
-            id:value
-        };
-        this.createTab(options);
-
-    }
+    
     createTab (options,value) {
 
 
@@ -787,7 +767,9 @@ class App extends Component {
         const sss = self.state.sss;
         const dddd = self.state.dddd;
         return (
-            <div className={ sideBarShow? 'side-bar-show left-side-bar':'side-bar-hide left-side-bar'}>
+            // <div className={ sideBarShow? 'side-bar-show left-side-bar':'side-bar-hide left-side-bar'}>
+            <Drawer className={'demo2'} hasHeader={false} show={sideBarShow} placement="left">
+                <div className="left-side-bar">
                 <div className="left-side-bar-menu">
                     {
                         menu.map(function (item,index1) {
@@ -937,7 +919,7 @@ class App extends Component {
                                     <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} ref={item.id} href={self.formmaterUrl(item)} name={item.name}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item.name}</span></a>
                                 );
                                 return (
-                                    <div onClick={(e)=>self.openTab1(e)}>
+                                    <div onClick={(e)=>self.openTab(e)}>
                                         {title}
                                     </div>
                                 )
@@ -1091,7 +1073,9 @@ class App extends Component {
                             })
                         }
                 </div>
-            </div>
+                </div>
+                </Drawer>
+            // </div>
         )
     }
 }

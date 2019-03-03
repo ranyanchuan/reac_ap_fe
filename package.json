@@ -45,6 +45,7 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
+    "ac-drawer": "0.0.2",
     "antd": "^3.3.0",
     "axios": "^0.18.0",
     "core-js": "^2.5.7",
