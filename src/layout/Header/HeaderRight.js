@@ -18,6 +18,7 @@ class HeaderRight extends Component {
     }
     handleDefault(e) {
       this.props.headerRightOper.handleDefault(e);
+      this.props.handleClick(e);
     }
     render() {
       var self = this;

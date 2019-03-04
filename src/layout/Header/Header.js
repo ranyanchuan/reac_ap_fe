@@ -96,7 +96,7 @@ class App extends Component {
     handleClick(e,reload) {
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
         let {menus,current,intl} = this.props;
-
+        
         let self = this;
 
         // var data  = (e.keyPath.length==1)?{
@@ -110,7 +110,10 @@ class App extends Component {
         // };
 
         function getDOm() {
-            let tar = e.target;
+            let tar = e.target || e.domEvent.target;
+        if (!tar.tagName || tar.tagName !== 'A') {
+            tar = tar.closest('a');
+        }
             if(tar.getAttribute('value')){
                 return tar;
             }
@@ -146,7 +149,7 @@ class App extends Component {
             return false;
         }
 
-
+        
         let dom = tar;
         let title = dom.getAttribute('name');
         let router =  dom.getAttribute('href');
@@ -279,7 +282,6 @@ class App extends Component {
     }
 
     handleDefault(e,isDefault) {
-      debugger
         isDefault = (isDefault=="_blank")?false:true;
         if(window.isOpenTab&&isDefault){
             //dom.href = 'javascript:;'
@@ -364,7 +366,7 @@ class App extends Component {
             {cookie.load('loginChannel') ==='yht'?<Nav  className="portal-nav" onClick={self.handleClick.bind(this)}>
                     <Tenant {...UserMenuObj} />
                 </Nav>:""}
-            <HeaderRight maxed={this.state.maxed} headerRightOper={headerRightOper} intl={intl} unreadMsg= {this.state.unreadMsg} UserMenuObj={UserMenuObj}/>
+            <HeaderRight maxed={this.state.maxed} headerRightOper={headerRightOper} handleClick={self.handleClick.bind(this)} intl={intl} unreadMsg= {this.state.unreadMsg} UserMenuObj={UserMenuObj}/>
           </nav>
         )
     }

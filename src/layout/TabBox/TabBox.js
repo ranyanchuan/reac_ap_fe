@@ -135,8 +135,7 @@ class Tab extends Component {
         }
     }
     tabsMoreClick() {
-      debugger;
-      const {tabsMore} = this.props;
+      const {tabsMore} = this.props; 
       actions.app.updateState({
           tabsMore: !tabsMore
       })

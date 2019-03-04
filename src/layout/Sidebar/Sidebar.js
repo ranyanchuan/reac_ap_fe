@@ -774,7 +774,6 @@ class App extends Component {
         const sss = self.state.sss;
         const dddd = self.state.dddd;
         const sideSlected = self.state.sideSlected;
-        debugger;
         return (
             // <div className={ sideBarShow? 'side-bar-show left-side-bar':'side-bar-hide left-side-bar'}>
             <Drawer className={'demo2'} hasHeader={false} show={sideBarShow} placement="left">
