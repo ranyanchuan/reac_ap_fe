@@ -26,7 +26,8 @@ export default {
         num:0,
         clientHeight:document.body.clientHeight,
         reload:0,
-        sideBarShow: false
+        sideBarShow: false,
+        tabsMore: false
     },
     reducers: {
         /**

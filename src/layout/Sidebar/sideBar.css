@@ -4,7 +4,7 @@
   background: #fff;
   width: 700px;
   height: 100%;
-  top: 70px;
+  top: 40px;
   overflow: hidden;
   /* transform: translateX(-100%); */
   /* display: none; */
@@ -24,17 +24,25 @@
 .left-side-bar .left-side-bar-menu .uf.uf-triangle-left{
   display: none;
 }
+.sidebar-active {
+  color:rgba(38,132,255,1);
+}
+.left-side-bar .side-bar-first {
+  padding-left: 16px;
+}
+ .left-side-bar .side-bar-first:hover {
+  background: rgba(236,239,241,1);
+}
  .left-side-bar .left-side-bar-menu {
   height: 100%;
   width: 200px;
   display: inline-block;
   line-height: 44px;
-  padding-left:21px;
   overflow: auto;
   font-size:14px;
-font-family:PingFangSC-Regular;
-font-weight:400;
-color:rgba(33,33,33,1) !important;
+  font-family:PingFangSC-Regular;
+  font-weight:400;
+  color:rgba(33,33,33,1) !important;
 }
 .left-side-bar .left-side-bar-menu  a.first-child {
    color:rgba(33,33,33,1) !important;
@@ -43,7 +51,14 @@ color:rgba(33,33,33,1) !important;
    margin-left: 8px;
  }
  .left-side-bar .sidebar-content-sub .sidebar-content-sub-menu-list {
-   height: 100% !important;
+   margin-top: 16px;
+   /* height: 100% !important; */
+ }
+ .left-side-bar .sidebar-content-sub-menu-list .menu-popup a {
+   font-size: 14px;
+   font-family: PingFangHK-Medium;
+   font-weight: 500;
+   color: rgba(17,17,17,1);
  }
  .left-side-bar .sidebar-content-sub-menu-list .menu-popup {
    width: 100% !important;
@@ -60,51 +75,79 @@ color:rgba(33,33,33,1) !important;
 }
 .left-side-bar .sidebar-content-sub-menu-list .menu-popup span {
   width:98px;
-height:20px;
-font-size:14px;
-font-family:PingFangHK-Medium;
-font-weight:500;
-color:rgba(17,17,17,1);
-line-height:20px;
+  height:20px;
+  font-size:14px;
+  font-family:PingFangHK-Medium;
+  font-weight:500;
+  color:rgba(17,17,17,1);
+  line-height:20px;
 }
-.left-side-bar .sidebar-content-sub-menu-list .menu-popup a {
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup>a {
   border-bottom: 1px solid #E8E8E8;
   border-bottom: 1px solid #E8E8E8;
   width: 100%;
   display: inline-block
 }
-.left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list {
-height:17px;
-font-size:13px;
-font-family:MicrosoftYaHei;
-color:rgba(85,85,85,1);
-line-height:17px;
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list li {
+  line-height: 30px;
+  height: 30px;
+}
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list li a{
+  font-size:12px;
+  color:rgba(85,85,85,1);
+}
+.menu-popup .third-menu-content a {
+  cursor: pointer;
+  color: #666666;
+  text-decoration: none;
+  transition: all .3s ease;
+  /* line-height: 24px; */
+  /* padding: 3px 0; */
+  font-size: 13px;
+  /* max-width: 110px; */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  overflow: hidden;
 }
 .left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list a{
   border-bottom: none;
 }
-.left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list a:hover{
-  /* background-color: none; */
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list li:hover{
+  background-color: rgba(236,239,241,1);
 }
-@keyframes moveout {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup  .third-menu-content .third-menu-list li a:hover {
+  background: none;
 }
-@keyframes moveinter {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
-  }
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup .shoucanged {
+  display: inline-block;
+  position: absolute;
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  color:#FFC53D ;
+  margin-left: 8px;
+}
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup .shoucang {
+  display: none;
+  position: absolute;
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 8px;
+}
+.left-side-bar .sidebar-content-sub-menu-list .menu-popup>a:hover .shoucang {
+  display: inline-block;
+  position: absolute;
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 8px;
+  color: #999;
 }
 .demo2,.demo2 > div{
-  top: 70px;
-  height: calc(100% - 70px) !important;
+  top: 40px;
+  height: calc(100% - 40px) !important;
 }
 .drawer-body{
   width: 100%;

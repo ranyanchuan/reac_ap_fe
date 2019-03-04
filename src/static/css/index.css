@@ -876,7 +876,7 @@ body{
 	background:#fff;
 }
 
-.menu-popup .third-menu-content a {
+/* .menu-popup .third-menu-content a {
 
     cursor: pointer;
     color: #666666;
@@ -890,11 +890,11 @@ body{
     text-overflow: ellipsis;
     display: inline-block;
     overflow: hidden;
-}
-.menu-popup .third-menu-content a:hover {
+} */
+/* .menu-popup .third-menu-content a:hover {
 	font-weight: bold;
 	background:#f4f4f4;
-}
+} */
 .third-menu-list li {
 	display:inline-block;
 	width:33.3333%;

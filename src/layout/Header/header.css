@@ -9,15 +9,18 @@
   height: 40px;
   display: flex;
   align-items: center;
-  margin-left: 14px;
   justify-content: flex-start;
 }
 /* 顶部svg对应的样式 */
 .header-left .header-svg {
-  width: 22px;
+  /* width: 22px; */
   display: inline-block;
   font-size: 0;
   position: relative;
+  padding: 0 8px;
+}
+.header-svg-red {
+  background: red;
 }
 .header-left .header-svg::after {
   content: '';
@@ -25,7 +28,7 @@
   height:12px;
   background:rgba(179,186,197,1);
   position: absolute;
-  right: -16px;
+  right: -8px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -35,7 +38,7 @@
   height:26px;
   position: relative;
   display: inline-block;
-  margin-left: 32px;
+  margin-left: 24px;
 }
 .header-left .header-search input {
   position: absolute;

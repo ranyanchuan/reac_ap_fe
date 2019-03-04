@@ -29,7 +29,9 @@ class App extends Component {
             arrowDown:false,
             menuSearch:[],
             sss: [],
-            dddd: 1
+            dddd: 1,
+            sideSlected: ''
+
 
         };
         this.delTrigger();
@@ -154,7 +156,7 @@ class App extends Component {
         }
         this.createTab(options);
     }
-    
+
     openTab(e){
         // 新增方法后续需要重构
         let tar = e.target || e.domEvent.target;
@@ -175,10 +177,14 @@ class App extends Component {
             id:value
         };
         this.createTab(options);
+        let {sideBarShow} = this.props;
+        actions.app.updateState({
+          sideBarShow: !sideBarShow
+        })
 
     }
 
-    
+
     createTab (options,value) {
 
 
@@ -710,13 +716,14 @@ class App extends Component {
 
         }
     }
-    clickFun(e, list, index){
+    clickFun(e, item,list, index){
         this.setState({
             sss: list,
-            dddd: index
+            dddd: index,
+            sideSlected: item.menuId
         })
     }
-    
+
     changeAhref(target){
         var uri=target.location;
         if(target.urltype === 'url'){
@@ -766,6 +773,8 @@ class App extends Component {
         var menuSearch  = this.state.menuSearch;
         const sss = self.state.sss;
         const dddd = self.state.dddd;
+        const sideSlected = self.state.sideSlected;
+        debugger;
         return (
             // <div className={ sideBarShow? 'side-bar-show left-side-bar':'side-bar-hide left-side-bar'}>
             <Drawer className={'demo2'} hasHeader={false} show={sideBarShow} placement="left">
@@ -785,7 +794,7 @@ class App extends Component {
                                 var searchmenuList = [[],[]];
                                 var pages = 0;
 
-                                let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
+                                let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
                                 item.children.map(function(it,index2){
 
                                     let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
@@ -900,10 +909,10 @@ class App extends Component {
 
                                 var selected = item.id == isSeleted?"u-menu-submenus-selected":"";
                                 var showsearch = curHeight > document.body.clientHeight*0.8 || curHeight2 > document.body.clientHeight*0.8;
-                                
+
                                 return (
                                     /* 此处要考虑原有的submenu的逻辑 */
-                                    <div onClick={(e)=>self.clickFun(e,menulist,index1)}>
+                                    <div onClick={(e)=>self.clickFun(e,item,menulist,index1)} className="side-bar-first">
                                         {title}
                                     </div>
                                 )
@@ -919,7 +928,7 @@ class App extends Component {
                                     <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} ref={item.id} href={self.formmaterUrl(item)} name={item.name}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item.name}</span></a>
                                 );
                                 return (
-                                    <div onClick={(e)=>self.openTab(e)}>
+                                    <div onClick={(e)=>self.openTab(e)} className="side-bar-first">
                                         {title}
                                     </div>
                                 )
@@ -928,7 +937,7 @@ class App extends Component {
                     }
                 </div>
                 <div className="sidebar-content-sub">
-                        {   
+                        {
                             menu.map(function (item,index1) {
                                 if(index1 === dddd){
                                     let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
@@ -942,10 +951,10 @@ class App extends Component {
                                     var menulist = [[],[]];
                                     var searchmenuList = [[],[]];
                                     var pages = 0;
-    
-                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
+
+                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
                                     item.children.map(function(it,index2){
-    
+
                                         let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
                                         if(Array.isArray(it.children)&&it.children.length>0){
                                             let list2 = [];
@@ -954,7 +963,7 @@ class App extends Component {
                                             noSecond = 'no-second-menu';
                                             it.children.map(function(itit,index3){
                                                 let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
-    
+
                                                 let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
                                                                   data-areaId={itit.areaId}
                                                                   title={itit.name}
@@ -967,7 +976,7 @@ class App extends Component {
                                                                                                                    data-menuId={itit.menuId} title={'收藏'}></i></li>
                                                 list2.push(html)
                                                 if( itit.name.indexOf(menuSearch[index1])>=0) {
-    
+
                                                     let html = <li key={itit.menuId+"s"} ><a target={blank} value={itit.id}
                                                                       data-areaId={itit.areaId}
                                                                       title={itit.name}
@@ -978,11 +987,11 @@ class App extends Component {
                                                                       href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                                        data-menuId={itit.menuId} title={'收藏'}></i></li>
-    
+
                                                     searchlist.push(html)
                                                 }
-    
-    
+
+
                                             });
                                             if( list2.length>0) {
                                                 var  cellH = Math.ceil(it.children.length/3)*25+52;
@@ -1020,13 +1029,13 @@ class App extends Component {
                                                     searchmenuList[1].push (html)
                                                 }
                                             }
-    
+
                                             // }
                                         } else {
                                             // curHeight = 46+ curHeight;
                                             let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it.name}</span></a>);
-    
-    
+
+
                                             var  cellH = 46;
                                             let  html = <div className={'menu-popup'}>
                                                 <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
@@ -1049,16 +1058,16 @@ class App extends Component {
                                                     searchmenuList[1].push (html)
                                                 }
                                             }
-    
-    
+
+
                                         }
-    
+
                                     });
-    
-    
+
+
                                     var selected = item.id == isSeleted?"u-menu-submenus-selected":"";
                                     var showsearch = curHeight > document.body.clientHeight*0.8 || curHeight2 > document.body.clientHeight*0.8;
-                                    
+
                                    return  menulist.map(function(ite,i){
                                         ite = ite.length!=0?<div className="sidebar-content-sub-menu-list" >{ite}</div>:ite;
                                         return (
@@ -1068,8 +1077,8 @@ class App extends Component {
 
                                 }
                                 }
-                                
-                                
+
+
                             })
                         }
                 </div>

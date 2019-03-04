@@ -21,7 +21,7 @@
     left:0;
 }
 .tabs-list-box {
-    overflow: hidden;
+    /* overflow: hidden; */
     transition: all 0.3s ease 0s;
 }
 .portal-expand.expanded .tabs-list-box {
@@ -243,4 +243,47 @@
     .tabs-list li {
         width: 80px;
     }
+}
+.tabs-more {
+  float: right;
+  margin-right: 16px;
+  position: relative;
+}
+.tabs-more::before {
+  content: '';
+  width:1px;
+  height:12px;
+  background:rgba(179,186,197,1);
+  position: absolute;
+  /* right: -8px; */
+  top: 50%;
+  transform: translateY(-50%);
+}
+.tabs-more-list {
+  min-width: 200px;
+  position: absolute;
+  display: none;
+  z-index: 2000;
+  background: #fff;
+  padding: 0 0;
+  border-radius: 4px;
+  right:0;
+  box-shadow: 3px 6px 12px rgba(0,0,0,.175);
+}
+.tabs-more-list li {
+  width: 100%;
+  padding: 8px 16px;
+}
+.tabs-more-list li:hover {
+  background-color: rgba(236,239,241,1);
+}
+.tabs-more-list li a {
+  font-size: 14px;
+  color: #666;
+}
+.tabs-more-list.tabs-more-list-show {
+  display: block;
+}
+.tabs-more-list.tabs-more-list-hide {
+  display: none;
 }

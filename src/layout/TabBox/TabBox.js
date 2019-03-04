@@ -17,7 +17,7 @@ class Tab extends Component {
         var value = typeof sessionStorage['tabNotice']=='undefined'?true:sessionStorage['tabNotice'];
 
         this.state = {
-            tabNotice:JSON.parse(value),
+            tabNotice:JSON.parse(value)
         };
 
         this.setCurrent = this.setCurrent.bind(this);
@@ -122,7 +122,7 @@ class Tab extends Component {
     }
     tabNotice (){
         const {menus} = this.props;
-        if(menus.length>=11) {
+        if(menus.length>=3) {
             var dom = ReactDOM.findDOMNode(this.refs['tabNotice']);
             if(dom){
                 dom.style.display = '';
@@ -134,13 +134,22 @@ class Tab extends Component {
             },2000)
         }
     }
-
+    tabsMoreClick() {
+      debugger;
+      const {tabsMore} = this.props;
+      actions.app.updateState({
+          tabsMore: !tabsMore
+      })
+      console.log(this.props);
+    }
     render() {
 
         var self = this;
-        const {current,menus,tabNum,showNotice,tabNotice} = this.props;
+        const {current,menus,tabNum,showNotice,tabNotice,tabsMore} = this.props;
+        // let {tabsMore} = this.props;
+        let moremenu=[];
         // console.log(menus);
-
+        // debugger;
         return (
 
             <div id="portalTabs" className={"tabs ui-tabs-num-"+tabNum}>
@@ -148,6 +157,7 @@ class Tab extends Component {
                     {/*<span className="tabs-list-home">*/}
                     {/*<i className="qy-iconfont icon-tubiao-shouye"></i>*/}
                     {/*</span>*/}
+
                     <ul className="tabs-list">
                         {
                             menus.map(function (item,index) {
@@ -156,29 +166,40 @@ class Tab extends Component {
                                 var homeIcon = index==0?<i className="qy-iconfont icon-tubiao-shouye"></i>:item.title;
 
                                 var selected = current==item.id?'selected':'';
+                                var liDom;
+                                if(index >= 5) {
+                                  moremenu.push(item)
 
-                                return (
-                                    <li key={item.id} className={selected}>
-                                        <a onClick={self.setCurrent.bind(this,item.id)} href="javascript:;" title={item.title}>
-                                            {homeIcon}
-                                        </a>
-                                        {delIcon}
-                                    </li>
-                                )
+                                } else {
+                                  liDom = <li key={item.id} className={selected}>
+                                      <a onClick={self.setCurrent.bind(this,item.id)} href="javascript:;" title={item.title}>
+                                          {homeIcon}
+                                      </a>
+                                      {delIcon}
+                                  </li>
+                                }
+
+                                return liDom
+
                             })
                         }
                     </ul>
+                    {
+                      menus.length>=5? <div className="tabs-more" onClick={self.tabsMoreClick.bind(this)}>{!tabsMore?<i className="uf uf-gridcaretarrowup"></i>:<i className="uf uf-treearrow-down"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
+                      {
+                        moremenu.map(function(item1,index1){
+                          return (
+                            <li key={item1.id}><a onClick={self.setCurrent.bind(this,item1.id)} href="javascript:;" title={item1.title}>
+                                {item1.title}
+                            </a></li>
+                          )
+                        })
+                      }
+                      </ul></div>:''
+                    }
+
                 </div>
-                {
-                    (menus.length>=11&&tabNotice&&showNotice)?(
-                        (<div ref="tabNotice" className="portalTabs-message" >
-                            <p>
-                                <i className="uf qy-iconfont icon-tubiao-jingshi"></i> 抱歉，页面最多展示10个窗口！
-                            </p>
-                            <span style={{display:'none'}} onClick={this.notice.bind(this)}>不再显示</span>
-                        </div>)
-                    ):null
-                }
+
             </div>
 
         )

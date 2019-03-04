@@ -279,6 +279,7 @@ class App extends Component {
     }
 
     handleDefault(e,isDefault) {
+      debugger
         isDefault = (isDefault=="_blank")?false:true;
         if(window.isOpenTab&&isDefault){
             //dom.href = 'javascript:;'

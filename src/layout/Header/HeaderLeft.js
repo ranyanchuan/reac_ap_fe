@@ -16,11 +16,12 @@ class HeaderLeft extends Component {
     }
     render() {
       let self = this;
+      let {sideBarShow} = this.props;
         return (
             <div className="header-left">
-              <div className="header-svg" onClick={self.svgClick.bind(this)}>
+              <div className={sideBarShow?"header-svg header-svg-red":"header-svg"} onClick={self.svgClick.bind(this)}>
                 <svg className="icon" style={{"width":"22px",height:"22px"}}>
-                <use xlinkHref='#icon-logo'></use>
+                <use xlinkHref={sideBarShow?'#icon-logo1':'#icon-logo'}></use>
                 </svg>
               </div>
               <div className="header-search">
