@@ -823,7 +823,7 @@ class App extends Component {
                                                                   title={itit.name}
                                                                   data-ahref={self.changeAhref(itit)}
                                                                   data-licenseControlFlag={itit.licenseControlFlag}
-                                                                  onClick={(e) => self.handleDefault(e, blank)}
+                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
                                                                   ref={itit.id} name={itit.name}
                                                                   href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
@@ -879,7 +879,7 @@ class App extends Component {
 
                                         var  cellH = 46;
                                         let  html = <div className={'menu-popup'}>
-                                            <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                            <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                        data-menuId={it.menuId} title={'收藏'}></i></a>
                                         </div>
@@ -924,7 +924,7 @@ class App extends Component {
                                 }
 
                                 let title = (
-                                    <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} ref={item.id} href={self.formmaterUrl(item)} name={item.name}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item.name}</span></a>
+                                    <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={item.id} href={self.formmaterUrl(item)} name={item.name}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item.name}</span></a>
                                 );
                                 return (
                                     <div onClick={(e)=>self.openTab(e)} className="side-bar-first">
@@ -981,7 +981,7 @@ class App extends Component {
                                                                       title={itit.name}
                                                                       data-ahref={self.changeAhref(itit)}
                                                                       data-licenseControlFlag={itit.licenseControlFlag}
-                                                                      onClick={(e) => self.handleDefault(e, blank)}
+                                                                      onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
                                                                       ref={itit.id} name={itit.name}
                                                                       href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
@@ -1037,7 +1037,7 @@ class App extends Component {
 
                                             var  cellH = 46;
                                             let  html = <div className={'menu-popup'}>
-                                                <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                            onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                            data-menuId={it.menuId} title={'收藏'}></i></a>
                                             </div>
