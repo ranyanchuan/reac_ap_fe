@@ -88,7 +88,8 @@ class UserMenus extends Component {
                             <li key={item.code} className="u-menu-item" style={{paddingLeft:16}}>
                                 <a ref={item.code} value={item.code} onClick={ item.urlType==="url_blank"?"":(e) => self.props.handleDefault(e)}
                                    target={item.urlType==="url_blank"?"_blank":"_self"}
-                                   name={item.name} title={item.name} href={self.formmaterUrl(item)}>
+                                   name={item.name} title={item.name} href={item.urlType==="url_blank"?item.url: self.formmaterUrl(item)}>
+                                   // name={item.name} title={item.name} href={self.formmaterUrl(item)}>
                                     <i className={item.icon}></i>{item.name}
                                 </a>
                             </li>
@@ -106,4 +107,3 @@ class UserMenus extends Component {
 }
 
 export default UserMenus;
-
