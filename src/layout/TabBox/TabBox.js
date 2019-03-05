@@ -135,7 +135,7 @@ class Tab extends Component {
         }
     }
     tabsMoreClick() {
-      const {tabsMore} = this.props; 
+      const {tabsMore} = this.props;
       actions.app.updateState({
           tabsMore: !tabsMore
       })
@@ -166,7 +166,7 @@ class Tab extends Component {
 
                                 var selected = current==item.id?'selected':'';
                                 var liDom;
-                                if(index >= 5) {
+                                if(index >= 10) {
                                   moremenu.push(item)
 
                                 } else {
@@ -184,7 +184,7 @@ class Tab extends Component {
                         }
                     </ul>
                     {
-                      menus.length>=5? <div className="tabs-more" onClick={self.tabsMoreClick.bind(this)}>{!tabsMore?<i className="uf uf-gridcaretarrowup"></i>:<i className="uf uf-treearrow-down"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
+                      menus.length>=10? <div className="tabs-more" onClick={self.tabsMoreClick.bind(this)}>{!tabsMore?<i className="uf uf-gridcaretarrowup"></i>:<i className="uf uf-treearrow-down"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
                       {
                         moremenu.map(function(item1,index1){
                           return (
