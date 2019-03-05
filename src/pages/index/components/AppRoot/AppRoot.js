@@ -60,7 +60,7 @@ class App extends Component {
     }
     render() {
       let self = this;
-        const {expanded,menus,current} = this.props;
+        const {expanded,menus,current,showHeader} = this.props;
         // let sideBarShow = this.state.sideBarShow;
         // let svgClick = self.svgClick;
         // className={sideBarShow?'sider-bar-show':'side-bar-hide'}
@@ -70,7 +70,9 @@ class App extends Component {
                 {/*加载侧边栏*/}
                 <div id="content">
                     <ConnectedSidebar/>
-                    <ConnectedHeader/>
+                    {
+                      showHeader?<ConnectedHeader/>:''
+                    }
                     {/*加载Tab标签*/}
                     <ConnectedTabBox/>
 

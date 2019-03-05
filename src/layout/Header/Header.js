@@ -96,7 +96,7 @@ class App extends Component {
     handleClick(e,reload) {
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
         let {menus,current,intl} = this.props;
-        
+
         let self = this;
 
         // var data  = (e.keyPath.length==1)?{
@@ -149,7 +149,7 @@ class App extends Component {
             return false;
         }
 
-        
+
         let dom = tar;
         let title = dom.getAttribute('name');
         let router =  dom.getAttribute('href');
@@ -200,7 +200,6 @@ class App extends Component {
         this.createTab(options);
     }
     createTab (options,value) {
-
 
         var self = this;
         var {menus} = this.props;

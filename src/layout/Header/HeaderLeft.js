@@ -17,10 +17,18 @@ class HeaderLeft extends Component {
     render() {
       let self = this;
       let {sideBarShow} = this.props;
+      let obj = {
+        width:"18px",
+        height:"18px"
+      }
+      let obj1 = {
+        width:"24px",
+        height:"24px"
+      }
         return (
             <div className="header-left">
               <div className={sideBarShow?"header-svg header-svg-red":"header-svg"} onClick={self.svgClick.bind(this)}>
-                <svg className="icon" style={{"width":"22px",height:"22px"}}>
+                <svg className="icon" style={sideBarShow?obj1:obj}>
                 <use xlinkHref={sideBarShow?'#icon-logo1':'#icon-logo'}></use>
                 </svg>
               </div>

@@ -40,7 +40,7 @@
     float:left;
 }
 .tabs-list li {
-    width:110px;
+    max-width:200px;
     float:left;
     line-height:30px;
     display:inline-block;
@@ -54,10 +54,12 @@
     box-sizing: border-box;
     background:#f4f4f4;
     color:#666;
+    padding: 0 28px 0 8px;
 }
 .tabs-list li:first-child{
     width:44px;
     text-align: center;
+    padding: 0;
 }
 .tabs-list li.selected a {
 
@@ -80,7 +82,7 @@
 .tabs-list li a {
     color:#666;
     text-decoration: none;
-    padding:0 16px 0 10px;
+    /* padding:0 16px 0 10px; */
     display:block;
     cursor: pointer;
     line-height: 30px;
@@ -126,14 +128,29 @@
     cursor: pointer;
     transition: all 0.3s ease 0s;
     position:absolute;
-    right:2px;
+    right:3px;
     top:8px;
     height:15px;
     width:15px;
     line-height:15px;
     color:#ccc;
 }
-
+.tabs-list li i.tabs-up {
+  font-size:12px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  position:absolute;
+  right:0px;
+  top:7px;
+  height:15px;
+  width:15px;
+  line-height:15px;
+  color:#ccc;
+  padding: 0;
+}
+.tabs-list li i.tabs-up:hover {
+  color:red;
+}
 .scroll-tools {
     position:absolute;
     right:0;
@@ -181,7 +198,6 @@
 .scroll-tools-open {
     width: 50px;
 }
-
 
 .portalTabs-message {
     background:#FFFAEB;
@@ -244,7 +260,7 @@
         width: 80px;
     }
 }
-.tabs-more {
+/* .tabs-more {
   float: right;
   margin-right: 16px;
   position: relative;
@@ -255,9 +271,15 @@
   height:12px;
   background:rgba(179,186,197,1);
   position: absolute;
-  /* right: -8px; */
   top: 50%;
   transform: translateY(-50%);
+} */
+.tabs-list li.tabs-more {
+  overflow: inherit;
+  position: relative;
+}
+.tabs-list li.tabs-more a {
+  text-align: left;
 }
 .tabs-more-list {
   min-width: 200px;
@@ -265,14 +287,16 @@
   display: none;
   z-index: 2000;
   background: #fff;
-  padding: 0 0;
+  padding: 8px 0;
   border-radius: 4px;
-  right:0;
+  left:0;
+  top:30px;
   box-shadow: 3px 6px 12px rgba(0,0,0,.175);
 }
-.tabs-more-list li {
+.tabs-list .tabs-more-list li {
   width: 100%;
-  padding: 8px 16px;
+  min-width: 200px;
+  background: #fff;
 }
 .tabs-more-list li:hover {
   background-color: rgba(236,239,241,1);
@@ -286,4 +310,24 @@
 }
 .tabs-more-list.tabs-more-list-hide {
   display: none;
+}
+.tabs-header-show {
+  float: right;
+  margin-right: 16px;
+  position: relative;
+  line-height: 30px;
+}
+.tabs-header-show i {
+  font-size: 16px;
+  color: #1F3853;
+}
+.tabs-header-show::before {
+  content: '';
+  width:1px;
+  height:12px;
+  background:rgba(179,186,197,1);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left:-5px;
 }

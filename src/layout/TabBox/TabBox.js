@@ -5,6 +5,7 @@
 import React,{Component} from 'react';
 import ReactDom from 'react-dom';
 import {Button,Con,Col,Tile,Icon,Tooltip} from 'tinper-bee';
+import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import mirror, { connect,actions } from 'mirrorx';
 require('./Tabs.css');
 
@@ -17,7 +18,8 @@ class Tab extends Component {
         var value = typeof sessionStorage['tabNotice']=='undefined'?true:sessionStorage['tabNotice'];
 
         this.state = {
-            tabNotice:JSON.parse(value)
+            tabNotice:JSON.parse(value),
+            moreMenuList:[]
         };
 
         this.setCurrent = this.setCurrent.bind(this);
@@ -25,16 +27,41 @@ class Tab extends Component {
         this.del = this.del.bind(this);
         window.closeWin = this.del;
     }
+
     setCurrent (id) {
-
-
+        // debugger;
+        let morelist = this.state.moreMenuList;
+        let menuProp = this.props.menus;
+        let list = [];
+        let obj={};
+        let moreFlag = false;
+        if(morelist.length === 0) {
+          return;
+        }
+        for (var i = 0; i < morelist.length; i++) {
+          if(morelist[i].id === id) {
+            moreFlag = true;
+            obj = morelist[i];
+            break;
+          } else {
+            moreFlag = false;
+          }
+        }
+        if(moreFlag) {
+          for (var i = 0; i < menuProp.length; i++) {
+            if(menuProp[i].id === id) {
+              menuProp.splice(i,1);
+            }
+          }
+          menuProp.splice(9,0,obj);
+        }
+        // console.log('123',this.props.menus);
         actions.app.updateState({
             current: id,
             showNotice:0,
-            reload:0
+            reload:0,
+            menus: menuProp
         })
-
-
         sessionStorage['current'] = JSON.stringify({
             current:id
         });
@@ -134,6 +161,7 @@ class Tab extends Component {
             },2000)
         }
     }
+    // 页签更多的点击事件
     tabsMoreClick() {
       const {tabsMore} = this.props;
       actions.app.updateState({
@@ -141,12 +169,20 @@ class Tab extends Component {
       })
       console.log(this.props);
     }
+    //控制头部是否显示
+    showHeaderClick() {
+      const {showHeader} = this.props;
+      actions.app.updateState({
+          showHeader: !showHeader
+      })
+    }
     render() {
 
         var self = this;
-        const {current,menus,tabNum,showNotice,tabNotice,tabsMore} = this.props;
+        const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl} = this.props;
         // let {tabsMore} = this.props;
-        let moremenu=[];
+        const moremenu=[];
+        this.state.moreMenuList = [];
         // console.log(menus);
         // debugger;
         return (
@@ -166,8 +202,9 @@ class Tab extends Component {
 
                                 var selected = current==item.id?'selected':'';
                                 var liDom;
-                                if(index >= 10) {
-                                  moremenu.push(item)
+                                if(index >10) {
+                                  moremenu.push(item);
+                                  self.state.moreMenuList = moremenu;
 
                                 } else {
                                   liDom = <li key={item.id} className={selected}>
@@ -182,20 +219,25 @@ class Tab extends Component {
 
                             })
                         }
+                        {
+                          menus.length>11? <li className="tabs-more" onClick={self.tabsMoreClick.bind(this)}><a href="javascript:;">{intl.formatMessage({id: 'tabs.show.more'})}</a>{!tabsMore?<i className="uf uf-gridcaretarrowup tabs-up"></i>:<i className="uf uf-treearrow-down tabs-up"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
+                          {
+                            moremenu.map(function(item1,index1){
+                              return (
+                                <li key={item1.id}><a onClick={self.setCurrent.bind(this,item1.id)} href="javascript:;" title={item1.title}>
+                                    {item1.title}
+                                </a></li>
+                              )
+                            })
+                          }
+                          </ul></li>:''
+                        }
                     </ul>
                     {
-                      menus.length>=10? <div className="tabs-more" onClick={self.tabsMoreClick.bind(this)}>{!tabsMore?<i className="uf uf-gridcaretarrowup"></i>:<i className="uf uf-treearrow-down"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
-                      {
-                        moremenu.map(function(item1,index1){
-                          return (
-                            <li key={item1.id}><a onClick={self.setCurrent.bind(this,item1.id)} href="javascript:;" title={item1.title}>
-                                {item1.title}
-                            </a></li>
-                          )
-                        })
-                      }
-                      </ul></div>:''
+                      <div className="tabs-header-show" onClick={self.showHeaderClick.bind(this)}>{!showHeader?<i className="uf uf-gridcaretarrowup"></i>:<i className="uf uf-treearrow-down"></i>}</div>
+
                     }
+
 
                 </div>
 

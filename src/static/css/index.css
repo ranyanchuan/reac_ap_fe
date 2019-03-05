@@ -1227,7 +1227,7 @@ span.tenant-name{
     height: 30px;
     line-height: 30px;
     color:#FFC53D ;
-    margin-left: 2px;
+    margin-left: 8px;
 }
 .menu-popup  .third-menu-content  .shoucang,.u-menu-list .menu-popup .shoucang {
     display: none;
@@ -1235,7 +1235,7 @@ span.tenant-name{
     font-size: 12px;
     height: 30px;
     line-height: 30px;
-    margin-left: 2px;
+    margin-left: 8px;
 }
 .menu-popup .third-menu-content a:hover {
     font-weight: bold;
@@ -1247,7 +1247,7 @@ span.tenant-name{
     font-size: 12px;
     height: 30px;
     line-height: 30px;
-    margin-left: 2px;
+    margin-left: 8px;
     color: #999;
 
 }
