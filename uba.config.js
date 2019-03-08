@@ -301,7 +301,7 @@ const prodConfig = {
 glob.sync("./src/pages/**/index.html").forEach(path => {
     const chunk = path.split("./src/pages/")[1].split("/index.html")[0];
 
-    const filename = "index.html";
+    const filename = chunk + ".html";
     const key = chunk + "/index";
     const realPath = prodConfig.output.publicPath + key + '.js';
     const realCssPath = prodConfig.output.publicPath + key + '.css';

@@ -1,12 +1,17 @@
 import axios from "axios";
 
 export default (url, options) => {
+    let headers = {
+        'X-Requested-With': 'XMLHttpRequest'
+    }
+    if(options.headers)
+        headers = options.headers
     return axios({
         method: options.method,
         url: url,
         data: options.data,
         params: options.param,
-        headers:{'X-Requested-With': 'XMLHttpRequest'}
+        headers: headers
     }).catch(function (err) {
         console.log(err);
         if(err.response&&err.response.status==401){
