@@ -1,18 +1,31 @@
-/**   * 入口、导入组件样式、渲染   */
-import React from 'react';
-import mirror, {
-    render,
-    Router
-} from 'mirrorx';
-import Routers from "./routes";
-import 'ucf-common/src/app.less';
+import React, { Component } from "react";
+import 'core-js/es6/map';
+import 'core-js/es6/set';
+// import logger from "redux-logger";
+import mirror, { render,Router } from "mirrorx";
+import MainLayout from "layout";
+import Routes from './routes'
+import 'static/trd/tinper-bee/assets/tinper-bee.css'
+
+
+
+require('es6-promise').polyfill();
+
+import Intl from 'components/Intl/index.js'
+
+const MiddlewareConfig = [];
+
+// if(__MODE__ == "development") MiddlewareConfig.push(logger);
+
 mirror.defaults({
-    historyMode: "hash"
+    historyMode: "hash",
+    middlewares: MiddlewareConfig
 });
-render(React.createElement(Router, {
-    children: React.createElement(Routers, {
-        match: {
-            url: "/"
-        }
-    })
-}), document.querySelector("#app"));
+
+
+
+render(<Intl>
+    <Router>
+        <MainLayout Routes={Routes} />
+    </Router>
+</Intl>, document.querySelector("#login_div"));

@@ -5,7 +5,7 @@
 import React,{Component} from 'react';
 import {Navbar,Menu,Button,Con,Col,Tile,Icon} from 'tinper-bee';
 import mirror, { connect,actions } from 'mirrorx';
-import * as api from "../../pages/index/service";
+import * as api from "ucf-apps/index/src/service";
 
 const SubMenu = Menu.SubMenu;
 // 接口返回数据公共处理方法，根据具体需要

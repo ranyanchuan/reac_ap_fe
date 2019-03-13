@@ -10,7 +10,8 @@ class HeaderCenter extends Component {
         return (
             <div className="header-center">
               <a href="javascript:;">
-                <img src={require(`static/images/logo_${cookie.load('u_locale')||'zh_CN'}.svg`)} className="portal-logo" />
+                <div className={"portal-logo " + cookie.load('u_locale')||'zh_CN'}></div>
+                {/* <img src={a } className="portal-logo" /> */}
               </a>
             </div>
         );

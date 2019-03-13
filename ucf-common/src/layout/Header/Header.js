@@ -5,15 +5,15 @@ import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import mirror, { connect,actions } from 'mirrorx';
 import UserMenus from 'components/UserMenu/UserMenu';
 import Tenant from 'layout/Tenant/Tenant';
-import * as api from "../../pages/index/service";
+import * as api from "ucf-apps/index/src/service";
 import { subscribe } from  'components/EventBus/Eventbus';
 import { Warning } from '../../utils/index';
 import HeaderLeft from './HeaderLeft';
 import HeaderCenter from './HeaderCenter';
 import HeaderRight from './HeaderRight';
 import { processData } from "utils";
-import {ConnectedHeaderLeft} from '../../pages/index/container';
-import {ConnectedHeaderRight} from '../../pages/index/container';
+import {ConnectedHeaderLeft} from 'ucf-apps/index/src/container';
+import {ConnectedHeaderRight} from 'ucf-apps/index/src/container';
 
 // import headerImg from 'static/images/bg_topbar.jpeg';
 // const Header = Navbar.Header;

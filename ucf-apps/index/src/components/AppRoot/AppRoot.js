@@ -3,9 +3,9 @@ import {Navbar, Menu, Badge, Tile, Icon, Tooltip} from 'tinper-bee';
 import mirror, { connect,actions } from 'mirrorx';
 
 import 'static/css/index.css';
-import '../../../../layout/Header/header.css';
+import 'layout/Header/header.css';
 import "static/iconfont/iconfont.js";
-import '../../../../layout/Sidebar/sidebar.css';
+import 'layout/Sidebar/sidebar.css';
 import { setCookie, getCookie} from "utils";
 /* 引入字体文件 */
 require('static/fonts/iuap_qy/iconfont.css');

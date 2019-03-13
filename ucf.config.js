@@ -36,8 +36,9 @@ module.exports = (env, argv) => {
         },
         // 全局环境变量
         global_env: {
-            process.env.NODE_ENV: JSON.stringify("production"),
+            'process.env.NODE_ENV': JSON.stringify("production"),
             GROBAL_HTTP_CTX: JSON.stringify("/wbalone"),
+            GROBAL_URL_CTX: JSON.stringify("/wbalone"),
             GSP_CONTRACT: JSON.stringify("/gsp-contract"),
             GSP_ORDERS: JSON.stringify("/gsp-orders"),
             GSP_SUPPLIER: JSON.stringify("/gsp-supplier"),
@@ -53,7 +54,8 @@ module.exports = (env, argv) => {
             utils: path.resolve(__dirname, "ucf-common/src/utils"),
             static: path.resolve(__dirname, "ucf-common/src/static"),
             src: path.resolve(__dirname, "ucf-common/src"),
-            "ucf-common": path.resolve(__dirname, "ucf-common/")
+            "ucf-common": path.resolve(__dirname, "ucf-common/"),
+            "ucf-apps": path.resolve(__dirname, "ucf-apps/")
         },
         // 构建排除指定包
         externals: {},

@@ -9,7 +9,7 @@ import { Warning } from '../../utils/index';
 import Drawer from 'ac-drawer';
 import "ac-drawer/dist/ac-drawer.css";
 
-import * as api from "../../pages/index/service";
+import * as api from "ucf-apps/index/src/service";
 window.router = new Router();
 require('components/viewutil/viewutil');
 

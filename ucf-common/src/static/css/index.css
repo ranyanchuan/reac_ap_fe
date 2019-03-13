@@ -560,22 +560,6 @@ body{
 	height: calc(100% - 70px);
 }
 
-.u-overlay{
-	z-index: 2006;
-	display: none;
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: -100px;
-	bottom: 0;
-	width: 100%;
-	background: #000;
-	will-change: opacity;
-	filter: alpha(opacity=.5);
-	opacity: .5;
-	filter: alpha(opacity=50)\9;
-	transition: all .3s;
-}
 
 .portal-expand.expanded .u-navbar-side-container .u-menu li:hover {
 	overflow: inherit;
@@ -720,9 +704,24 @@ body{
 	display:none;
 }
 .portal-logo {
+	width: 127px;
 	height:32px;
 	transition: all 0.2s linear;
 }
+.portal-logo.zh_CN{
+	background-image: url("../images/logo_zh_CN.svg");
+}
+
+.portal-logo.en_US{
+	background-image: url("../images/logo_en_US.svg");
+}
+
+.portal-logo.zh_TW{
+	background-image: url("../images/logo_zh_TW.svg");
+}
+
+
+
 .portal-expand.expanded .u-navbar-brand .portal-logo {
 	width:120px;
 	height:27px;
