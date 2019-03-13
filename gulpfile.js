@@ -9,7 +9,7 @@ const PACKAGE_WAR_NAME = `${PACKAGE_NAME}.war`;
 
 // maven 配置信息
 const publishConfig = {
-  command: "/Users/liuyk/iCloudDrive-old/soft/apache-maven-3.6.0/bin/mvn",
+    command: "mvn",
     repositoryId: "iUAP-Snapshots",
     repositoryURL: "http://172.16.51.12:8081/nexus/content/repositories/iUAP-Snapshots",
     artifactId: PACKAGE_NAME,
