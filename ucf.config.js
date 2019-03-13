@@ -38,7 +38,7 @@ module.exports = (env, argv) => {
         global_env: {
             'process.env.NODE_ENV': JSON.stringify("production"),
             GROBAL_HTTP_CTX: JSON.stringify("/wbalone"),
-            GROBAL_URL_CTX: JSON.stringify("/wbalone"),
+            GROBAL_PORTAL_ID: JSON.stringify("wbalone"),
             GSP_CONTRACT: JSON.stringify("/gsp-contract"),
             GSP_ORDERS: JSON.stringify("/gsp-orders"),
             GSP_SUPPLIER: JSON.stringify("/gsp-supplier"),
