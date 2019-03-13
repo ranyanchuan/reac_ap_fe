@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import 'core-js/es6/map';
 import 'core-js/es6/set';
+import 'core-js/es6/array';
+import 'core-js/es7/array';
 // import logger from "redux-logger";
 import mirror, { render,Router } from "mirrorx";
 import MainLayout from "layout";

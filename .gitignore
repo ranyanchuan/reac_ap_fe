@@ -33,7 +33,7 @@ bower_components
 build/Release
 
 # Dependency directories
-build
+# build
 node_modules/
 old
 jspm_packages/
@@ -63,3 +63,5 @@ dist.*
 
 .idea
 package-lock.json
+.cache
+light_frame_fe.war
