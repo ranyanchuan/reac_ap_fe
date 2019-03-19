@@ -41,6 +41,13 @@ class App extends Component {
 
         };
         this.handleClick = this.handleClick.bind(this);
+        window.createTab = this.createTab.bind(this);
+        // createTab参数
+        // options = {
+        //     id: "sysmgr",
+        //     router: "/wbalone/index-view.html%2523sysmgr",
+        //     title: "管理中心"
+        // }
     }
     componentWillMount(){
         this.addFullScreenChangeEvent();
