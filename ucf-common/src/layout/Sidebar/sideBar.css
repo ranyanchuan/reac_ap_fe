@@ -185,6 +185,9 @@
   width: 500px;
   z-index: 9999;
 }
+.sidebar-left .left-side-bar-menu-expand .sidebar-content-sub {
+  left:50px;
+}
 .sidebar-left .sidebar-content-sub.sidebar-content-sub-show {
   display: block;
   z-index: 9999;
