@@ -2,7 +2,8 @@ import {actions} from "mirrorx";
 // 引入services，如不需要接口请求可不写
 import * as api from "./service";
 // 接口返回数据公共处理方法，根据具体需要
-import { processData } from "utils";
+import { processData, getCookie } from "utils";
+import {loginInitI18n} from 'utils/i18n.iuap';
 
 
 export default {
@@ -31,7 +32,10 @@ export default {
         showHeader: true,
         maxed:false,
         sideShowPosition: '',
-        leftExpanded: false
+        leftExpanded: false,
+        langList: [],// 多语列表
+        langCode: getCookie('u_locale') || 'zh_CN', // 当前语种
+
     },
     reducers: {
         /**
@@ -129,6 +133,50 @@ export default {
 
 
             return res.data;
+        },
+
+        /**
+         * 获取语种列表
+         */
+        async getLanguageList() {
+            let res = processData(await api.getLanguageList());
+            let langList = [];
+            let language_source = []
+            if (res && res.status == 1) {
+                let  arr = res.data;
+                for (var i = 0; i < arr.length; i++) {
+                    var obj = {
+                        code: arr[i].prelocale == null ? "zh_CN" : arr[i].prelocale.replace(/-/,'_'),
+                        name: arr[i].pageshow
+                    }
+                    var languageObj = {
+                        value: arr[i].prelocale == null ? "zh_CN" : arr[i].prelocale.replace(/-/,'_'),
+                        name: arr[i].pageshow,
+                        serial: arr[i].serialid,
+                        isDefault:(arr[i].i18nDefault != null && arr[i].i18nDefault == "1") ? true : false
+                    }
+                    langList.push(obj);
+                    language_source.push(languageObj);
+                }
+            }
+            loginInitI18n(language_source)
+            actions.app.updateState({
+                langList: langList,
+            });
+        },
+
+
+        /**
+         * 切换语种
+         * @param {*} newLocaleValue
+         */
+        async setLocaleParam(newLocaleValue) {
+            if (newLocaleValue && newLocaleValue.length > 0) {
+                let res = processData(await api.setLocaleParam(newLocaleValue));
+                if(res){
+                    window.location.reload(true);
+                }
+            }
         }
     }
 };

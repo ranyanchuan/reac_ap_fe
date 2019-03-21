@@ -1,13 +1,16 @@
 import React,{Component} from "react";
 import cookie from "react-cookie";
 import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
-import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
+import {Navbar,Menu,Badge,Tile,Icon,Tooltip,Select} from 'tinper-bee';
 import UserMenus from 'components/UserMenu/UserMenu';
 import Tenant from 'layout/Tenant/Tenant';
+import { actions } from 'mirrorx';
 const Nav = Navbar.Nav;
+const Option = Select.Option;
 class HeaderRight extends Component {
     constructor(props) {
         super(props);
+        actions.app.getLanguageList();
     }
     maxfunc(e) {
       // debugger;
@@ -24,15 +27,42 @@ class HeaderRight extends Component {
     handleClick(e) {
       this.props.headerRightOper.handleClick(e);
     }
+    componentWillMount () {
+
+    }
+    handleChange = (val) => {
+      actions.app.setLocaleParam(val);
+    }
+    /**
+     * 语种切换下拉
+     */
+    initOption = (type,data) =>{
+        let body=[];
+        data.map((option,i) => (
+            body.push(<Option className={"login-"+type+"-option"} value={option.code} key={option.code}>{option.name}</Option>)
+        ));
+        return body;
+    }
     render() {
       var self = this;
-      let {intl, unreadMsg, UserMenuObj,maxed} = this.props;
+      let {intl, unreadMsg, UserMenuObj,maxed,langCode,langList} = this.props;
+      console.log(langList);
         return (
             <div className="header-right">
               {/*<Tenant {...UserMenuObj}/>*/}
-              {cookie.load('loginChannel') ==='yht'?<div  className="header-right-tenant" onClick={(e)=>self.handleClick(e)}>
+              <div  className="header-right-tenant" onClick={(e)=>self.handleClick(e)}>
                       <Tenant {...UserMenuObj} />
-                  </div>:""}
+                  </div>
+                {
+                  <Select
+                    defaultValue={langCode}
+                    style={{ marginRight: 6 , width: 100}}
+                    onChange={this.handleChange}
+                    showSearch={true}
+                  >
+                    {this.initOption("lang",langList)}
+                  </Select>
+                }
                 {!maxed ?
                   <a id="maxBox" onClick={(e)=>self.maxfunc(e)}   data-ref="taskcenter" name={intl.formatMessage({id: 'tabs.header.max'})} title={intl.formatMessage({id: 'tabs.header.max'})}  className="navbar-avatar" titlekey={intl.formatMessage({id: 'tabs.header.max'})} >
                     <Icon type="uf-maxmize" style={{"fontSize":"18px"}}></Icon>
