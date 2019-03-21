@@ -50,9 +50,9 @@ class HeaderRight extends Component {
         return (
             <div className="header-right">
               {/*<Tenant {...UserMenuObj}/>*/}
-              <div  className="header-right-tenant" onClick={(e)=>self.handleClick(e)}>
+              {cookie.load('loginChannel') ==='yht'?<div  className="header-right-tenant" onClick={(e)=>self.handleClick(e)}>
                       <Tenant {...UserMenuObj} />
-                  </div>
+                  </div>:""}
                 {
                   <Select
                     defaultValue={langCode}
