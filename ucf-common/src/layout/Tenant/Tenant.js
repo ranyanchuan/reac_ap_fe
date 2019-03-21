@@ -45,7 +45,8 @@ class Tenant extends Component {
         return (
             tenants.length > 0? <div mode="horizontal"  className="header-right-tenant-info" style={{ width: '100%' }}>
                     <a role="button" id="tenantname"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown">
-                        <span className="tenant-name" title={tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}> {tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}<i className="iconfont icon-arrowdown"></i> </span>
+                        <span className="tenant-name" title={tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}> {tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}</span>
+                        <i className="iconfont icon-arrowdown"></i>
                         {/*<span className="iconfont icon-arrowdown"></span>*/}
                     </a>
                     <ul className="header-right-tenant-info-li">
