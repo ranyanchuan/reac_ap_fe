@@ -18,3 +18,12 @@ $ npm run dev
 
 
 
+### GROBAL_PORTAL_ID
+* cookie中的portalid
+* 静态资源目录
+* 非wbalone不显示右上角下拉菜单
+
+### GROBAL_PORTAL_CTX
+* 注销的路径，非wbalone为user/logout，wbalone为user/beflogout
+
+### index.html要修改contextRoot为GROBAL_PORTAL_ID
