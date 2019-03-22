@@ -13,7 +13,8 @@ const URL = {
     "wbMenuCollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/create?r=`+Math.random(),
     "wbMenuUncollection":`${GROBAL_HTTP_CTX}/wbMenuCollection/delete?r=`+Math.random(),
     "GET_ALLTENANT":`${GROBAL_HTTP_CTX}/platform/cas/getAllTenant?r=`+Math.random(),
-    "GET_SWITCHTENANT":`${GROBAL_HTTP_CTX}/platform/cas/switchTenant?r=`+Math.random()
+    "GET_SWITCHTENANT":`${GROBAL_HTTP_CTX}/platform/cas/switchTenant?r=`+Math.random(),
+    "GET_GETBYID":`${GROBAL_HTTP_CTX}/userMGT/getById`,
 };
 
 /**
@@ -114,3 +115,15 @@ export const getLanguageList = () => {
         method: "get"
     });
 }
+
+
+/**
+ * 获取人员信息
+ * @param {*} params
+ */
+export const getUserById = (id) => {
+    let url = URL.GET_GETBYID + '/' + id + '?r='+Math.random();
+    return request(url, {
+        method: "get"
+    });
+};

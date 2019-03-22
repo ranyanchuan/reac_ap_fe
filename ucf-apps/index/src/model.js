@@ -2,7 +2,7 @@ import {actions} from "mirrorx";
 // 引入services，如不需要接口请求可不写
 import * as api from "./service";
 // 接口返回数据公共处理方法，根据具体需要
-import { processData, getCookie } from "utils";
+import { processData, getCookie ,setCookie} from "utils";
 import {loginInitI18n} from 'utils/i18n.iuap';
 
 
@@ -174,7 +174,16 @@ export default {
             if (newLocaleValue && newLocaleValue.length > 0) {
                 let res = processData(await api.setLocaleParam(newLocaleValue));
                 if(res){
-                    window.location.reload(true);
+                    let id = getCookie('_A_P_userId');
+                    let userRes = processData(await api.getUserById(id));
+                    if(userRes){
+                        let userName = userRes.data.name;
+                        if(res.data !== 1){
+                            userName = userRes.data['name' + res.data]
+                        }
+                        setCookie('_A_P_userName',userName);
+                        window.location.reload(true);
+                    }
                 }
             }
         }
