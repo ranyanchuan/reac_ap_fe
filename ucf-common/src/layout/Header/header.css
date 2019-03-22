@@ -116,7 +116,7 @@
 }
 #taskCenterBox:hover,
 #messageCount:hover,#maxBox:hover {
-    background: #dde0e2!important;
+    background: rgba(0,0,0,.2)!important;
 }
 #portalTabs {
   border-bottom: 1px solid #B3BAC5;
@@ -270,7 +270,7 @@
 }
 
 .header-right-info:hover {
-  background: rgba(236,239,241,1);
+  background: rgba(0,0,0,.2);
 }
 .header-right-dropdown:hover .header-right-applet-content {
   display: block;
@@ -349,7 +349,7 @@
   height: 30px;
   display: block;
   font-size: 12px;
-  padding-left: 0;
+  padding-left: 0 !important;
 }
 .header-right-tenant-info-li li:hover {
   background: rgba(236,239,241,1);

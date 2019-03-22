@@ -31,10 +31,27 @@ export default {
         tabsMore: false,
         showHeader: true,
         maxed:false,
-        sideShowPosition: '',
+        // sideShowPosition: '',
         leftExpanded: false,
         langList: [],// 多语列表
         langCode: getCookie('u_locale') || 'zh_CN', // 当前语种
+        headerTheme: 'light',
+        headerBgImg:'',
+        headerBgColor:'',
+        themeObj:{
+          headerTheme: 'light',
+          headerBgImg:'',
+          headerBgColor:'',
+          sideShowPosition:'',
+          headerCenterImg:'',
+          leftSideTheme:'light',
+          leftSideBgColor:'',
+          leftSideBgImg:''
+        },
+        // themeObj:{
+        //   headerTheme:
+        // }
+
 
     },
     reducers: {

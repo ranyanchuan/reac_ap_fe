@@ -16,7 +16,7 @@ class HeaderLeft extends Component {
     }
     render() {
       let self = this;
-      let {sideBarShow,leftExpanded,sideShowPosition} = this.props;
+      let {sideBarShow,leftExpanded,themeObj} = this.props;
       let obj = {
         width:"18px",
         height:"18px"
@@ -27,8 +27,8 @@ class HeaderLeft extends Component {
       }
         return (
             <div className="header-left">
-              <div className={[sideBarShow?"header-svg header-svg-red":"header-svg",sideShowPosition?"header-svg-show":""].join(" ")} onClick={self.svgClick.bind(this)}>
-                {sideBarShow?
+              <div className={[sideBarShow?"header-svg header-svg-red":"header-svg",themeObj.sideShowPosition?"header-svg-show":""].join(" ")} onClick={self.svgClick.bind(this)}>
+                {sideBarShow || themeObj.headerTheme==="dark"?
                 <img src={require(`static/images/icon_menu_white.svg`)}  />
                 :<img src={require(`static/images/icon_menu.svg`)}  />
                 }

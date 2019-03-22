@@ -13,7 +13,7 @@ import HeaderCenter from './HeaderCenter';
 import HeaderRight from './HeaderRight';
 import { processData } from "utils";
 import {ConnectedHeaderLeft} from 'ucf-apps/index/src/container';
-import {ConnectedHeaderRight} from 'ucf-apps/index/src/container';
+import {ConnectedHeaderRight,ConnectedHeaderCenter} from 'ucf-apps/index/src/container';
 
 // import headerImg from 'static/images/bg_topbar.jpeg';
 // const Header = Navbar.Header;
@@ -51,6 +51,7 @@ class App extends Component {
     }
     componentWillMount(){
         this.addFullScreenChangeEvent();
+        this.themeFun();
     }
 
     async componentDidMount(){
@@ -351,12 +352,85 @@ class App extends Component {
       })
       // this.props.svgClick();
     }
+    themeDetai =(themeObj,url1,url2,url3) => {
+      if(getLocal === 'zh_CN') {
+        headerCenterDefaultImg = 'images/index/login_center_light_CN.svg';
+      } else if (getLocal === 'en_US') {
+        headerCenterDefaultImg = 'images/index/login_center_light_US.svg';
+      } else {
+        headerCenterDefaultImg = 'images/index/login_center_light_TW.svg';
+      }
+      if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
+        defaultBgImg = 'images/index/dark_bg_img.jpg';
+      }
+      actions.app.updateState({
+        themeObj:{
+          headerTheme: themeObj.headerTheme? themeObj.headerTheme :'light',
+          headerBgImg: themeObj.headerBgImg? themeObj.headerBgImg : defaultBgImg,
+          headerBgColor: themeObj.headerBgColor? themeObj.headerBgColor : '#242D48',
+          sideShowPosition: themeObj.sideShowPosition? themeObj.sideShowPosition:'',
+          headerCenterImg: themeObj.headerCenterImg? themeObj.headerCenterImg: headerCenterDefaultImg
+        }
+      })
+    }
+    themeFun = () => {
+      let {themeObj} =this.props;
+      let getLocal = cookie.load('u_locale')||'zh_CN';
+      let headerCenterDefaultImg ='';
+      let defaultBgImg ='';
+      if(themeObj.headerTheme === 'dark') {
+        if(getLocal === 'zh_CN') {
+          headerCenterDefaultImg = 'images/index/logo_light_CN.svg';
+        } else if (getLocal === 'en_US') {
+          headerCenterDefaultImg = 'images/index/logo_light_US.svg';
+        } else {
+          headerCenterDefaultImg = 'images/index/logo_light_TW.svg';
+        }
+        if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
+          defaultBgImg = 'images/index/dark_bg_img.jpg';
+        }
+        let obj = {
+          headerTheme: themeObj.headerTheme? themeObj.headerTheme :'dark',
+          headerBgImg: themeObj.headerBgImg? themeObj.headerBgImg : defaultBgImg,
+          headerBgColor: themeObj.headerBgColor? themeObj.headerBgColor : '#242D48',
+          sideShowPosition: themeObj.sideShowPosition? themeObj.sideShowPosition:'',
+          headerCenterImg: themeObj.headerCenterImg? themeObj.headerCenterImg: headerCenterDefaultImg,
+        }
+        actions.app.updateState({
+          themeObj: Object.assign(themeObj,obj)
+        })
+
+      }
+      if(themeObj.headerTheme === 'light') {
+        let defaultBgImg ='';
+        if(getLocal === 'zh_CN') {
+          headerCenterDefaultImg = 'images/index/logo_zh_CN.svg';
+        } else if (getLocal === 'en_US') {
+          headerCenterDefaultImg = 'images/index/logo_en_US.svg';
+        } else {
+          headerCenterDefaultImg = 'images/index/logo_zh_TW.svg';
+        }
+        if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
+          defaultBgImg = 'images/index/bg_topbar.jpg'
+        }
+        let obj = {
+          headerTheme: themeObj.headerTheme? themeObj.headerTheme :'light',
+          headerBgImg: themeObj.headerBgImg? themeObj.headerBgImg : defaultBgImg,
+          headerBgColor: themeObj.headerBgColor? themeObj.headerBgColor : '#fff',
+          sideShowPosition: themeObj.sideShowPosition? themeObj.sideShowPosition:'',
+          headerCenterImg: themeObj.headerCenterImg? themeObj.headerCenterImg: headerCenterDefaultImg
+        }
+        actions.app.updateState({
+          themeObj:Object.assign(themeObj,obj)
+        })
+      }
+    }
 
     render (){
         let self = this;
 
         let {unreadMsg} = self.state;
-        let {expanded,menus,intl,maxed,showHeader,sideShowPosition,leftExpanded} = this.props;
+        let {expanded,menus,intl,maxed,showHeader,leftExpanded,themeObj} = this.props;
         let svgClick = self.svgClick;
         // let sideBarShow = self.props.sideBarShow;
         let headerRightOper = {
@@ -375,9 +449,9 @@ class App extends Component {
         // console.log(UserMenuObj);
 
         return (
-          <nav className={[!showHeader?"header header-hide":"header header-show", sideShowPosition==='left'?"header-show-left":'',leftExpanded?"header-show-left-expand":''].join(" ")} style={{backgroundImage: `url(${require("static/images/bg_topbar.jpg")})`}}>
+          <nav className={[!showHeader?"header header-hide":"header header-show", themeObj.sideShowPosition==='left'?"header-show-left":'',leftExpanded?"header-show-left-expand":'',themeObj.headerTheme==="dark"?"header-show-white":"header-show-dark"].join(" ")} style={{backgroundColor:themeObj.headerBgColor,backgroundImage: `url(${themeObj.headerBgImg})`}}>
             <ConnectedHeaderLeft placeholder={intl.formatMessage({id: 'header.search.placeholder'})}/>
-            <HeaderCenter/>
+            <ConnectedHeaderCenter/>
             <ConnectedHeaderRight  headerRightOper={headerRightOper} handleClick={self.handleClick.bind(this)} intl={intl} unreadMsg= {this.state.unreadMsg} UserMenuObj={UserMenuObj}/>
           </nav>
         )

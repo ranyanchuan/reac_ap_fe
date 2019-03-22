@@ -512,6 +512,8 @@ class App extends Component {
             })();
         };
         self.initRouter();
+        this.sideTheme();
+        // console.log('123eeee',this.props);
     }
 
     initRouter() {
@@ -732,7 +734,6 @@ class App extends Component {
             dddd: index,
             leftSubShow: true
         })
-        console.log(item,list,index);
     }
     leftMouseLeave(e,item,list, index) {
         this.setState({
@@ -787,10 +788,37 @@ class App extends Component {
         leftExpanded: !leftExpanded
       })
     }
+    sideTheme = () => {
+      let {themeObj} = this.props;
+      let defaultBgImg = '';
+      if(!themeObj.leftSideBgImg && !themeObj.leftSideBgColor) {
+        defaultBgImg = 'images/index/dark_bg_img.jpg';
+      }
+      if(themeObj.leftSideTheme === 'dark') {
+        let obj = {
+          leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'dark',
+          leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultBgImg,
+          leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
+        }
+        actions.app.updateState({
+          themeObj:Object.assign(themeObj,obj)
+        })
+      }
+      if(themeObj.leftSideTheme === 'light') {
+        let obj = {
+          leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'light',
+          leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultBgImg,
+          leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
+        }
+        actions.app.updateState({
+          themeObj:Object.assign(themeObj,obj)
+        })
+      }
 
+    }
     render() {
         var self = this;
-        const {expanded,menu,submenuSelected,curNum,current,intl,sideBarShow,sideShowPosition,leftExpanded} = this.props;
+        const {expanded,menu,submenuSelected,curNum,current,intl,sideBarShow,themeObj,leftExpanded} = this.props;
         var isSeleted = submenuSelected;
         var menuSearch  = this.state.menuSearch;
         const sss = self.state.sss;
@@ -800,7 +828,7 @@ class App extends Component {
         return (
           <div>
           {
-            sideShowPosition !=='left'?
+            themeObj.sideShowPosition !=='left'?
             <Drawer className={'demo2'} hasHeader={false} show={sideBarShow} placement="left">
                 <div className="left-side-bar">
                 <div className="left-side-bar-menu">
@@ -1109,7 +1137,7 @@ class App extends Component {
                 </div>
                 </Drawer>
             :<div className="left-side-bar sidebar-left">
-            <div className={leftExpanded?"left-side-bar-header left-side-bar-header-expanded ":"left-side-bar-header"} onClick={()=> this.barLeftClick()}>
+            <div className={leftExpanded?"left-side-bar-header left-side-bar-header-expanded ":"left-side-bar-header"} onClick={()=> this.barLeftClick()} style={{backgroundColor:themeObj.leftSideBgColor,backgroundImage: `url(${themeObj.leftSideBgImg})`}}>
             <span><Icon className=" uf uf-navmenu" /></span>
             </div>
             <div className={!leftExpanded?"left-side-bar-menu":"left-side-bar-menu left-side-bar-menu-expand"}>
