@@ -349,6 +349,7 @@
   height: 30px;
   display: block;
   font-size: 12px;
+  padding-left: 0;
 }
 .header-right-tenant-info-li li:hover {
   background: rgba(236,239,241,1);
@@ -387,4 +388,13 @@
 }
 .header-show-white .header-right .header-right-info .avatar-name {
   color: #fff;
+}
+.header-right-tenant-info-li>li>a {
+  display: block;
+  padding: 0 8px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
 }
