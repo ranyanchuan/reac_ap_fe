@@ -29,9 +29,9 @@ class Tab extends Component {
     }
 
     setCurrent (id) {
-        // debugger;
         let morelist = this.state.moreMenuList;
         let menuProp = this.props.menus;
+        let {themeObj} = this.props;
         let list = [];
         let obj={};
         let moreFlag = false;
@@ -52,7 +52,7 @@ class Tab extends Component {
                 menuProp.splice(i,1);
               }
             }
-            menuProp.splice(9,0,obj);
+            menuProp.splice(themeObj.tabNum,0,obj);
           }
         }
 
@@ -164,6 +164,7 @@ class Tab extends Component {
     }
     // 页签更多的点击事件
     tabsMoreClick() {
+
       const {tabsMore} = this.props;
       actions.app.updateState({
           tabsMore: !tabsMore
@@ -180,7 +181,7 @@ class Tab extends Component {
     render() {
 
         var self = this;
-        const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl,sideShowPosition,leftExpanded} = this.props;
+        const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl,sideShowPosition,leftExpanded,themeObj} = this.props;
         // let {tabsMore} = this.props;
         const moremenu=[];
         this.state.moreMenuList = [];
@@ -188,7 +189,7 @@ class Tab extends Component {
         // debugger;
         return (
 
-            <div id="portalTabs" className={["tabs ui-tabs-num-"+tabNum ,sideShowPosition==="left"?"tabs-show-left":'',leftExpanded?"tabs-show-left-expand":''].join(" ")}>
+            <div id="portalTabs" className={["tabs ui-tabs-num-"+tabNum ,themeObj.sideShowPosition==="left"?"tabs-show-left":'',leftExpanded?"tabs-show-left-expand":''].join(" ")}>
                 <div className="tabs-list-box">
                     {/*<span className="tabs-list-home">*/}
                     {/*<i className="qy-iconfont icon-tubiao-shouye"></i>*/}
@@ -203,7 +204,7 @@ class Tab extends Component {
 
                                 var selected = current==item.id?'selected':'';
                                 var liDom;
-                                if(index >10) {
+                                if(index > themeObj.tabNum) {
                                   moremenu.push(item);
                                   self.state.moreMenuList = moremenu;
 
@@ -221,7 +222,7 @@ class Tab extends Component {
                             })
                         }
                         {
-                          menus.length>11? <li className="tabs-more" onClick={self.tabsMoreClick.bind(this)}><a href="javascript:;">{intl.formatMessage({id: 'tabs.show.more'})}</a>{!tabsMore?<i className="uf uf-gridcaretarrowup tabs-up"></i>:<i className="uf uf-treearrow-down tabs-up"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
+                          menus.length>(themeObj.tabNum+1)? <li className="tabs-more" onClick={self.tabsMoreClick.bind(this)}><a href="javascript:;">{intl.formatMessage({id: 'tabs.show.more'})}</a>{!tabsMore?<i className="uf uf-gridcaretarrowup tabs-up"></i>:<i className="uf uf-treearrow-down tabs-up"></i>}<ul className={tabsMore?'tabs-more-list tabs-more-list-show':'tabs-more-list tabs-more-list-hide'}>
                           {
                             moremenu.map(function(item1,index1){
                               return (

@@ -38,6 +38,16 @@ export default {
         headerTheme: 'light',
         headerBgImg:'',
         headerBgColor:'',
+        // themeObj:{
+        //   headerTheme: 'light',
+        //   headerBgImg:'',
+        //   headerBgColor:'',
+        //   sideShowPosition:'',
+        //   headerCenterImg:'',
+        //   leftSideTheme:'light',
+        //   leftSideBgColor:'green',
+        //   leftSideBgImg:''
+        // },
         themeObj:{
           headerTheme: 'light',
           headerBgImg:'',
@@ -45,8 +55,9 @@ export default {
           sideShowPosition:'',
           headerCenterImg:'',
           leftSideTheme:'light',
-          leftSideBgColor:'',
-          leftSideBgImg:''
+          leftSideBgColor:'red',
+          leftSideBgImg:'',
+          tabNum: 10
         },
         // themeObj:{
         //   headerTheme:
