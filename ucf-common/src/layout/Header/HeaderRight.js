@@ -30,6 +30,9 @@ class HeaderRight extends Component {
     componentWillMount () {
 
     }
+    themeChange = (val) => {
+      this.props.headerRightOper.themeChange(val);
+    }
     handleChange = (val) => {
       actions.app.setLocaleParam(val);
     }
@@ -46,13 +49,26 @@ class HeaderRight extends Component {
     render() {
       var self = this;
       let {intl, unreadMsg, UserMenuObj,maxed,langCode,langList} = this.props;
-      console.log(langList);
+      let selectVal = localStorage.getItem('themeVal');
         return (
             <div className="header-right">
               {/*<Tenant {...UserMenuObj}/>*/}
               {cookie.load('loginChannel') ==='yht'?<div  className="header-right-tenant" onClick={(e)=>self.handleClick(e)}>
                       <Tenant {...UserMenuObj} />
                   </div>:""}
+                {/*
+                  <Select
+                    defaultValue='0'
+                    value={selectVal}
+                    style={{ marginRight: 6 , width: 100}}
+                    onChange={this.themeChange}
+                    showSearch={true}
+                  >
+                    <Option value="2">浅色主题</Option>
+                    <Option value="1">深色主题</Option>
+                    <Option value="0">中兴</Option>
+                  </Select>
+                */}
                 {
                   <Select
                     defaultValue={langCode}

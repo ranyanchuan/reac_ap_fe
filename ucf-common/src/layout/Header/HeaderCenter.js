@@ -11,7 +11,7 @@ class HeaderCenter extends Component {
         return (
             <div className="header-center">
               <a href="javascript:;">
-                <div className="portal-logo" style={{backgroundImage:`url(${themeObj.headerCenterImg})`,backgroundSize:'100%',backgroundRepeat:'no-repeat'}}></div>
+                <div className="portal-logo" style={{backgroundImage:`url(${themeObj.headerCenterImg})`,backgroundSize:'100% 100%',backgroundRepeat:'no-repeat'}}></div>
                 {/* <img src={a } className="portal-logo" /> */}
               </a>
             </div>

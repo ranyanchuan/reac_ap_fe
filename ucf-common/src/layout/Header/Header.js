@@ -51,7 +51,9 @@ class App extends Component {
     }
     componentWillMount(){
         this.addFullScreenChangeEvent();
-        this.themeFun();
+        // let {themeObj} = this.props;
+        // this.themeFun(themeObj);
+        // actions.app.themeRequest();
     }
 
     async componentDidMount(){
@@ -352,61 +354,10 @@ class App extends Component {
       })
       // this.props.svgClick();
     }
-    themeDetai =(isDark,themeObj) => {
-      let getLocal = cookie.load('u_locale')||'zh_CN';
-      let headerCenterDefaultImg ='';
-      let defaultBgImg ='';
-      let defaultBgImg1 = '';
-      let centerImgUrl ='';
-      let defaultColor = '';
-      let themeColor = '';
-      if(isDark) {
-        if(getLocal === 'zh_CN') {
-          headerCenterDefaultImg = 'images/index/logo_light_CN.svg';
-        } else if (getLocal === 'en_US') {
-          headerCenterDefaultImg = 'images/index/logo_light_US.svg';
-        } else {
-          headerCenterDefaultImg = 'images/index/logo_light_TW.svg';
-        }
-        defaultBgImg1 = 'images/index/dark_bg_img.jpg';
-        defaultColor = '#313D648';
-        themeColor = 'dark';
-      } else {
-        headerCenterDefaultImg = 'images/index/logo_'+ getLocal +'.svg';
-        defaultBgImg1 = 'images/index/bg_topbar.jpg';
-        defaultColor = '#fff';
-        themeColor = 'light';
-      }
-      // if(getLocal === 'zh_CN') {
-      //   headerCenterDefaultImg = centerImgUrl+'CN.svg';
-      // } else if (getLocal === 'en_US') {
-      //   headerCenterDefaultImg = centerImgUrl+'US.svg';
-      // } else {
-      //   headerCenterDefaultImg = centerImgUrl+'TW.svg';
-      // }
-      if(!themeObj.headerBgImg && !themeObj.headerBgColor) {
-        defaultBgImg = defaultBgImg1;
-      }
-      let obj = {
-        headerTheme: themeObj.headerTheme? themeObj.headerTheme :themeColor,
-        headerBgImg: themeObj.headerBgImg? themeObj.headerBgImg : defaultBgImg,
-        headerBgColor: themeObj.headerBgColor? themeObj.headerBgColor : defaultColor,
-        sideShowPosition: themeObj.sideShowPosition? themeObj.sideShowPosition:'',
-        headerCenterImg: themeObj.headerCenterImg? themeObj.headerCenterImg: headerCenterDefaultImg,
-      }
-      actions.app.updateState({
-        themeObj: Object.assign(themeObj,obj)
-      })
-    }
-    themeFun = () => {
-      let {themeObj} =this.props;;
-      let isDark = false;
-      if(themeObj.headerTheme === 'dark') {
-        isDark = true;
-      } else {
-        isDark = false;
-      }
-      this.themeDetai(isDark,themeObj);
+    themeChange = (val) => {
+      let {themeObj} = this.props;
+      localStorage.setItem('themeVal', val);
+      window.location.reload(true)
     }
 
     render (){
@@ -421,6 +372,7 @@ class App extends Component {
           minifunc: self.minifunc,
           handleDefault: self.handleDefault,
           handleClick: self.handleClick,
+          themeChange: self.themeChange
         }
         var UserMenuObj = {
             formmaterUrl:self.formmaterUrl,
@@ -428,6 +380,7 @@ class App extends Component {
             handleDefault:self.handleDefault,
             intl:intl
         };
+        console.log('123',this.props);
 
         // console.log(UserMenuObj);
 

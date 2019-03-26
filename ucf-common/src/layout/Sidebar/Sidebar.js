@@ -512,7 +512,7 @@ class App extends Component {
             })();
         };
         self.initRouter();
-        this.sideTheme();
+        // this.sideTheme();
         // console.log('123eeee',this.props);
     }
 
@@ -788,34 +788,34 @@ class App extends Component {
         leftExpanded: !leftExpanded
       })
     }
-    sideTheme = () => {
-      let {themeObj} = this.props;
-      let defaultBgImg = '';
-      if(!themeObj.leftSideBgImg && !themeObj.leftSideBgColor) {
-        defaultBgImg = 'images/index/dark_bg_img.jpg';
-      }
-      if(themeObj.leftSideTheme === 'dark') {
-        let obj = {
-          leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'dark',
-          leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultBgImg,
-          leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
-        }
-        actions.app.updateState({
-          themeObj:Object.assign(themeObj,obj)
-        })
-      }
-      if(themeObj.leftSideTheme === 'light') {
-        let obj = {
-          leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'light',
-          leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultBgImg,
-          leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
-        }
-        actions.app.updateState({
-          themeObj:Object.assign(themeObj,obj)
-        })
-      }
-
-    }
+    // sideTheme = () => {
+    //   let {themeObj} = this.props;
+    //   let defaultBgImg = '';
+    //   if(!themeObj.leftSideBgImg && !themeObj.leftSideBgColor) {
+    //     defaultBgImg = 'images/index/dark_bg_img.jpg';
+    //   }
+    //   if(themeObj.leftSideTheme === 'dark') {
+    //     let obj = {
+    //       leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'dark',
+    //       leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultBgImg,
+    //       leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
+    //     }
+    //     actions.app.updateState({
+    //       themeObj:Object.assign(themeObj,obj)
+    //     })
+    //   }
+    //   if(themeObj.leftSideTheme === 'light') {
+    //     let obj = {
+    //       leftSideTheme: themeObj.leftSideTheme? themeObj.leftSideTheme :'light',
+    //       leftSideBgImg: themeObj.leftSideBgImg? themeObj.leftSideBgImg : defaultBgImg,
+    //       leftSideBgColor: themeObj.leftSideBgColor? themeObj.leftSideBgColor : 'red',
+    //     }
+    //     actions.app.updateState({
+    //       themeObj:Object.assign(themeObj,obj)
+    //     })
+    //   }
+    //
+    // }
     render() {
         var self = this;
         const {expanded,menu,submenuSelected,curNum,current,intl,sideBarShow,themeObj,leftExpanded} = this.props;
@@ -1138,7 +1138,10 @@ class App extends Component {
                 </Drawer>
             :<div className="left-side-bar sidebar-left">
             <div className={leftExpanded?"left-side-bar-header left-side-bar-header-expanded ":"left-side-bar-header"} onClick={()=> this.barLeftClick()} style={{backgroundColor:themeObj.leftSideBgColor,backgroundImage: `url(${themeObj.leftSideBgImg})`}}>
-            <span><Icon className=" uf uf-navmenu" /></span>
+            { themeObj.leftSideTheme === 'light'?
+              <img src={require(`static/images/hanbao-dark.svg`)}/>
+              : <img src={require(`static/images/hanbao-light.svg`)}/>
+            }
             </div>
             <div className={!leftExpanded?"left-side-bar-menu":"left-side-bar-menu left-side-bar-menu-expand"}>
                 {

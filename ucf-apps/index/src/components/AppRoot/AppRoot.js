@@ -36,11 +36,15 @@ class App extends Component {
         window.sessionStorage.removeItem('userId');
         // window.sessionStorage.clear();
         window.sessionStorage['u_logints'] = uLogints;
+        // debugger;
+
       }
+      actions.app.themeRequest();
     }
     componentDidMount(){
       var self = this;
       this.clickShow();
+
     }
     clickShow() {
       document.body.addEventListener('click', function(e){

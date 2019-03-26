@@ -207,9 +207,12 @@
 .sidebar-left .left-side-bar-header span {
   transition: all .5s linear;
 }
-.sidebar-left .left-side-bar-header.left-side-bar-header-expanded span {
-  width: 50px;
-  display: block;
+.sidebar-left .left-side-bar-header.left-side-bar-header-expanded img {
+  /* width: 50px; */
+  line-height: 40px;
+  height: 24px;
+  width: 24px;
+  /* display: block; */
   transition: all .5s linear;
  transform: rotate(90deg);
 }

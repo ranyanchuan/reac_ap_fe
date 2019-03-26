@@ -398,3 +398,13 @@
   white-space: nowrap;
   text-align: left;
 }
+@media screen and (max-width: 1280px) {
+  .header-center {
+    display: flex;
+    align-items: center;
+    position: inherit;
+    transform: none;
+    left:inherit;
+    top:inherit;
+  }
+}
