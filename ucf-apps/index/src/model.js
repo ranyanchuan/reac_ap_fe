@@ -50,7 +50,7 @@ export default {
         //   leftSideBgImg:''
         // },
         themeObj:{
-          headerTheme: '',
+          headerTheme: 'light',
           headerBgImg:'',
           headerBgColor:'',
           sideShowPosition:'',
@@ -194,6 +194,9 @@ export default {
             })
           }
           // let flagVal = localStorage.getItem('themeVal');
+          // if(!flagVal) {
+          //   flagVal = '2';
+          // }
           // let defaultBgImg ='';
           // if(flagVal === '1'){
           //   let obj1 = {

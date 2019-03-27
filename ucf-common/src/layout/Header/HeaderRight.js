@@ -50,6 +50,9 @@ class HeaderRight extends Component {
       var self = this;
       let {intl, unreadMsg, UserMenuObj,maxed,langCode,langList} = this.props;
       let selectVal = localStorage.getItem('themeVal');
+      if(!selectVal) {
+        selectVal = '2'
+      }
         return (
             <div className="header-right">
               {/*<Tenant {...UserMenuObj}/>*/}
