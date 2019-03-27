@@ -260,7 +260,7 @@ export default {
           //     headerTheme: 'light',
           //     headerBgImg:'',
           //     headerBgColor:'',
-          //     sideShowPosition:'left',
+          //     sideShowPosition:'',
           //     headerCenterImg:'',
           //     leftSideTheme:'dark',
           //     leftSideBgColor:'#093E91',
