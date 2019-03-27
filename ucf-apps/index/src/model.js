@@ -50,7 +50,7 @@ export default {
         //   leftSideBgImg:''
         // },
         themeObj:{
-          headerTheme: 'light',
+          headerTheme: '',
           headerBgImg:'',
           headerBgColor:'',
           sideShowPosition:'',
@@ -95,8 +95,12 @@ export default {
               headerCenterImg:'',
               leftSideTheme:'light',
               leftSideBgColor:'',
-              leftSideBgImg:''
+              leftSideBgImg:'',
+              tabNum: 10
             }
+          if(obj1.headerTheme === '') {
+            obj1.headerTheme = 'light';
+          }
           if(obj1.headerTheme === 'dark') {
             if(getLocal === 'zh_CN') {
               headerCenterDefaultImg = 'images/index/logo_light_CN.svg';
@@ -113,7 +117,9 @@ export default {
               defaultSideBgImg = 'images/index/dark_bg_img.jpg';
             }
             let obj2 = {};
-
+            if(obj1.leftSideTheme === '') {
+              obj1.leftSideTheme = 'light';
+            }
             if(obj1.leftSideTheme === 'dark') {
               let obj2 = {
                 leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'dark',
@@ -158,6 +164,9 @@ export default {
               defaultSideBgImg = 'images/index/dark_bg_img.jpg';
             }
             let obj2 = {};
+            if(obj1.leftSideTheme === '') {
+              obj1.leftSideTheme = 'light';
+            }
             if(obj1.leftSideTheme === 'dark') {
               let obj2 = {
                 leftSideTheme: obj1.leftSideTheme? obj1.leftSideTheme :'dark',
@@ -195,7 +204,11 @@ export default {
           //     headerCenterImg:'',
           //     leftSideTheme:'dark',
           //     leftSideBgColor:'',
-          //     leftSideBgImg:''
+          //     leftSideBgImg:'',
+          //     tabNum: 10
+          //   }
+          //   if(obj1.headerTheme === ''){
+          //     obj1.headerTheme = 'light';
           //   }
           //   let getLocal = cookie.load('u_locale')||'zh_CN';
           //   let headerCenterDefaultImg;
@@ -207,7 +220,7 @@ export default {
           //       headerCenterDefaultImg = 'images/index/logo_light_TW.svg';
           //     }
           //     if(!obj1.headerBgImg && !obj1.headerBgColor) {
-          //       defaultBgImg = 'images/index/bg_topbar.jpg'
+          //       defaultBgImg = 'images/index/dark_bg_img.jpg'
           //     }
           //     let defaultSideBgImg = '';
           //     if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
@@ -229,7 +242,6 @@ export default {
           //       }
           //       }
           //       obj1 = Object.assign(obj1,obj2);
-          //
           //       let obj = {
           //         headerTheme: obj1.headerTheme? obj1.headerTheme :'dark',
           //         headerBgImg: obj1.headerBgImg? obj1.headerBgImg : defaultBgImg,
@@ -237,7 +249,6 @@ export default {
           //         sideShowPosition: obj1.sideShowPosition? obj1.sideShowPosition:'',
           //         headerCenterImg: obj1.headerCenterImg? obj1.headerCenterImg: headerCenterDefaultImg,
           //       }
-          //     console.log('www',obj, obj1);
           //     actions.app.updateState({
           //       themeObj: Object.assign(obj1,obj)
           //     })
@@ -250,7 +261,11 @@ export default {
           //     headerCenterImg:'',
           //     leftSideTheme:'dark',
           //     leftSideBgColor:'#093E91',
-          //     leftSideBgImg:''
+          //     leftSideBgImg:'',
+          //     tabNum:10
+          //   }
+          //   if(themeObj.headerTheme === ''){
+          //     themeObj.headerTheme = 'light';
           //   }
           //   let getLocal = cookie.load('u_locale')||'zh_CN';
           //   let defaultBgImg ='';
@@ -266,7 +281,7 @@ export default {
           //       defaultBgImg = 'images/index/bg_topbar.jpg'
           //     }
           //     let defaultSideBgImg = '';
-          //     if(!obj1.leftSideBgImg && !obj1.leftSideBgColor) {
+          //     if(!themeObj.leftSideBgImg && !themeObj.leftSideBgColor) {
           //       defaultSideBgImg = '';
           //     }
           //     let obj2 = {};
