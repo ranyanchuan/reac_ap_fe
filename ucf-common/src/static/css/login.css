@@ -221,7 +221,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
   font-weight:400;
   color:rgba(239,4,4,1);
   text-align: center;
-  height:40px;
+  min-height:40px;
   line-height:40px;
 }
 
