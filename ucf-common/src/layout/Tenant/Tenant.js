@@ -87,7 +87,6 @@ class Tenant extends Component {
             tenants.length > 0? <div mode="horizontal"  className="header-right-tenant-info" style={{ width: '100px' }}>
                     <a role="button" id="tenantname"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown" onClick={this.tenantClick}>
                         {<span className="tenant-name" title={tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}> {tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}</span>}
-                        // <span>{tenants[0].tenantName}</span>
                         {showTenant?<i className=" uf uf-gridcaretarrowup"></i>:<i className=" uf uf-treearrow-down"></i>}
                         {/*<span className="iconfont icon-arrowdown"></span>*/}
                     </a>
