@@ -470,7 +470,7 @@ export default {
         async setLocaleParam(newLocaleValue) {
             if (newLocaleValue && newLocaleValue.length > 0) {
                 let res = processData(await api.setLocaleParam(newLocaleValue));
-                if(res){
+                // if(res){
                     let id = getCookie('_A_P_userId');
                     let userRes = processData(await api.getUserById(id));
                     if(userRes){
@@ -481,7 +481,7 @@ export default {
                         setCookie('_A_P_userName',userName);
                         window.location.reload(true);
                     }
-                }
+                // }
             }
         }
     }
