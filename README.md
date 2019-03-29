@@ -27,3 +27,7 @@ $ npm run dev
 * 注销的路径，非wbalone为user/logout，wbalone为user/beflogout
 
 ### index.html要修改contextRoot为GROBAL_PORTAL_ID
+
+
+maven地址
+http://172.16.51.12:8081/nexus/content/repositories/iUAP-Snapshots/com/yonyou/iuap/pap/light_frame_fe/3.5.6-SNAPSHOT/
