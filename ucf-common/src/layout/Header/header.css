@@ -48,7 +48,7 @@
   position: relative;
   display: inline-block;
   margin-left: 16px;
-  margin-right: 16px;
+  margin-right: 24px;
 }
 .header-left .header-search input {
   position: absolute;
@@ -57,13 +57,14 @@
   border-radius:41px;
   border:1px solid rgba(151,160,175,1);
   outline: none;
-  padding-left: 8px;
+  padding-left: 12px;
 }
 .header-left .header-search i {
   position: absolute;
   right: 0;
   line-height: 26px;
   color: rgba(84,105,141,1);
+  padding: 0;
 }
 .header-left input::-webkit-input-placeholder {
   font-size:12px;
