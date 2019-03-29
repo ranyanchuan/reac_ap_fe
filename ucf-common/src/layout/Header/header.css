@@ -48,6 +48,7 @@
   position: relative;
   display: inline-block;
   margin-left: 16px;
+  margin-right: 16px;
 }
 .header-left .header-search input {
   position: absolute;
@@ -56,7 +57,7 @@
   border-radius:41px;
   border:1px solid rgba(151,160,175,1);
   outline: none;
-  padding-left: 5px;
+  padding-left: 8px;
 }
 .header-left .header-search i {
   position: absolute;
@@ -293,8 +294,13 @@
   color: #F44336;
 }
 /* 多租户 */
+.header-right-tenant {
+  width: 100px;
+  margin-right: 12px;
+}
 .header-right-tenant-info {
   margin-right:12px;
+  background: #fff;
 }
 .header-right-tenant-info>a {
   height: 40px;
@@ -305,7 +311,15 @@
   height: 28px;
   display: block;
   padding: 0 8px;
-  color: #1F3853;
+  color: #666;
+  font-size: 12px;
+}
+.header-right-tenant-info #tenantname span {
+  width: 72px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
 }
 .header-right-tenant-info span.tenant-name {
   height: 28px;
@@ -331,7 +345,11 @@
 .header-right-tenant-info>a>i {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 14px;
+  zoom:0.5;
+  transform: scale(0.75);
+  color: #666;
+  font-weight: 400;
 }
 .header-right-tenant-info-li {
   display: none;
@@ -343,6 +361,8 @@
   padding: 0;
   margin: 0;
   box-shadow:0px 3px 6px 0px rgba(23,43,77,0.32);
+  margin-top: 4px;
+  border-radius: 4px
 }
 .header-right-tenant-info-li li {
   line-height: 30px;
@@ -354,12 +374,18 @@
 .header-right-tenant-info-li li:hover {
   background: rgba(236,239,241,1);
 }
-.header-right-tenant-info:hover {
-  background: rgba(236,239,241,1);
-}
-.header-right-tenant-info:hover .header-right-tenant-info-li{
+/* .header-right-tenant-info:hover {
+  background: none;
+} */
+.header-right-tenant-info-li-show {
   display: block;
 }
+.header-right-tenant-info-li-hide {
+  display: none;
+}
+/* .header-right-tenant-info:hover .header-right-tenant-info-li{
+  display: block;
+} */
 .header-right-tenant-info #tenantname .icon-arrowdown {
   font-size: 16px;
 }
@@ -376,7 +402,7 @@
   width: auto !important;
 }
 .header-right-tenant .header-right-tenant-info {
-   width: auto !important;
+   width: 100px !important;
    border: 1px solid #d9d9d9;
    border-radius: 4px;
 }
@@ -391,14 +417,21 @@
 }
 .header-right-tenant-info-li>li>a {
   display: block;
-  padding: 0 8px;
-  max-width: 122px;
+  padding: 0 18px;
+  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: left;
+  color: #666;
 }
-@media screen and (max-width: 1280px) {
+.u-select-dropdown .u-select-dropdown-menu-item-active, .u-select-dropdown .u-select-dropdown-menu-item:hover {
+  background: #eceff1 !important;
+}
+/* .u-select-dropdown .u-select-dropdown-menu-item:hover{
+  background: rgba(236,239,241,1);
+} */
+@media screen and (max-width: 1400px) {
   .header-center {
     display: flex;
     align-items: center;

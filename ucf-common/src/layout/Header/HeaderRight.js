@@ -30,9 +30,9 @@ class HeaderRight extends Component {
     componentWillMount () {
 
     }
-    themeChange = (val) => {
-      this.props.headerRightOper.themeChange(val);
-    }
+    // themeChange = (val) => {
+    //   this.props.headerRightOper.themeChange(val);
+    // }
     handleChange = (val) => {
       actions.app.setLocaleParam(val);
     }
@@ -49,10 +49,10 @@ class HeaderRight extends Component {
     render() {
       var self = this;
       let {intl, unreadMsg, UserMenuObj,maxed,langCode,langList} = this.props;
-      let selectVal = localStorage.getItem('themeVal');
-      if(!selectVal) {
-        selectVal = '2'
-      }
+      // let selectVal = localStorage.getItem('themeVal');
+      // if(!selectVal) {
+      //   selectVal = '2'
+      // }
         return (
             <div className="header-right">
               {/*<Tenant {...UserMenuObj}/>*/}
@@ -77,7 +77,6 @@ class HeaderRight extends Component {
                     defaultValue={langCode}
                     style={{ marginRight: 6 , width: 100}}
                     onChange={this.handleChange}
-                    showSearch={true}
                   >
                     {this.initOption("lang",langList)}
                   </Select>

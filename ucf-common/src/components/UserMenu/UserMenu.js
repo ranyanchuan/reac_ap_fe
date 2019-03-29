@@ -6,6 +6,7 @@ import React,{Component} from 'react';
 import {Navbar,Menu,Button,Con,Col,Tile,Icon} from 'tinper-bee';
 import mirror, { connect,actions } from 'mirrorx';
 import * as api from "ucf-apps/index/src/service";
+import {getCookie} from "utils";
 
 const SubMenu = Menu.SubMenu;
 // 接口返回数据公共处理方法，根据具体需要
@@ -67,6 +68,10 @@ class UserMenus extends Component {
 
         var self = this;
         let {intl} = this.props;
+        let locale_serial = getCookie("locale_serial");
+        if(locale_serial == 1) {
+            locale_serial = "";
+        }
         let portalId = `${GROBAL_PORTAL_ID}`;
         let h = GROBAL_PORTAL_CTX === '/wbalone'?`${GROBAL_PORTAL_CTX}/user/beflogout`:`${GROBAL_PORTAL_CTX}/user/logout`;
         return (
@@ -90,7 +95,7 @@ class UserMenus extends Component {
                              target={item.urlType==="url_blank"?"_blank":"_self"}
                              name={item.name} title={item.name} href={item.urlType==="url_blank"?item.url: self.formmaterUrl(item)}>
                              <div className="header-right-applet-icon"><i className={item.icon}></i></div>
-                             <div className="header-right-applet-text">{item.name}</div>
+                             <div className="header-right-applet-text">{item['name'+locale_serial]}</div>
                           </a>
                           </div>
                         )

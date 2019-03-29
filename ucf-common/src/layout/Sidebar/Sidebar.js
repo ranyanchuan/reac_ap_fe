@@ -846,7 +846,7 @@ class App extends Component {
                                 var searchmenuList = [[],[]];
                                 var pages = 0;
 
-                                let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
+                                let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className={index1===dddd?'sidebar-select-active first-child':'first-child'} name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
                                 item.children.map(function(it,index2){
 
                                     let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";

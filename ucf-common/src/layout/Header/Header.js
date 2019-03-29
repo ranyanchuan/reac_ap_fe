@@ -380,14 +380,11 @@ class App extends Component {
             handleDefault:self.handleDefault,
             intl:intl
         };
-        console.log('123',this.props);
-
         // console.log(UserMenuObj);
-
         return (
           <nav className={[!showHeader?"header header-hide":"header header-show", themeObj.sideShowPosition==='left'?"header-show-left":'',leftExpanded?"header-show-left-expand":'',themeObj.headerTheme==="dark"?"header-show-white":"header-show-dark"].join(" ")} style={{backgroundColor:themeObj.headerBgColor,backgroundImage: `url(${themeObj.headerBgImg})`}}>
-            <ConnectedHeaderLeft placeholder={intl.formatMessage({id: 'header.search.placeholder'})}/>
-            <ConnectedHeaderCenter/>
+            <ConnectedHeaderLeft placeholder={intl.formatMessage({id: 'header.search.placeholder'})} headerRightOper={headerRightOper}/>
+            <ConnectedHeaderCenter />
             <ConnectedHeaderRight  headerRightOper={headerRightOper} handleClick={self.handleClick.bind(this)} intl={intl} unreadMsg= {this.state.unreadMsg} UserMenuObj={UserMenuObj}/>
           </nav>
         )
