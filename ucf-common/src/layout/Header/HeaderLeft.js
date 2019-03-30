@@ -30,10 +30,10 @@ class HeaderLeft extends Component {
     render() {
       let self = this;
       let {sideBarShow,leftExpanded,themeObj,searchSideVal} = this.props;
-      let selectVal = localStorage.getItem('themeVal');
-      if(!selectVal) {
-        selectVal = '2'
-      }
+      // let selectVal = localStorage.getItem('themeVal');
+      // if(!selectVal) {
+      //   selectVal = '2'
+      // }
       let obj = {
         width:"18px",
         height:"18px"
@@ -57,7 +57,7 @@ class HeaderLeft extends Component {
                 <input type="search" placeholder={this.props.placeholder} value={searchSideVal} onChange={this.searchInput}/>
                 <i className = "uf uf-search" onClick={this.searchSideClick} />
               </div>
-              {
+              {/*
                 <Select
                   defaultValue='0'
                   value={selectVal}
@@ -69,7 +69,7 @@ class HeaderLeft extends Component {
                   <Option value="1">深色主题</Option>
                   <Option value="0">中兴</Option>
                 </Select>
-              }
+              */}
             </div>
         );
     }
