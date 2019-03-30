@@ -43,12 +43,12 @@
 }
 /* 顶部搜索框样式 */
 .header-left .header-search {
-  width:150px;
-  height:26px;
+  width: 140px;
+  height: 26px;
   position: relative;
   display: inline-block;
   margin-left: 16px;
-  margin-right: 24px;
+  margin-right: 16px;
 }
 .header-left .header-search input {
   position: absolute;
@@ -57,11 +57,13 @@
   border-radius:41px;
   border:1px solid rgba(151,160,175,1);
   outline: none;
-  padding-left: 12px;
+  /* padding-left: 12px; */
+  padding: 0 24px 0 12px;
+  width: 100%;
 }
 .header-left .header-search i {
   position: absolute;
-  right: 0;
+  right: 8px;
   line-height: 26px;
   color: rgba(84,105,141,1);
   padding: 0;
@@ -303,6 +305,10 @@
   margin-right:12px;
   background: #fff;
 }
+.header-right-tenant-info:focus {
+  outline: none;
+  border: 1px solid red;
+}
 .header-right-tenant-info>a {
   height: 40px;
   line-height: 40px;
@@ -442,3 +448,14 @@
     top:inherit;
   }
 }
+.header-right-tenant-info-focus {
+  border: 1px solid #40a5ed;
+}
+/* .header-right-lang-select {
+  min-width: 100px;
+  max-width: 132px;
+  width: inherit !important;
+}
+.header-right-lang-select .u-select-selection-selected-value {
+  padding-right: 14px;
+} */
