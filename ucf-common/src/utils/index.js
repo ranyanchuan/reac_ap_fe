@@ -130,3 +130,12 @@ export const getCookie = (name) => {
     // }
     return cookieValue;
 }
+export const flattenJsonId = (data,arr) => {
+  data.map(e => {
+       if (e.hasOwnProperty('children') && Array.isArray(e.children) && e.children.length > 0) {
+         flattenJsonId(e.children,arr);
+       }else {
+         arr.push(e);
+       }
+   });
+}
