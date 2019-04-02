@@ -105,7 +105,7 @@ class App extends Component {
         let {userMenu} = this.props;
         actions.app.updateState()
     }
-    handleClick(e,reload) {
+    handleClick(e,reload,item) {
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
         let {menus,current,intl} = this.props;
 
@@ -163,13 +163,17 @@ class App extends Component {
 
 
         let dom = tar;
-        let title = dom.getAttribute('name');
+        // let title = dom.getAttribute('name');
         let router =  dom.getAttribute('href');
-
-
+        // let title = dom.getAttribute('item');
 
         let options = {
-            title:title,
+            title:item.name,
+            title2:item.name2,
+            title3:item.name3,
+            title4:item.name4,
+            title5:item.name5,
+            title6:item.name6,
             router:router,
             id:value
         };
@@ -212,7 +216,6 @@ class App extends Component {
         this.createTab(options);
     }
     createTab (options,value) {
-
         var self = this;
         var {menus} = this.props;
 

@@ -59,9 +59,10 @@ class UserMenus extends Component {
         this.setState({
             userMenus: res.data
         });
+
     }
-    handleClick (e) {
-        this.props.handleClick(e);
+    handleClick (e,reload,item) {
+        this.props.handleClick(e,reload,item);
     }
 
     render() {
@@ -75,7 +76,7 @@ class UserMenus extends Component {
         let portalId = `${GROBAL_PORTAL_ID}`;
         let h = GROBAL_PORTAL_CTX === '/wbalone'?`${GROBAL_PORTAL_CTX}/user/beflogout`:`${GROBAL_PORTAL_CTX}/user/logout`;
         return (
-            <div mode="horizontal" onClick={(e) => self.handleClick(e)} className="dropdown header-right-dropdown" style={{ width: '100%' }}>
+            <div mode="horizontal" className="dropdown header-right-dropdown" style={{ width: '100%' }}>
                 {<div className="header-right-info">
                     <div role="button" id="username"  aria-expanded="false" data-toggle="dropdown" className="navbar-avatar dropdown-toggle">
                         <span className="avatar-name"> {decodeURIComponent(decodeURIComponent(cookie.load('_A_P_userName')))} </span>
@@ -90,10 +91,11 @@ class UserMenus extends Component {
                     {
                       this.state.userMenus.map(function(item) {
                         return (
-                          <div className="header-right-applet">
+                          <div className="header-right-applet" onClick={(e) => self.handleClick(e,'',item)}>
                           <a ref={item.code} value={item.code} onClick={ item.urlType==="url_blank"?"":(e) => self.props.handleDefault(e)}
                              target={item.urlType==="url_blank"?"_blank":"_self"}
-                             name={item.name} title={item.name} href={item.urlType==="url_blank"?item.url: self.formmaterUrl(item)}>
+                             item={JSON.parse(JSON.stringify(item))}
+                             name={item['name'+locale_serial]} title={item['name'+locale_serial]} href={item.urlType==="url_blank"?item.url: self.formmaterUrl(item)}>
                              <div className="header-right-applet-icon"><i className={item.icon}></i></div>
                              <div className="header-right-applet-text">{item['name'+locale_serial]}</div>
                           </a>

@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { Warning } from '../../utils/index';
 import Drawer from 'ac-drawer';
 import "ac-drawer/dist/ac-drawer.css";
+import {getCookie} from "utils";
 
 import * as api from "ucf-apps/index/src/service";
 window.router = new Router();
@@ -158,7 +159,7 @@ class App extends Component {
         this.createTab(options);
     }
 
-    openTab(e){
+    openTab(e,item){
         // 新增方法后续需要重构
         let tar = e.target || e.domEvent.target;
         if (!tar.tagName || tar.tagName !== 'A') {
@@ -170,10 +171,15 @@ class App extends Component {
         }
         var value = tar.getAttribute('value');
         var dom = tar;
-        var title = dom.getAttribute('name');
+        // var title = dom.getAttribute('name');
         var router =  dom.getAttribute('href');
         var options = {
-            title:title,
+            title:item.name,
+            title2:item.name2,
+            title3:item.name3,
+            title4:item.name4,
+            title5:item.name5,
+            title6:item.name6,
             router:router,
             id:value
         };
@@ -188,7 +194,6 @@ class App extends Component {
 
     createTab (options,value) {
 
-
         var self = this;
         var {menus} = this.props;
 
@@ -196,7 +201,6 @@ class App extends Component {
             alert('This browser does NOT support sessionStorage');
             return false;
         }
-
         var menu = menus;
 
         //当存在相同id菜单的时候，不创建
@@ -212,7 +216,6 @@ class App extends Component {
 
         menuObj[menuObj.length] = options;
 
-
         sessionStorage['tabs'] = JSON.stringify(menuObj);
 
         sessionStorage['current'] = JSON.stringify({
@@ -227,7 +230,6 @@ class App extends Component {
 
     }
     getTabs () {
-
         if(!window.sessionStorage){
             alert('This browser does NOT support sessionStorage');
             return false;
@@ -464,7 +466,6 @@ class App extends Component {
 
     async componentWillMount() {
         var self = this;
-
         //获取加载的菜单信息
         var menus = await actions.app.loadList();
         // self.setMenu(menus);
@@ -522,8 +523,10 @@ class App extends Component {
         var router = window.router;
         router.init();
         //获取第一个节点数据
-
-
+        let locale_serial = getCookie("locale_serial");
+        if(locale_serial == 1) {
+            locale_serial = "";
+        }
         //if(this.state.menu.length==0) return false;
 
         // this.state.menu[0].children = this.state.menu[0].children==null?[]:this.state.menu[0].children;
@@ -541,6 +544,11 @@ class App extends Component {
         var item = menu[0]?menu[0]:{
             "location" : "pages/default/index.js",
             "name" : "首页",
+            "name2" : "Home",
+            "name3" : "首頁",
+            "name4" : "Home",
+            "name5" : "Home",
+            "name6" : "Home",
             "menustatus" : "Y",
             "children" : null,
             "icon" : "iconfont icon-C-home",
@@ -560,6 +568,11 @@ class App extends Component {
                     //true设定加载第一个tab
                     var options = {
                         title:item.name,
+                        title2: item.name2,
+                        title3: item.name3,
+                        title4: item.name4,
+                        title5: item.name5,
+                        title6: item.name6,
                         router:self.formmaterUrl(item),
                         id:item.id
                     };
@@ -825,6 +838,10 @@ class App extends Component {
         const dddd = self.state.dddd;
         const sideSlected = self.state.sideSlected;
         const leftSubShow = self.state.leftSubShow;
+        let locale_serial = getCookie("locale_serial");
+        if(locale_serial == 1) {
+            locale_serial = "";
+        }
         return (
           <div>
           {
@@ -846,26 +863,26 @@ class App extends Component {
                                 var searchmenuList = [[],[]];
                                 var pages = 0;
 
-                                let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className={index1===dddd?'sidebar-select-active first-child':'first-child'} name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
+                                let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className={index1===dddd?'sidebar-select-active first-child':'first-child'} name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
                                 item.children.map(function(it,index2){
 
                                     let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
                                     if(Array.isArray(it.children)&&it.children.length>0){
                                         let list2 = [];
                                         let searchlist =[];
-                                        let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it.name}>{it.name}</span></a>);
+                                        let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it['name'+locale_serial]}>{it['name'+locale_serial]}</span></a>);
                                         noSecond = 'no-second-menu';
                                         it.children.map(function(itit,index3){
                                             let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
 
                                             let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
                                                               data-areaId={itit.areaId}
-                                                              title={itit.name}
+                                                              title={itit['name'+locale_serial]}
                                                               data-ahref={self.changeAhref(itit)}
                                                               data-licenseControlFlag={itit.licenseControlFlag}
                                                               onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
-                                                              ref={itit.id} name={itit.name}
-                                                              href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                              ref={itit.id} name={itit['name'+locale_serial]}
+                                                              href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                                data-menuId={itit.menuId} title={'收藏'}></i></li>
                                             list2.push(html)
@@ -873,12 +890,12 @@ class App extends Component {
 
                                                 let html = <li key={itit.menuId+"s"} ><a target={blank} value={itit.id}
                                                                   data-areaId={itit.areaId}
-                                                                  title={itit.name}
+                                                                  title={itit['name'+locale_serial]}
                                                                   data-ahref={self.changeAhref(itit)}
                                                                   data-licenseControlFlag={itit.licenseControlFlag}
                                                                   onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
-                                                                  ref={itit.id} name={itit.name}
-                                                                  href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                                  ref={itit.id} name={itit['name'+locale_serial]}
+                                                                  href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                                    data-menuId={itit.menuId} title={'收藏'}></i></li>
 
@@ -927,12 +944,12 @@ class App extends Component {
                                         // }
                                     } else {
                                         // curHeight = 46+ curHeight;
-                                        let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it.name}</span></a>);
+                                        let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it['name'+locale_serial]}</span></a>);
 
 
                                         var  cellH = 46;
                                         let  html = <div className={'menu-popup'}>
-                                            <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                            <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                        data-menuId={it.menuId} title={'收藏'}></i></a>
                                         </div>
@@ -977,7 +994,7 @@ class App extends Component {
                                 }
 
                                 let title = (
-                                    <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={item.id} href={self.formmaterUrl(item)} name={item.name}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item.name}</span></a>
+                                    <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
                                 );
                                 return (
                                     <div onClick={(e)=>self.openTab(e)} className="side-bar-first">
@@ -1004,26 +1021,26 @@ class App extends Component {
                                     var searchmenuList = [[],[]];
                                     var pages = 0;
 
-                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
+                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
                                     item.children.map(function(it,index2){
 
                                         let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
                                         if(Array.isArray(it.children)&&it.children.length>0){
                                             let list2 = [];
                                             let searchlist =[];
-                                            let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it.name}>{it.name}</span></a>);
+                                            let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it['name'+locale_serial]}>{it['name'+locale_serial]}</span></a>);
                                             noSecond = 'no-second-menu';
                                             it.children.map(function(itit,index3){
                                                 let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
 
                                                 let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
                                                                   data-areaId={itit.areaId}
-                                                                  title={itit.name}
+                                                                  title={itit['name'+locale_serial]}
                                                                   data-ahref={self.changeAhref(itit)}
                                                                   data-licenseControlFlag={itit.licenseControlFlag}
-                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
-                                                                  ref={itit.id} name={itit.name}
-                                                                  href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,itit)}}
+                                                                  ref={itit.id} name={itit['name'+locale_serial]}
+                                                                  href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                                    data-menuId={itit.menuId} title={'收藏'}></i></li>
                                                 list2.push(html)
@@ -1031,11 +1048,11 @@ class App extends Component {
 
                                                     let html = <li key={itit.menuId+"s"} ><a target={blank} value={itit.id}
                                                                       data-areaId={itit.areaId}
-                                                                      title={itit.name}
+                                                                      title={itit['name'+locale_serial]}
                                                                       data-ahref={self.changeAhref(itit)}
                                                                       data-licenseControlFlag={itit.licenseControlFlag}
-                                                                      onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
-                                                                      ref={itit.id} name={itit.name}
+                                                                      onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,itit)}}
+                                                                      ref={itit.id} name={itit['name'+locale_serial]}
                                                                       href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                                        data-menuId={itit.menuId} title={'收藏'}></i></li>
@@ -1085,12 +1102,12 @@ class App extends Component {
                                             // }
                                         } else {
                                             // curHeight = 46+ curHeight;
-                                            let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it.name}</span></a>);
+                                            let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it['name'+locale_serial]}</span></a>);
 
 
                                             var  cellH = 46;
                                             let  html = <div className={'menu-popup'}>
-                                                <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                            onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                            data-menuId={it.menuId} title={'收藏'}></i></a>
                                             </div>
@@ -1158,26 +1175,26 @@ class App extends Component {
                             var searchmenuList = [[],[]];
                             var pages = 0;
 
-                            let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item.name} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item.name}</span></a>);
+                            let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
                             item.children.map(function(it,index2){
 
                                 let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
                                 if(Array.isArray(it.children)&&it.children.length>0){
                                     let list2 = [];
                                     let searchlist =[];
-                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it.name}>{it.name}</span></a>);
+                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it['name'+locale_serial]}>{it['name'+locale_serial]}</span></a>);
                                     noSecond = 'no-second-menu';
                                     it.children.map(function(itit,index3){
                                         let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
 
                                         let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
                                                           data-areaId={itit.areaId}
-                                                          title={itit.name}
+                                                          title={itit['name'+locale_serial]}
                                                           data-ahref={self.changeAhref(itit)}
                                                           data-licenseControlFlag={itit.licenseControlFlag}
-                                                          onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
-                                                          ref={itit.id} name={itit.name}
-                                                          href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                                          onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,itit)}}
+                                                          ref={itit.id} name={itit['name'+locale_serial]}
+                                                          href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                            onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                            data-menuId={itit.menuId} title={'收藏'}></i></li>
                                         list2.push(html)
@@ -1185,11 +1202,11 @@ class App extends Component {
 
                                             let html = <li key={itit.menuId+"s"} ><a target={blank} value={itit.id}
                                                               data-areaId={itit.areaId}
-                                                              title={itit.name}
+                                                              title={itit['name'+locale_serial]}
                                                               data-ahref={self.changeAhref(itit)}
                                                               data-licenseControlFlag={itit.licenseControlFlag}
-                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e)}}
-                                                              ref={itit.id} name={itit.name}
+                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,itit)}}
+                                                              ref={itit.id} name={itit['name'+locale_serial]}
                                                               href={self.formmaterUrl(itit)}>{itit.name}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
                                                                                                                data-menuId={itit.menuId} title={'收藏'}></i></li>
@@ -1239,12 +1256,12 @@ class App extends Component {
                                     // }
                                 } else {
                                     // curHeight = 46+ curHeight;
-                                    let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it.name}</span></a>);
+                                    let title = (<a target={blank} value={it.id} data-areaId={it.areaId} data-ahref={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>self.handleDefault(e,blank)} href={self.formmaterUrl(it)}><i className={'icon '+it.icon}></i><span>{it['name'+locale_serial]}</span></a>);
 
 
                                     var  cellH = 46;
                                     let  html = <div className={'menu-popup'}>
-                                        <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={it.id} name={it.name} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
+                                        <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                    data-menuId={it.menuId} title={'收藏'}></i></a>
                                     </div>
@@ -1297,10 +1314,10 @@ class App extends Component {
                             }
 
                             let title = (
-                                <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e)}} ref={item.id} href={self.formmaterUrl(item)} name={item.name}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item.name}</span></a>
+                                <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,item)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
                             );
                             return (
-                                <div onClick={(e)=>self.openTab(e)} className="side-bar-first">
+                                <div onClick={(e)=>self.openTab(e,item)} className="side-bar-first">
                                     {title}
                                 </div>
                             )

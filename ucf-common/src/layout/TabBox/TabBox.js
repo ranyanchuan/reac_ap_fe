@@ -8,6 +8,7 @@ import {Button,Con,Col,Tile,Icon,Tooltip} from 'tinper-bee';
 import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import mirror, { connect,actions } from 'mirrorx';
 require('./Tabs.css');
+import {getCookie} from "utils";
 
 class Tab extends Component {
     constructor(props) {
@@ -169,7 +170,6 @@ class Tab extends Component {
       actions.app.updateState({
           tabsMore: !tabsMore
       })
-      console.log(this.props);
     }
     //控制头部是否显示
     showHeaderClick() {
@@ -179,7 +179,10 @@ class Tab extends Component {
       })
     }
     render() {
-
+      let locale_serial = getCookie("locale_serial");
+      if(locale_serial == 1) {
+          locale_serial = "";
+      }
         var self = this;
         const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl,sideShowPosition,leftExpanded,themeObj} = this.props;
         // let {tabsMore} = this.props;
@@ -200,7 +203,7 @@ class Tab extends Component {
                             menus.map(function (item,index) {
                                 var delIcon = index==0?'':(<i onClick={self.del.bind(this,item.id)} className="qy-iconfont icon-tubiao-guanbi x-close" key={item.router}></i>)
 
-                                var homeIcon = index==0?<i className="qy-iconfont icon-tubiao-shouye"></i>:item.title;
+                                var homeIcon = index==0?<i className="qy-iconfont icon-tubiao-shouye"></i>:item['title'+locale_serial];
 
                                 var selected = current==item.id?'selected':'';
                                 var liDom;
@@ -210,7 +213,7 @@ class Tab extends Component {
 
                                 } else {
                                   liDom = <li key={item.id} className={selected}>
-                                      <a onClick={self.setCurrent.bind(this,item.id)} href="javascript:;" title={item.title}>
+                                      <a onClick={self.setCurrent.bind(this,item.id)} href="javascript:;" title={item['title'+locale_serial]}>
                                           {homeIcon}
                                       </a>
                                       {delIcon}
@@ -227,7 +230,7 @@ class Tab extends Component {
                             moremenu.map(function(item1,index1){
                               return (
                                 <li key={item1.id}><a onClick={self.setCurrent.bind(this,item1.id)} href="javascript:;" title={item1.title}>
-                                    {item1.title}
+                                    {item1['title'+locale_serial]}
                                 </a></li>
                               )
                             })
