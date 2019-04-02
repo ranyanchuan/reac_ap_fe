@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import mirror, { connect,actions } from 'mirrorx';
 import {FormattedMessage, FormattedDate, FormattedNumber} from 'react-intl';
 import {Select} from 'tinper-bee';
-import {flattenJsonId} from 'utils';
+import {flattenJsonId,getCookie} from 'utils';
 const Option = Select.Option;
 class HeaderLeft extends Component {
     constructor(props,context) {
@@ -35,19 +35,25 @@ class HeaderLeft extends Component {
       })
     }
     searchSideClick = () => {
+
       let {sideSearchShow} = this.state;
       this.setState({
         sideSearchShow: !sideSearchShow
       },()=> {
+
         let {sideSearchShow} = this.state;
         if(sideSearchShow) {
+          let locale_serial = getCookie("locale_serial");
+          if(locale_serial == 1) {
+              locale_serial = "";
+          }
           let {menu} = this.props;
           let {sideSearchVal} = this.state;
           let arr = [];
           let searchMenu = [];
           flattenJsonId(menu,arr);
           for (var i = 0; i < arr.length; i++) {
-            if(arr[i].name.indexOf(sideSearchVal) > -1){
+            if(arr[i]['name'+locale_serial].indexOf(sideSearchVal) > -1){
               searchMenu.push(arr[i]);
             }
           }
@@ -69,7 +75,12 @@ class HeaderLeft extends Component {
       let options = {
         id: item.id,
         router:item.location,
-        title: item.name
+        title: item.name,
+        title2: item.name2,
+        title3: item.name3,
+        title4: item.name4,
+        title5: item.name5,
+        title6: item.name6
       }
       window.createTab(options);
       this.setState({
@@ -120,6 +131,10 @@ class HeaderLeft extends Component {
       // if(!selectVal) {
       //   selectVal = '2'
       // }
+      let locale_serial = getCookie("locale_serial");
+      if(locale_serial == 1) {
+          locale_serial = "";
+      }
       let obj = {
         width:"18px",
         height:"18px"
@@ -148,7 +163,7 @@ class HeaderLeft extends Component {
                   sideSearchList.length>0?<ul className="search-info">
                   {
                     sideSearchList.map((item)=>{
-                      return <li><a href="javascript:void(0)" onClick={()=> this.searchTabClick(item)} title={item.name}>{item.name}</a></li>
+                      return <li><a href="javascript:void(0)" onClick={()=> this.searchTabClick(item)} title={item['name'+locale_serial]}>{item['name'+locale_serial]}</a></li>
                     })
                   }
                   </ul>:<ul className="search-info search-info-no-data"><li><FormattedMessage id="header.search.noData" defaultMessage="无数据"/></li></ul>
