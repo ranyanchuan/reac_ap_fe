@@ -716,11 +716,12 @@ class App extends Component {
         window.onbeforeunload = function() {
             var tabs = JSON.parse(sessionStorage['tabs'])
             if(tabs.length>1) {
+                console.log('临时log用于解决离开时多次提示的问题----onbeforeunload')
                 return '关闭后您打开的页签数据会自动清空'
             }
         };
         window.onunload = function (event) {
-
+            console.log('临时log用于解决离开时多次提示的问题----unload')
             if(event.clientX<=0 && event.clientY<0) {
                 sessionStorage.clear();
             }
