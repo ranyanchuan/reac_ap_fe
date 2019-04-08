@@ -713,9 +713,14 @@ class App extends Component {
         if(getBrowserVersion().indexOf("IE") !="-1"){
             return false;
         }
+        window.unloadNum = 0;
         window.onbeforeunload = function() {
             var tabs = JSON.parse(sessionStorage['tabs'])
-            if(tabs.length>1) {
+            if(tabs.length>1 && unloadNum < 1) {
+                window.unloadNum = window.unloadNum + 1;
+                setTimeout(()=>{
+                    window.unloadNum = 0
+                }, 5000)
                 debugger;
                 console.log('临时log用于解决离开时多次提示的问题----onbeforeunload')
                 return '关闭后您打开的页签数据会自动清空'
