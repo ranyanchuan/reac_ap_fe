@@ -473,16 +473,16 @@ export default {
             if (newLocaleValue && newLocaleValue.length > 0) {
                 let res = processData(await api.setLocaleParam(newLocaleValue));
                 // if(res){
-                    let id = getCookie('_A_P_userId');
-                    let userRes = processData(await api.getUserById(id));
-                    if(userRes){
-                        let userName = userRes.data.name;
-                        if(res.data !== 1){
-                            userName = userRes.data['name' + res.data]
-                        }
-                        setCookie('_A_P_userName',userName);
-                        window.location.reload(true);
-                    }
+                    // let id = getCookie('_A_P_userId');
+                    // let userRes = processData(await api.getUserById(id));
+                    // if(userRes){
+                    //     let userName = userRes.data.name;
+                    //     if(res.data !== 1){
+                    //         userName = userRes.data['name' + res.data]
+                    //     }
+                    //     setCookie('_A_P_userName',userName);
+                    //     window.location.reload(true);
+                    // }
                 // }
             }
         }
