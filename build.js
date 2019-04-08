@@ -16,7 +16,7 @@ rm(path.resolve(__dirname, './build'), err => {
           fs.rename('./build/' + packageName + '/pages/login/index.html', './build/' + packageName + '/pages/login/login.html', err => {
             let htmlPath = path.resolve(__dirname + '/build/' + packageName + '/pages/login/login.html');
             let htmlStr = fs.readFileSync(htmlPath);
-            htmlStr = htmlStr.toString().replace(/wbalone/g,'../wbalone')
+            htmlStr = htmlStr.toString().replace(/..\/wbalone\//g,'')
             fs.writeFileSync(htmlPath, htmlStr);
 
             var d = new Date();
