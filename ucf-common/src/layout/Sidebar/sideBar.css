@@ -129,7 +129,7 @@
   padding: 0 8px;
 }
 .left-side-bar .sidebar-content-sub-menu-list .menu-popup>a:hover {
-  background-color: rgba(236,239,241,1);
+  /* background-color: rgba(236,239,241,1); */
 }
 .left-side-bar .sidebar-content-sub-menu-list .menu-popup .shoucanged {
   display: inline-block;
