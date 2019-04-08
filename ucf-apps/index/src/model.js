@@ -481,7 +481,7 @@ export default {
                     //         userName = userRes.data['name' + res.data]
                     //     }
                     //     setCookie('_A_P_userName',userName);
-                    //     window.location.reload(true);
+                        window.location.reload(true);
                     // }
                 // }
             }
