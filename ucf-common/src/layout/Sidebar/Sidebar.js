@@ -17,23 +17,6 @@ require('components/viewutil/viewutil');
 
 const Header = Navbar.Header;
 
-if (!Element.prototype.matches) {
-    Element.prototype.matches = Element.prototype.msMatchesSelector || 
-                            Element.prototype.webkitMatchesSelector;
-}
-
-if (!Element.prototype.closest) {
-Element.prototype.closest = function(s) {
-    var el = this;
-
-    do {
-    if (el.matches(s)) return el;
-    el = el.parentElement || el.parentNode;
-    } while (el !== null && el.nodeType === 1);
-    return null;
-};
-}
-
 
 class App extends Component {
 
@@ -95,6 +78,22 @@ class App extends Component {
     }
 
     handleClick(e,reload) {
+        if (!Element.prototype.matches) {
+            Element.prototype.matches = Element.prototype.msMatchesSelector || 
+                                    Element.prototype.webkitMatchesSelector;
+        }
+        
+        if (!Element.prototype.closest) {
+        Element.prototype.closest = function(s) {
+            var el = this;
+        
+            do {
+            if (el.matches(s)) return el;
+            el = el.parentElement || el.parentNode;
+            } while (el !== null && el.nodeType === 1);
+            return null;
+        };
+        }
         //判断是否点击子菜单,1:当前子菜单，2:2级别子菜单。。。
         let {menus,current,showNotice,intl} = this.props;
 
@@ -177,6 +176,22 @@ class App extends Component {
     }
 
     openTab(e,item){
+        if (!Element.prototype.matches) {
+            Element.prototype.matches = Element.prototype.msMatchesSelector || 
+                                    Element.prototype.webkitMatchesSelector;
+        }
+        
+        if (!Element.prototype.closest) {
+        Element.prototype.closest = function(s) {
+            var el = this;
+        
+            do {
+            if (el.matches(s)) return el;
+            el = el.parentElement || el.parentNode;
+            } while (el !== null && el.nodeType === 1);
+            return null;
+        };
+        }
         // 新增方法后续需要重构
         let tar = e.target || e.domEvent.target;
         if (!tar.tagName || tar.tagName !== 'A') {
