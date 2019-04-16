@@ -19,6 +19,11 @@ rm(path.resolve(__dirname, './build'), err => {
             htmlStr = htmlStr.toString().replace(/..\/wbalone\//g,'')
             fs.writeFileSync(htmlPath, htmlStr);
 
+            htmlPath = path.resolve(__dirname + '/build/' + packageName + '/index.html');
+            htmlStr = fs.readFileSync(htmlPath);
+            htmlStr = htmlStr.toString().replace(/..\/index/g,'./index')
+            fs.writeFileSync(htmlPath, htmlStr);
+
             var d = new Date();
             var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
             var addStr = '//  date:  ' + dateStr + '\r\n';
