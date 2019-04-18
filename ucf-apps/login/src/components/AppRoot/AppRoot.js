@@ -460,7 +460,7 @@ class App extends Component {
             <div className="login-main">
                 <div className="login-top">
                     <div className="login-logo">
-                        <div className={logImg}><img src=""/></div>                                          
+                        <div className={logImg}></div>                                          
                     </div>
                     <div className="login-lang" style={{
                         display: langDisplay
