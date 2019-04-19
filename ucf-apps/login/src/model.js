@@ -149,7 +149,7 @@ export default {
                     alert('后台返回数据有误')
                     return false;
                 }
-
+                
                 if (message.status == "50001" || message.status == "50002" || message.status == "50008" || message.status == "50009" || message.status == "50010" || message.status == "50011" || message.status == "50013" || message.status == "50014" || message.status == "50015" || message.status == "50016") {
                     actions.app.getVertifyImg(username);
                 }
@@ -186,7 +186,7 @@ export default {
                         //不符合密码策略  修改密码 弹出提示，为true则跳出修改密码，并且提示信息为message.msg，如果为false则重新提交并且设置pwdExpiredCancle为true
                         actions.app.updateState({
                             confirmShow: true,
-                            confirmTitle: message.msg,
+                            confirmMsg: message.msg,
                             loginAjaxParams: loginData
                         })
                     }
