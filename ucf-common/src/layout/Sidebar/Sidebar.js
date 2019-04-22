@@ -500,7 +500,7 @@ class App extends Component {
         self.confirm();
     }
 
-    sideBarLoadList(){
+    async sideBarLoadList(){
         var self = this;
         //获取加载的菜单信息
         var menus = await actions.app.loadList();
@@ -553,7 +553,7 @@ class App extends Component {
         // console.log('123eeee',this.props);
     }
 
-    async componentWillMount() {
+    componentWillMount() {
         this.sideBarLoadList();
     }
 
