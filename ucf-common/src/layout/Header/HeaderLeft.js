@@ -31,11 +31,11 @@ class HeaderLeft extends Component {
       // $('.left-side-bar ').an
     }
     searchBlur() {
-      let self = this;
-      self.setState({
-        sideSearchShow:false,
-        sideSearchVal: ''            
-      })
+      // let self = this;
+      // self.setState({
+      //   sideSearchShow:false,
+      //   sideSearchVal: ''            
+      // })
     }
     searchInput = (val) => {
       this.setState({
@@ -91,7 +91,7 @@ class HeaderLeft extends Component {
         title5: item.name5,
         title6: item.name6
       }
-      window.createTab(options);
+      window.createTab(options,item.id);
       this.setState({
         sideSearchShow: false,
         sideSearchVal: ''
@@ -172,7 +172,7 @@ class HeaderLeft extends Component {
                   sideSearchList.length>0?<ul className="search-info">
                   {
                     sideSearchList.map((item)=>{
-                      return <li><a href="javascript:void(0)"  onClick={()=> this.searchTabClick(item)} title={item['name'+locale_serial]}>{item['name'+locale_serial]}</a></li>
+                      return <li><a href="javascript:void(0)" onClick={()=> this.searchTabClick(item)} title={item['name'+locale_serial]}>{item['name'+locale_serial]}</a></li>
                     })
                   }
                   </ul>:<ul className="search-info search-info-no-data"><li><FormattedMessage id="header.search.noData" defaultMessage="无数据"/></li></ul>

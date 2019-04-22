@@ -218,18 +218,19 @@ class App extends Component {
     }
     createTab (options,value) {
         var self = this;
-        var {menus} = this.props;
+        var {menus,current} = this.props;
 
         if(!window.sessionStorage){
             alert('This browser does NOT support sessionStorage');
             return false;
         }
-
-
         var menu = menus;
-
+        let data = {
+          current: options.id,
+        }
 
         if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1&&menu.length!=0){
+            actions.app.updateState(data);
             return false;
         }
 
