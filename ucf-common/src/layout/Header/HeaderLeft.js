@@ -16,6 +16,7 @@ class HeaderLeft extends Component {
       this.searchSideClick = this.searchSideClick.bind(this);
       this.searchTabClick = this.searchTabClick.bind(this);
       this.inputDown = this.inputDown.bind(this);
+      this.searchBlur = this.searchBlur.bind(this);
       // this.searchHtml = this.searchHtml.bind(this);
     }
     componentDidMount() {
@@ -28,6 +29,13 @@ class HeaderLeft extends Component {
         sideBarShow: !sideBarShow
       })
       // $('.left-side-bar ').an
+    }
+    searchBlur() {
+      let self = this;
+      self.setState({
+        sideSearchShow:false,
+        sideSearchVal: ''            
+      })
     }
     searchInput = (val) => {
       this.setState({
@@ -156,7 +164,7 @@ class HeaderLeft extends Component {
                 </svg>*/}
               </div>
               <div className="header-search">
-                <input type="text" placeholder={this.props.placeholder} value={sideSearchVal} onChange={(e)=>{self.searchInput(e)}} onKeyUp={(event) => {self.inputDown(event)}}/>
+                <input type="text" placeholder={this.props.placeholder} onBlur={self.searchBlur}value={sideSearchVal} onChange={(e)=>{self.searchInput(e)}} onKeyUp={(event) => {self.inputDown(event)}}/>
                 <i className = "uf uf-search" onClick={self.searchSideClick} />
                 {/*this.searchHtmlFun()*/}
                 {
