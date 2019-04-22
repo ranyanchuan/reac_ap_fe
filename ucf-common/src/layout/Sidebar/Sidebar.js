@@ -989,7 +989,7 @@ class App extends Component {
 
 
                                         var  cellH = 46;
-                                        let  html = <div className={'menu-popup'}>
+                                        let  html = <div className={'menu-popup menu-popup-one'}>
                                             <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                        data-menuId={it.menuId} title={'收藏'}></i></a>
@@ -1147,7 +1147,7 @@ class App extends Component {
 
 
                                             var  cellH = 46;
-                                            let  html = <div className={'menu-popup'}>
+                                            let  html = <div className={'menu-popup menu-popup-one'}>
                                                 <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                            onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                            data-menuId={it.menuId} title={'收藏'}></i></a>
@@ -1301,7 +1301,7 @@ class App extends Component {
 
 
                                     var  cellH = 46;
-                                    let  html = <div className={'menu-popup'}>
+                                    let  html = <div className={'menu-popup menu-popup-one'}>
                                         <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                    data-menuId={it.menuId} title={'收藏'}></i></a>
