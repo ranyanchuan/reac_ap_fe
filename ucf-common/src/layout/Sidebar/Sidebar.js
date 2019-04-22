@@ -39,7 +39,9 @@ class App extends Component {
         this.delTrigger();
         this.showMenu = this.showMenu.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.sideBarLoadList = this.sideBarLoadList.bind(this);
         window.handleClick = this.handleClick;
+        window.sideBarLoadList = this.sideBarLoadList;
     }
 
 
@@ -498,7 +500,7 @@ class App extends Component {
         self.confirm();
     }
 
-    async componentWillMount() {
+    sideBarLoadList(){
         var self = this;
         //获取加载的菜单信息
         var menus = await actions.app.loadList();
@@ -549,6 +551,10 @@ class App extends Component {
         self.initRouter();
         // this.sideTheme();
         // console.log('123eeee',this.props);
+    }
+
+    async componentWillMount() {
+        this.sideBarLoadList();
     }
 
     initRouter() {
