@@ -228,15 +228,23 @@ class App extends Component {
         let data = {
           current: options.id,
         }
+        var menuObj = JSON.parse(JSON.stringify(menu));
+        
 
         if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1&&menu.length!=0){
+            if(options.refresh){
+                for(let i = 0; i < menuObj.length;i++){
+                    let nowMenu = menuObj[i];
+                    if(nowMenu.id === options.id){
+                        menuObj[i] = options;
+                        break;
+                    }
+                }
+                data.menus = menuObj;
+            }
             actions.app.updateState(data);
             return false;
         }
-
-
-        var menuObj = JSON.parse(JSON.stringify(menu));
-
 
 
         // if(menuObj.length==11) {
