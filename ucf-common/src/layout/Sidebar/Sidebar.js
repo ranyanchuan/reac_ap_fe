@@ -39,7 +39,9 @@ class App extends Component {
         this.delTrigger();
         this.showMenu = this.showMenu.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.sideBarLoadList = this.sideBarLoadList.bind(this);
         window.handleClick = this.handleClick;
+        window.sideBarLoadList = this.sideBarLoadList;
     }
 
 
@@ -137,12 +139,12 @@ class App extends Component {
                 var menuObj = JSON.parse(JSON.stringify(menu));
 
 
-                if(menuObj.length==11&&JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
+                if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
                     actions.app.updateState({
                         showNotice:1
                     })
-                    Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
-                    return false;
+                    // Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
+                    // return false;
                 }
                 else if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1){
                     data = {
@@ -498,7 +500,7 @@ class App extends Component {
         self.confirm();
     }
 
-    async componentWillMount() {
+    async sideBarLoadList(){
         var self = this;
         //获取加载的菜单信息
         var menus = await actions.app.loadList();
@@ -549,6 +551,10 @@ class App extends Component {
         self.initRouter();
         // this.sideTheme();
         // console.log('123eeee',this.props);
+    }
+
+    componentWillMount() {
+        this.sideBarLoadList();
     }
 
     initRouter() {
@@ -989,7 +995,7 @@ class App extends Component {
 
 
                                         var  cellH = 46;
-                                        let  html = <div className={'menu-popup'}>
+                                        let  html = <div className={'menu-popup menu-popup-one'}>
                                             <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                        onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                        data-menuId={it.menuId} title={'收藏'}></i></a>
@@ -1147,7 +1153,7 @@ class App extends Component {
 
 
                                             var  cellH = 46;
-                                            let  html = <div className={'menu-popup'}>
+                                            let  html = <div className={'menu-popup menu-popup-one'}>
                                                 <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                            onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                            data-menuId={it.menuId} title={'收藏'}></i></a>
@@ -1301,7 +1307,7 @@ class App extends Component {
 
 
                                     var  cellH = 46;
-                                    let  html = <div className={'menu-popup'}>
+                                    let  html = <div className={'menu-popup menu-popup-one'}>
                                         <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it.name}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
                                                                                                                                                                                                                                                                                                    onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
                                                                                                                                                                                                                                                                                                    data-menuId={it.menuId} title={'收藏'}></i></a>
