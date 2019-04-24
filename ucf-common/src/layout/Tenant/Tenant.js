@@ -84,7 +84,7 @@ class Tenant extends Component {
         let {showTenant} = this.state;
         let tenantNameVal = this.state.tenantNameVal;
         return (
-            tenants.length > 0? <div mode="horizontal"  className={showTenant?"header-right-tenant-info header-right-tenant-info-focus":"header-right-tenant-info"} style={{ width: '100px' }}>
+            tenants.length > 0? <div mode="horizontal"  className={showTenant?"header-right-tenant-info header-right-tenant-info-focus":"header-right-tenant-info"} style={{ width: '124px' }}>
                     <a role="button" id="tenantname"  aria-expanded="false" href="javascript:void (0);" data-toggle="dropdown" onClick={this.tenantClick}>
                         {<span className="tenant-name" title={tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}> {tenants.filter(item => item.tenantId=== cookie.load("tenantid"))[0].tenantName}</span>}
                         {showTenant?<i className=" uf uf-gridcaretarrowup"></i>:<i className=" uf uf-treearrow-down"></i>}
