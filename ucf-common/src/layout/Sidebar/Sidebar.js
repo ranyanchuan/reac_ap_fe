@@ -966,7 +966,7 @@ class App extends Component {
                                                 menulist[0].push (html)
                                             }else{
                                                 curHeight2 += cellH;
-                                                menulist[1].push (html)
+                                                menulist[0].push (html)
                                             }
                                         }
                                         if( searchlist.length>0) {
@@ -1005,7 +1005,7 @@ class App extends Component {
                                             menulist[0].push(html)
                                         }else{
                                             curHeight2 += cellH;
-                                            menulist[1].push(html)
+                                            menulist[0].push(html)
                                         }
                                         if( it.name.indexOf(menuSearch[index1])>=0) {
                                             if(sercurHeight <= sercurHeight2){
@@ -1124,7 +1124,7 @@ class App extends Component {
                                                     menulist[0].push (html)
                                                 }else{
                                                     curHeight2 += cellH;
-                                                    menulist[1].push (html)
+                                                    menulist[0].push (html)
                                                 }
                                             }
                                             if( searchlist.length>0) {
@@ -1163,7 +1163,7 @@ class App extends Component {
                                                 menulist[0].push(html)
                                             }else{
                                                 curHeight2 += cellH;
-                                                menulist[1].push(html)
+                                                menulist[0].push(html)
                                             }
                                             if( it.name.indexOf(menuSearch[index1])>=0) {
                                                 if(sercurHeight <= sercurHeight2){
@@ -1278,7 +1278,7 @@ class App extends Component {
                                             menulist[0].push (html)
                                         }else{
                                             curHeight2 += cellH;
-                                            menulist[1].push (html)
+                                            menulist[0].push (html)
                                         }
                                     }
                                     if( searchlist.length>0) {
@@ -1317,7 +1317,7 @@ class App extends Component {
                                         menulist[0].push(html)
                                     }else{
                                         curHeight2 += cellH;
-                                        menulist[1].push(html)
+                                        menulist[0].push(html)
                                     }
                                     if( it.name.indexOf(menuSearch[index1])>=0) {
                                         if(sercurHeight <= sercurHeight2){
