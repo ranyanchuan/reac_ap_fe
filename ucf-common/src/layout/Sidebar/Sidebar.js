@@ -158,7 +158,7 @@ class App extends Component {
 
             }
         }
-        this.createTab(options);
+        window.createTab(options);
     }
 
     openTab(e,reload,item){
@@ -190,36 +190,7 @@ class App extends Component {
             router:router,
             id:value
         };
-        let menu = menus;
-        if(value ===current ){
-          var url = location.hash;
-        } else {
-          if(typeof dom!="undefined"&&dom.getAttribute('target')=='_blank'){
-              return false;
-          }
-          else {
-              var menuObj = JSON.parse(JSON.stringify(menu));
-
-
-              if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')==-1&&menu.length!=0) {
-                  actions.app.updateState({
-                      showNotice:1
-                  });
-                  // Warning(  intl.formatMessage({id: 'tabs.sidebar.maxnums',defaultMessage:"抱歉，最多展示10个页签！"}));
-                  // return false;
-              }
-              else if(JSON.stringify(menu).indexOf('"id":"'+options.id+'"')!=-1){
-                  data = {
-                      current: value,
-                      showNotice:0,
-                      reload:reload?1:0,
-                      currentRouter:reload?decodeURIComponent(decodeURIComponent(router.replace('#\/ifr\/',''))):''
-                  };
-              }
-              actions.app.updateState(data);
-          }
-        }
-        this.createTab(options);
+        window.createTab(options);
         let {sideBarShow} = this.props;
         actions.app.updateState({
           sideBarShow: !sideBarShow
@@ -726,7 +697,6 @@ class App extends Component {
                 setTimeout(()=>{
                     window.unloadNum = 0
                 }, 5000)
-                debugger;
                 console.log('临时log用于解决离开时多次提示的问题----onbeforeunload')
                 return '关闭后您打开的页签数据会自动清空'
             }
