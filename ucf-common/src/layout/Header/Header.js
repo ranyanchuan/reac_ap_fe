@@ -219,6 +219,13 @@ class App extends Component {
                     }
                     menu.splice(1,0,obj);
               }
+            } else {
+              for (var i = 0; i < menu.length; i++) {
+                if(menu[i].id === options.id) {
+                  menu[i] = options;
+                  break;
+                }
+              }
             }
             data.menus = menu;
             actions.app.updateState(data);
