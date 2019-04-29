@@ -468,3 +468,7 @@ div .modalSendMsg{
   cursor:pointer;
   font-size:16px;
 }
+
+.displayBlock{
+  display: block !important;
+} 
