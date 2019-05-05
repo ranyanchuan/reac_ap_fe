@@ -11,7 +11,7 @@ const PACKAGE_WAR_NAME = `${PACKAGE_NAME}.war`;
 const publishConfig = {
     command: "mvn",
     repositoryId: "iUAP-Snapshots",
-    repositoryURL: "http://10.16.226.100/nexus/content/repositories/iUAP-Snapshots",
+    repositoryURL: "http://maven.yonyou.com/nexus/content/repositories/iUAP-Snapshots",
     artifactId: PACKAGE_NAME,
     groupId: "com.yonyou.iuap.pap",
     version: "3.5.6-SNAPSHOT"
