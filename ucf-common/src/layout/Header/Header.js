@@ -171,7 +171,9 @@ class App extends Component {
             router:router,
             id:value
         };
-
+        if(item.urlType === 'url_blank') {
+            return;
+          }
         window.createTab(options);
     }
     createTab (options,value) {
@@ -182,6 +184,7 @@ class App extends Component {
             alert('This browser does NOT support sessionStorage');
             return false;
         }
+        
         var menu = menus;
         let data = {
           current: options.id,
