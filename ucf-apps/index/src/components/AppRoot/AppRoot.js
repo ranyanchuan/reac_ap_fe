@@ -100,7 +100,7 @@ class App extends Component {
                                 item.router = decodeURIComponent(decodeURIComponent(item.router.replace(match, '')));
 
                                 return (
-                                        <iframe key={item.id} ref={item.id} className={'ifr-tabs '+selected} id={item.id}
+                                        <iframe key={item.id} ref={item.id} className={'ifr-tabs '+selected} id={item.id} name={item.id}
                                                 src={item.router} style={{border: '0'}}></iframe>
 
                                 )
