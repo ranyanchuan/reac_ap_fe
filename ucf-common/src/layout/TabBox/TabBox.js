@@ -36,7 +36,6 @@ class Tab extends Component {
         let list = [];
         let obj={};
         let moreFlag = false;
-        // debugger;
         if(menuProp.length > themeObj.tabNum) {
           for (var i = themeObj.tabNum; i < menuProp.length; i++) {
             if(menuProp[i].id === id){
@@ -56,6 +55,11 @@ class Tab extends Component {
                 menuProp.splice(1,0,obj);
           }
         }
+        for (var i = 0; i < menuProp.length; i++) {
+          if(menuProp[i].id === id) {
+            menuProp[i].createIframe = false;
+          }
+        }
         actions.app.updateState({
             current: id,
             showNotice:0,
@@ -69,7 +73,6 @@ class Tab extends Component {
     }
 
     del (id) {
-
         const {menus,current} = this.props;
 
         var menuCloned = JSON.parse(JSON.stringify(menus));
@@ -92,34 +95,42 @@ class Tab extends Component {
         if(current==id){
             data.current=menuCloned[num].id;
             data.router=menuCloned[num].router;
-        }
+            var match = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
 
-        var match = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+            var ifr = document.getElementById(id);
+            //TODO 跨域try catch
+            if(ifr.src.match(match)!=null){
+                if(ifr.src.match(location.host)!=null){
+                    try {
+                        if(ifr.contentWindow.confirmClose&&typeof ifr.contentWindow.confirmClose=='function'){
+                            ifr.contentWindow.confirmClose(id,data);
+                            return false;
+                        }
+                    }
+                    catch(err) {
 
-
-        var ifr = document.getElementById(id);
-        //TODO 跨域try catch
-        if(ifr.src.match(match)!=null){
-            if(ifr.src.match(location.host)!=null){
-                try {
-                    if(ifr.contentWindow.confirmClose&&typeof ifr.contentWindow.confirmClose=='function'){
-                        ifr.contentWindow.confirmClose(id,data);
-                        return false;
                     }
                 }
-                catch(err) {
-
-                }
             }
+            else {
+                try{
+                    var frameWin = ifr.contentWindow;
+                    ifr.src = 'about:blank';
+                    frameWin.document.write('');
+                    frameWin.document.clear();
+                    CollectGarbage();
+                }catch(e){};
+            }
+
         }
-        else {
-            try{
-                var frameWin = ifr.contentWindow;
-                ifr.src = 'about:blank';
-                frameWin.document.write('');
-                frameWin.document.clear();
-                CollectGarbage();
-            }catch(e){};
+        // if(menuCloned.length === 1) {
+        //   menuCloned[0].createIframe = '';
+        // }
+        for (var i = 0; i < menuCloned.length; i++) {
+          if(i===num) {
+            menuCloned[i].notCreateIframe = false;
+          }
+
         }
 
         data.tabNum = menuCloned.length;
@@ -183,14 +194,7 @@ class Tab extends Component {
       }
         var self = this;
         const {current,menus,tabNum,showNotice,tabNotice,tabsMore,showHeader,intl,sideShowPosition,leftExpanded,themeObj} = this.props;
-        // let {tabsMore} = this.props;
         const moremenu=[];
-        // this.state.moreMenuList = [];
-        //   let moreMenu = []
-        //   let menusss = []
-
-        // console.log(menus);
-        // debugger;
         return (
 
             <div id="portalTabs" className={["tabs ui-tabs-num-"+tabNum ,themeObj.sideShowPosition==="left"?"tabs-show-left":'',leftExpanded?"tabs-show-left-expand":''].join(" ")}>
