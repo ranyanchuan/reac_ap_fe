@@ -57,7 +57,7 @@ class Tab extends Component {
         }
         for (var i = 0; i < menuProp.length; i++) {
           if(menuProp[i].id === id) {
-            menuProp[i].createIframe = false;
+            menuProp[i].notCreateIframe = false;
           }
         }
         actions.app.updateState({
@@ -66,7 +66,7 @@ class Tab extends Component {
             reload:0,
             // menus: menuProp
         })
-        // sessionStorage['tabs'] = JSON.stringify(menuProp);
+        sessionStorage['tabs'] = JSON.stringify(menuProp);
         sessionStorage['current'] = JSON.stringify({
             current:id
         });
