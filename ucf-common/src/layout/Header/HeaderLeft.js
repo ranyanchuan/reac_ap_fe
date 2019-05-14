@@ -155,15 +155,7 @@ class HeaderLeft extends Component {
       }
         return (
             <div className="header-left">
-              <div className={[sideBarShow?"header-svg header-svg-red":"header-svg",themeObj.sideShowPosition?"header-svg-show":""].join(" ")} onClick={self.svgClick.bind(this)}>
-                {sideBarShow || themeObj.headerTheme==="dark"?
-                <img id="headerSvg1"src={require(`static/images/icon_menu_white.svg`)} />
-                :<img id="headerSvg2" src={require(`static/images/icon_menu.svg`)}  />
-                }
-                { /*<svg className="icon" style={sideBarShow?obj1:obj}>
-               <use xlinkHref={sideBarShow?'#icon-logo1':'#icon-logo'}></use>
-                </svg>*/}
-              </div>
+              
               <div className="header-search">
                 <input type="text" placeholder={this.props.placeholder} onBlur={self.searchBlur}value={sideSearchVal} onChange={(e)=>{self.searchInput(e)}} onKeyUp={(event) => {self.inputDown(event)}}/>
                 <i className = "uf uf-search" onClick={self.searchSideClick} />

@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
+const SubMenu = Menu.SubMenu;
 import mirror, { connect,actions } from 'mirrorx';
 import cookie from 'react-cookie';
 import {Router} from 'director/build/director';
@@ -72,6 +73,7 @@ class App extends Component {
 
     }
     handleDefault(e,isDefault) {
+      // debugger;
         isDefault = (isDefault=="_blank")?false:true;
         if(this.state.isOpenTab&&isDefault){
             //dom.href = 'javascript:;'
@@ -792,9 +794,78 @@ class App extends Component {
         leftExpanded: !leftExpanded
       })
     }
+    menuClick = () => {
+
+    }
+    makeMenu = (menus) => {
+      var self = this;
+
+        return menus.map(function (item) {
+            let blank = item.openview == "blank" ? "_blank" : "";
+
+            if (Array.isArray(item.children) && item.children.length > 0) {
+
+                let title = (<a href="javascript:;"   ><span>{item.name}</span></a>);
+
+                // let list = [];
+                // item.children.map(function(it){
+                //     let blank =it.openview=="blank"?"_blank":"";
+                //     list.push(<Menu.Item key={it.id}><a target={blank} value={it.id} onClick={(e)=>self.handleDefault(e,blank)} name={it.name} ref="child" href={self.formmaterUrl(it)}>{it.name}</a></Menu.Item>)
+                // });
+
+                var selected = item.id == self.state.submenuSelected ? "u-menu-submenus-selected" : "";
+
+                return (
+                    <SubMenu key={'sub' + item.menuId} className={selected} children={item.children} title={title}>
+                        {self.makeMenu(item.children)}
+                    </SubMenu>
+                )
+            }
+            else {
+                if (item.id == 'index') {
+                    return false;
+                }
+                let title = (<a target={blank} onClick={(e) => self.handleDefault(e, blank)} value={item.id} name={item.name} href={self.formmaterUrl(item)}><span>{item.name}</span></a>);
+                return (
+                    <Menu.Item key={item.menuId} >{title}</Menu.Item>
+                )
+
+            }
+        })
+    }
+    onOpenChange = (openKeysArr) => {
+        const {openKeys} = this.props;
+        // const state = this.state;
+        const latestOpenKey = this.myfilter(openKeysArr, openKeys);
+        const latestCloseKey = this.myfilter(openKeys, openKeysArr);
+        let nextOpenKeys = [];
+        if (latestOpenKey) {
+            nextOpenKeys = this.getAncestorKeys(latestOpenKey).concat(latestOpenKey);
+        }
+        if (latestCloseKey) {
+            nextOpenKeys = this.getAncestorKeys(latestCloseKey);
+        }
+        actions.app.updateState({
+          submenuSelected: openKeysArr,
+          openKeys: openKeysArr,
+          expanded: false
+        })
+        // this.setState({ submenuSelected: openKeysArr, openKeys: openKeysArr, expanded: false });
+    }
+    myfilter(arr1, arr2) {
+        if (arr2.length == 0 || !arr2) {
+            return arr1[0];
+        }
+        for (var i = 0; i < arr1.length; i++) {
+            if (arr2.indexOf(arr1[i].toString()) == -1) {
+                return arr1[i];
+            }
+        }
+        return false;
+    }
     render() {
         var self = this;
-        const {expanded,menu,submenuSelected,curNum,current,intl,sideBarShow,themeObj,leftExpanded} = this.props;
+        const {expanded,menu,submenuSelected,curNum,current,intl,sideBarShow,themeObj,leftExpanded,openKeys} = this.props;
         var isSeleted = submenuSelected;
         var menuSearch  = this.state.menuSearch;
         const sss = self.state.sss;
@@ -805,287 +876,22 @@ class App extends Component {
         if(locale_serial == 1) {
             locale_serial = "";
         }
+        console.log('syt', openKeys);
         return (
-          <div>
-          {
-            themeObj.sideShowPosition !=='left'?
-            <Drawer className={'demo2'} hasHeader={false} show={sideBarShow} placement="left">
-                <div className="left-side-bar">
-                <div className="left-side-bar-menu">
-                    {
-                        menu.map(function (item,index1) {
-                            let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
-                            var noSecond = 'only-second-menu';
-                            if(Array.isArray(item.children)&&item.children.length>0){
-                                let list = [];
-                                var menulist = [[],[]];
-                                var pages = 0;
-
-                                let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className={index1===dddd?'sidebar-select-active first-child':'first-child'} name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
-                                item.children.map(function(it,index2){
-
-                                    let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
-                                    if(Array.isArray(it.children)&&it.children.length>0){
-                                        let list2 = [];
-                                        let searchlist =[];
-                                        let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it['name'+locale_serial]}>{it['name'+locale_serial]}</span></a>);
-                                        noSecond = 'no-second-menu';
-                                        it.children.map(function(itit,index3){
-                                            let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
-
-                                            let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
-                                                              data-areaId={itit.areaId}
-                                                              title={itit['name'+locale_serial]}
-                                                              data-ahref={self.changeAhref(itit)}
-                                                              data-licenseControlFlag={itit.licenseControlFlag}
-                                                              onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
-                                                              ref={itit.id} name={itit['name'+locale_serial]}
-                                                              href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                               onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
-                                                                                                               data-menuId={itit.menuId} title={'收藏'}></i></li>
-                                            list2.push(html)
-
-                                        });
-                                        if( list2.length>0) {
-                                            var  cellH = Math.ceil(it.children.length/3)*25+52;
-                                            var html = <div className={'menu-popup'}>
-                                                {title}
-                                                <div className="third-menu-content">
-                                                    <ul className="third-menu-list">
-                                                        {list2}
-                                                    </ul>
-                                                </div>
-                                            </div>;
-                                            menulist[0].push (html)
-
-                                        }
-                                    } else {
-                                        var  cellH = 46;
-                                        let  html = <div className={'menu-popup menu-popup-one'}>
-                                            <a target={blank} value={it.id} data-areaId ={it.areaId} data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]} href={self.formmaterUrl(it)}>{it['name'+locale_serial]}<i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                                                                                                                                                                                                                       onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
-                                                                                                                                                                                                                                                                                                       data-menuId={it.menuId} title={'收藏'}></i></a>
-                                        </div>
-                                        menulist[0].push(html)
-
-
-
-                                    }
-
-                                });
-
-                                return (
-                                    /* 此处要考虑原有的submenu的逻辑 */
-                                    <div onClick={(e)=>self.clickFun(e,item,menulist,index1)} className="side-bar-first">
-                                        {title}
-                                    </div>
-                                )
-                            }
-                            else {
-                                let blank =item.openview=="newpage"&&item.urltype=='url' ?"_blank":"";
-
-                                if(item.id == 'index'){
-                                    return false;
-                                }
-
-                                let title = (
-                                    <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',item)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span ><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
-                                );
-                                return (
-                                    <div onClick={(e)=>self.openTab(e,'',item)} className="side-bar-first">
-                                        {title}
-                                    </div>
-                                )
-                            }
-                        })
-                    }
-                </div>
-                <div className="sidebar-content-sub">
-                        {
-                            menu.map(function (item,index1) {
-                                if(index1 === dddd){
-                                    let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
-                                var noSecond = 'only-second-menu';
-
-                                if(Array.isArray(item.children)&&item.children.length>0){
-                                    let list = [];
-                                    var menulist = [[],[]];
-
-                                    var pages = 0;
-
-                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
-                                    item.children.map(function(it,index2){
-
-                                        let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
-                                        if(Array.isArray(it.children)&&it.children.length>0){
-                                            let list2 = [];
-                                            let searchlist =[];
-                                            let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it['name'+locale_serial]}>{it['name'+locale_serial]}</span></a>);
-                                            noSecond = 'no-second-menu';
-                                            it.children.map(function(itit,index3){
-                                                let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
-
-                                                let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
-                                                                  data-areaId={itit.areaId}
-                                                                  title={itit['name'+locale_serial]}
-                                                                  data-ahref={self.changeAhref(itit)}
-                                                                  data-licenseControlFlag={itit.licenseControlFlag}
-                                                                  onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
-                                                                  ref={itit.id} name={itit['name'+locale_serial]}
-                                                                  href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                                   onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
-                                                                                                                   data-menuId={itit.menuId} title={'收藏'}></i></li>
-                                                list2.push(html)
-
-                                            });
-                                            if( list2.length>0) {
-                                                var  cellH = Math.ceil(it.children.length/3)*25+52;
-                                                var html = <div className={'menu-popup'}>
-                                                    {title}
-                                                    <div className="third-menu-content">
-                                                        <ul className="third-menu-list">
-                                                            {list2}
-                                                        </ul>
-                                                    </div>
-                                                </div>;
-                                                menulist[0].push (html)
-                                            }
-                                            // }
-                                        } else {
-                                            let  html = <div className={'menu-popup menu-popup-one'}>
-                                                <a target={blank} value={it.id} data-areaId ={it.areaId}
-                                                   data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag}
-                                                   onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]}
-                                                   href={self.formmaterUrl(it)}>{it['name'+locale_serial]}
-                                                   <i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                      onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }data-menuId={it.menuId} title={'收藏'}>
-                                                   </i></a>
-                                            </div>
-                                            menulist[0].push(html)
-                                        }
-
-                                    });
-                                   return  menulist.map(function(ite,i){
-                                        ite = ite.length!=0?<div className="sidebar-content-sub-menu-list" >{ite}</div>:ite;
-                                        return (
-                                            ite
-                                        )
-                                    })
-                                }
-                                }
-
-                            })
-                        }
-                </div>
-                </div>
-                </Drawer>
-            :<div className="left-side-bar sidebar-left">
-            <div className={leftExpanded?"left-side-bar-header left-side-bar-header-expanded ":"left-side-bar-header"} onClick={()=> this.barLeftClick()} style={{backgroundColor:themeObj.leftSideBgColor,backgroundImage: `url(${themeObj.leftSideBgImg})`}}>
-            { themeObj.leftSideTheme === 'light'?
-              <img src={require(`static/images/hanbao-dark.svg`)}/>
-              : <img src={require(`static/images/hanbao-light.svg`)}/>
-            }
-            </div>
-            <div className={!leftExpanded?"left-side-bar-menu":"left-side-bar-menu left-side-bar-menu-expand"}>
+          <div className="left-side-content">
+          <Menu
+                mode="inline"
+                className="left-side-content-info"
+                openKeys={openKeys}
+                selectedKeys={[current]}
+                style={{ width: 200 }}
+                onOpenChange={this.onOpenChange}
+                onClick={this.handleClick}>
                 {
-                    menu.map(function (item,index1) {
-                        let blank = item.openview=="newpage"&&item.urltype=='url'?"_blank":"";
-                        var noSecond = 'only-second-menu';
-                        if(Array.isArray(item.children)&&item.children.length>0){
-                            let list = [];
-                            var menulist = [[],[]];
-
-                            let title = (<a href="javascript:;" data-ahref={self.changeAhref(item)}  key={item.id} className="first-child" name={item['name'+locale_serial]} data-licenseControlFlag ={item.licenseControlFlag} data-areaId ={item.areaId}><i className={'icon '+item.icon}></i><span className={index1===dddd?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>);
-                            item.children.map(function(it,index2){
-
-                                let blank =it.openview=="newpage"&&it.urltype=='url'?"_blank":"";
-                                if(Array.isArray(it.children)&&it.children.length>0){
-                                    let list2 = [];
-                                    let searchlist =[];
-                                    let title = (<a href="javascript:;" data-ahref={self.changeAhref(it)} key={it.id} className="child-title" data-areaId={it.areaId} data-licenseControlFlag={it.licenseControlFlag}><i className={'icon-child'}></i><span title={it['name'+locale_serial]}>{it['name'+locale_serial]}</span></a>);
-                                    noSecond = 'no-second-menu';
-                                    it.children.map(function(itit,index3){
-                                        let blank =itit.openview=="newpage"&&itit.urltype=='url'?"_blank":"";
-                                        let html = <li key={itit.menuId+"m"}><a target={blank} value={itit.id}
-                                                          data-areaId={itit.areaId}
-                                                          title={itit['name'+locale_serial]}
-                                                          data-ahref={self.changeAhref(itit)}
-                                                          data-licenseControlFlag={itit.licenseControlFlag}
-                                                          onClick={(e) => {self.handleDefault(e, blank);self.openTab(e,'',itit)}}
-                                                          ref={itit.id} name={itit['name'+locale_serial]}
-                                                          href={self.formmaterUrl(itit)}>{itit['name'+locale_serial]}</a><i className={ itit.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                                                                                           onClick={(e) =>{e.preventDefault();self.collectefunc(e,itit,index1,index2,index3)} }
-                                                                                                           data-menuId={itit.menuId} title={'收藏'}></i></li>
-                                        list2.push(html)
-                                    });
-                                    if( list2.length>0) {
-                                        var  cellH = Math.ceil(it.children.length/3)*25+52;
-                                        var html = <div className={'menu-popup'}>
-                                            {title}
-                                            <div className="third-menu-content">
-                                                <ul className="third-menu-list">
-                                                    {list2}
-                                                </ul>
-                                            </div>
-                                        </div>;
-
-                                        menulist[0].push (html)
-
-                                    }
-
-                                } else {
-                                    let  html = <div className={'menu-popup menu-popup-one'}>
-                                        <a target={blank} value={it.id} data-areaId ={it.areaId}
-                                           data-ahref ={self.changeAhref(it)} data-licenseControlFlag={it.licenseControlFlag}
-                                           onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',it)}} ref={it.id} name={it['name'+locale_serial]}
-                                           href={self.formmaterUrl(it)}>{it.name}
-                                           <i className={ it.collected?"shoucanged iconfont icon-star":"shoucang iconfont icon-star1" }
-                                              onClick={(e) =>{e.preventDefault();self.collectefunc(e,it,index1,index2)} }
-                                              data-menuId={it.menuId} title={'收藏'}></i></a>
-                                    </div>
-                                    menulist[0].push(html)
-                                }
-
-                            });
-                            return (
-                                /* 此处要考虑原有的submenu的逻辑 */
-                                <div onMouseEnter={(e)=>self.leftMouseEnter(e,item,menulist,index1)} onMouseLeave={(e)=>{self.leftMouseLeave(e,item,menulist,index1)}} className="side-bar-first">
-                                    {title}
-                                    <div className={leftSubShow && index1===dddd?"sidebar-content-sub sidebar-content-sub-show ":'sidebar-content-sub sidebar-content-sub-hide'}>
-                                            {menulist.map(function(ite,i){
-                                                   ite = ite.length!=0?<div className="sidebar-content-sub-menu-list" >{ite}</div>:ite;
-                                                   return (
-                                                       ite
-                                                   )
-                                               })}
-                                    </div>
-                                </div>
-                            )
-                        }
-                        else {
-                            let blank =item.openview=="newpage"&&item.urltype=='url' ?"_blank":"";
-
-                            if(item.id == 'index'){
-                                return false;
-                            }
-
-                            let title = (
-                                <a target={blank} key={item.id} value={item.id} className="first-child" data-areaId={item.areaId} data-ahref={self.changeAhref(item)} data-licenseControlFlag ={item.licenseControlFlag} onClick={(e)=>{self.handleDefault(e,blank);self.openTab(e,'',item)}} ref={item.id} href={self.formmaterUrl(item)} name={item['name'+locale_serial]}><i className={'icon '+item.icon}></i><span className={item.menuId===item.menuId?'left-sidebar-active':''}><label className="uf uf-triangle-left"></label>{item['name'+locale_serial]}</span></a>
-                            );
-                            return (
-                                <div onClick={(e)=>self.openTab(e,'',item)} className="side-bar-first">
-                                    {title}
-                                </div>
-                            )
-                        }
-                    })
+                  this.makeMenu(menu)
                 }
+            </Menu>
 
-            </div>
-
-
-            </div>
-          }
           </div>
 
         )

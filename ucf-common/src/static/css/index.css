@@ -379,20 +379,26 @@ body{
 .portal-expand .u-menu-inline > .u-menu-submenu > .u-menu-submenu-title {
 	padding-left:10px !important;
 	transition: all 0.3s ease-in;
-	height:50px;
+	height:40px;
+  line-height: 40px;
 	overflow: inherit;
 }
 .portal-expand .u-navbar-side-container .u-menu-submenu {
 	clear:both;
 }
 #portal .u-menu-submenu-inline a {
-	padding: 3px 0;
+	/* padding: 3px 0; */
+  padding: 0 15px;
 	display: inline-block;
 	color: #666;
 	text-decoration: none;
 }
+#portal .u-menu-submenu-inline a>span {
+  font-size: 14px;
+  color: #333;
+}
 #portal .u-menu-submenu-inline .u-menu-item a {
-	padding-left:52px;
+	/* padding-left:52px; */
 	font-size:1.3rem;
 }
 .portal-expand.expanded .u-menu-inline > .u-menu-submenu > .u-menu-submenu-title:after {
@@ -404,6 +410,7 @@ body{
 .portal-expand .u-menu .u-menu-sub.u-menu-inline > .u-menu-item, .u-menu .u-menu-sub.u-menu-inline > .u-menu-submenu > .u-menu-submenu-title {
 	margin:0;
 	padding:0;
+  padding-left: 10px !important;
 }
 
 #app {
@@ -613,7 +620,7 @@ body{
 }
 .portal-expand .u-menu-submenu-inline > .u-menu-submenu-title:after {
 	font-size: 18px;
-	line-height: 50px;
+	line-height: 40px;
 }
 .portal-expand .u-menu-inline>.u-menu-item,.portal-expand .u-menu-inline>.u-menu-submenu>.u-menu-submenu-title {
 	text-overflow:inherit;

@@ -88,7 +88,7 @@ class App extends Component {
                     {/*加载Tab标签*/}
                     <ConnectedTabBox/>
 
-                    <div className={[themeObj.sideShowPosition==='left'?"content left-content":"content",leftExpanded?"left-content-expand":""].join(" ")}>
+                    <div className={["content left-content",leftExpanded?"left-content-expand":""].join(" ")}>
                         {
 
                             menus.map(function (item, index) {
