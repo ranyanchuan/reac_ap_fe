@@ -73,6 +73,7 @@ class Tab extends Component {
     }
 
     del (id) {
+      // debugger;
         const {menus,current} = this.props;
 
         var menuCloned = JSON.parse(JSON.stringify(menus));
@@ -84,57 +85,63 @@ class Tab extends Component {
                 num = i-1;
             }
         }
-
-
+        // for (var i = 0; i < menuCloned.length; i++) {
+        //   if(i===num) {
+        //     menuCloned[i].notCreateIframe = false;
+        //   }
+        //
+        // }
         var data = {
-            menus:menuCloned
+            // menus:menuCloned
         }
+
 
 
         //删除选中的tab时
         if(current==id){
             data.current=menuCloned[num].id;
             data.router=menuCloned[num].router;
-            var match = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+            for (var i = 0; i < menuCloned.length; i++) {
+              if(i===num) {
+                menuCloned[i].notCreateIframe = false;
+              }
 
-            var ifr = document.getElementById(id);
-            //TODO 跨域try catch
-            if(ifr.src.match(match)!=null){
-                if(ifr.src.match(location.host)!=null){
-                    try {
-                        if(ifr.contentWindow.confirmClose&&typeof ifr.contentWindow.confirmClose=='function'){
-                            ifr.contentWindow.confirmClose(id,data);
-                            return false;
-                        }
-                    }
-                    catch(err) {
-
-                    }
-                }
-            }
-            else {
-                try{
-                    var frameWin = ifr.contentWindow;
-                    ifr.src = 'about:blank';
-                    frameWin.document.write('');
-                    frameWin.document.clear();
-                    CollectGarbage();
-                }catch(e){};
             }
 
+        } else {
+          data.current = current;
         }
-        // if(menuCloned.length === 1) {
-        //   menuCloned[0].createIframe = '';
-        // }
-        for (var i = 0; i < menuCloned.length; i++) {
-          if(i===num) {
-            menuCloned[i].notCreateIframe = false;
+        var match = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+
+        var ifr = document.getElementById(id);
+        //TODO 跨域try catch
+        if(ifr) {
+          if(ifr.src.match(match)!=null){
+              if(ifr.src.match(location.host)!=null){
+                  try {
+                      if(ifr.contentWindow.confirmClose&&typeof ifr.contentWindow.confirmClose=='function'){
+                          ifr.contentWindow.confirmClose(id,data);
+                          return false;
+                      }
+                  }
+                  catch(err) {
+
+                  }
+              }
           }
-
+          else {
+              try{
+                  var frameWin = ifr.contentWindow;
+                  ifr.src = 'about:blank';
+                  frameWin.document.write('');
+                  frameWin.document.clear();
+                  CollectGarbage();
+              }catch(e){};
+          }
         }
-
+        
+        data.menus = menuCloned;
         data.tabNum = menuCloned.length;
-
         sessionStorage['tabs'] = JSON.stringify(data.menus);
         sessionStorage['current'] = JSON.stringify({
             current:data.current

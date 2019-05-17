@@ -183,19 +183,7 @@ class HeaderLeft extends Component {
               */}
               </div>
 
-              { isLightPortal !== 'wbalone'?
-                <Select
-                  defaultValue='0'
-                  value={selectVal}
-                  style={{ marginRight: 6 , width: 100}}
-                  onChange={this.themeChange}
-                  showSearch={true}
-                >
-                  <Option value="2">浅色主题</Option>
-                  <Option value="1">深色主题</Option>
-                  <Option value="0">中兴</Option>
-                </Select>:''
-              }
+              
             </div>
         );
     }

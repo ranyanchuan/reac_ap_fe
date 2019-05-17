@@ -4,7 +4,7 @@ var zip = require('gulp-zip');
 var process = require('child_process');
 var fs = require('fs');
 
-const PACKAGE_NAME = "light_frame_fe";
+const PACKAGE_NAME = "iuap-lightportal-fe";
 const PACKAGE_WAR_NAME = `${PACKAGE_NAME}.war`;
 
 // maven 配置信息
@@ -24,7 +24,7 @@ const publishConfig = {
  * @return {[type]}           [description]
  */
 gulp.task("package", function(){
-  return gulp.src('./build/light_frame_fe/**')
+  return gulp.src('./build/iuap-lightportal-fe/**')
       .pipe(zip(PACKAGE_WAR_NAME))
       .pipe(gulp.dest('./'));
 

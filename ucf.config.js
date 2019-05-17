@@ -14,7 +14,7 @@ module.exports = (env, argv) => {
             "login",
             // "appTest",
         ],
-        context:"wbalone",
+        context:"iuap-lightportal-fe",
         // 代理的配置
         proxy: [{
             "enable": true,
@@ -41,9 +41,9 @@ module.exports = (env, argv) => {
         global_env: {
             'process.env.NODE_ENV': JSON.stringify("production"),
             GROBAL_HTTP_CTX: JSON.stringify("/wbalone"),
-            GROBAL_PORTAL_ID: JSON.stringify("wbalone"), // 前端相关的地址
-            GROBAL_PORTAL_CTX: JSON.stringify("/wbalone"), // 后端请求的地址
-            GROBAL_PACKAGE_NAME: JSON.stringify("light_frame_fe"),
+            GROBAL_PORTAL_ID: JSON.stringify("iuap-lightportal-fe"),
+            GROBAL_PORTAL_CTX: JSON.stringify("/iuap-lightportal"),
+            GROBAL_PACKAGE_NAME: JSON.stringify("iuap-lightportal-fe"),
             GSP_CONTRACT: JSON.stringify("/gsp-contract"),
             GSP_ORDERS: JSON.stringify("/gsp-orders"),
             GSP_SUPPLIER: JSON.stringify("/gsp-supplier"),
