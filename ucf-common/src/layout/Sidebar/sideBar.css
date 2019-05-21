@@ -19,3 +19,7 @@
 .left-side-content-info>li {
   /* height: 40px; */
 }
+
+.u-menu-submenu-inline > .u-menu-submenu-title:after{
+  display: none !important;
+}

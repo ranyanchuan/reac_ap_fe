@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Navbar,Menu,Badge,Tile,Icon,Tooltip} from 'tinper-bee';
 const SubMenu = Menu.SubMenu;
+import 'bee-menus/build/Menu.css';
 import mirror, { connect,actions } from 'mirrorx';
 import cookie from 'react-cookie';
 import {Router} from 'director/build/director';
